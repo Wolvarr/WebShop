@@ -6,6 +6,8 @@
 
         public int ReadSpeed { get; set; }
 
-        public int WriteSize { get; set; }
+        public int WriteSpeed { get; set; }
+
+        public HardDriveSocket Socket { get; set; }
     }
 }

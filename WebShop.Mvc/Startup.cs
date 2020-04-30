@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WebShop.Dal;
 using WebShop.Dal.Models;
 using WebShop.Dal.Context;
+using WebShop.Dal.DataBaseSeed;
+using WebShop.Bll.Services;
 
 namespace WebShop
 {
@@ -34,7 +31,10 @@ namespace WebShop
 
             services.AddDbContext<WebShopDbContext>(o =>
                    o.UseSqlServer(Configuration.GetConnectionString(nameof(WebShopDbContext)))
-                );
+                )
+                 .AddTransient<ISeedService, SeedService>();
+
+            services.AddScoped<ItemService>();
 
             services.AddMvc();
             services.AddControllersWithViews();

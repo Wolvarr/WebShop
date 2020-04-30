@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
@@ -9,18 +8,20 @@ namespace WebShop.Bll.DTO
     {
         public AbstractItemDto(Item item)
         {
-
+            this.Id = item.Id;
             this.Name = item.Name;
             this.Available = item.Available;
             this.PicturePath = item.PicturePath;
             this.ExpectedAvailalbleDate = item.ExpectedAvailalbleDate;
             this.OriginalPrice = item.OriginalPrice;
             this.DiscountedPrice = item.DiscountedPrice;
-            this.AverageRating = item.AverageRating;
+            this.AverageRating = item.Ratings.Average(x => x.Value);
             this.Manufacturer = item.Manufacturer;
             this.Description = item.Description;
             this.Warranty = item.Warranty;
         }
+
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
@@ -28,14 +29,14 @@ namespace WebShop.Bll.DTO
 
         public string PicturePath { get; set; }
 
-        public DateTime ExpectedAvailalbleDate { get; set; }
+        public DateTime? ExpectedAvailalbleDate { get; set; }
 
         public int OriginalPrice { get; set; }
 
-        public int DiscountedPrice { get; set; }
+        public int? DiscountedPrice { get; set; }
 
         // {0..5}
-        public int AverageRating { get; set; }
+        public double AverageRating { get; set; }
 
         public string Manufacturer { get; set; }
 

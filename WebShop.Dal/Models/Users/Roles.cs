@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebShop.Dal.Models
+﻿namespace WebShop.Dal.Models
 {
     public class Roles
     {

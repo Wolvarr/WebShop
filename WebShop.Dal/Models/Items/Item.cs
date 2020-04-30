@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WebShop.Dal.Models
 {
-    public abstract class Item
+    public  class Item
     {
         public Guid Id { get; set; }
 
@@ -14,14 +13,13 @@ namespace WebShop.Dal.Models
 
         public string PicturePath { get; set; }
 
-        public DateTime ExpectedAvailalbleDate { get; set; }
+        public DateTime? ExpectedAvailalbleDate { get; set; }
 
         public int OriginalPrice { get; set; }
 
-        public int DiscountedPrice { get; set; }
+        public int? DiscountedPrice { get; set; }
 
-        // {0..5}
-        public int  AverageRating { get; set; }
+        public List<Rating> Ratings { get; set; }
 
         public string Manufacturer { get; set; }
 

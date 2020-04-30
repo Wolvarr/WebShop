@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace WebShop.Dal.Enums
+﻿namespace WebShop.Dal.Enums
 {
     public enum OrderStatus
     {

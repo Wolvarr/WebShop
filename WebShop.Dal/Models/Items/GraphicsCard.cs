@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebShop.Dal.Enums;
+﻿using WebShop.Dal.Enums;
 
 namespace WebShop.Dal.Models
 {

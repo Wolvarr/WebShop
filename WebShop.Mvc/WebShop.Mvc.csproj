@@ -20,4 +20,8 @@
     <ProjectReference Include="..\WebShop.Dal\WebShop.Dal.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\" />
+  </ItemGroup>
+
 </Project>

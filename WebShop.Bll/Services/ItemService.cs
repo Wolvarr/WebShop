@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 using WebShop.Bll.DTO;
 using WebShop.Dal.Context;
-using WebShop.Dal.Models;
 
 namespace WebShop.Bll.Services
 {
@@ -21,5 +18,6 @@ namespace WebShop.Bll.Services
         {
             return new CpuDto(this.context.Items.SingleOrDefault(x => x.Id == cpuId));
         }
+
     }
 }

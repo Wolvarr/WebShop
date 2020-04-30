@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using WebShop.Dal.Enums;
+﻿using WebShop.Dal.Enums;
 
 namespace WebShop.Dal.Models
 {
     public class Case : Item
     {
-        public int BuildInFanNumber { get; set; }
+        public int BuiltInFanNumber { get; set; }
 
         public MotherboardType SupportedMotherboard { get; set; }
 

@@ -2,18 +2,21 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebShop.Dal.BuilderConfiguration;
+using WebShop.Dal.DataBaseSeed;
 using WebShop.Dal.Models;
 
 namespace WebShop.Dal.Context
 {
     public class WebShopDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
     {
-        public WebShopDbContext(DbContextOptions options)
+
+        private readonly ISeedService seedService;
+
+        public WebShopDbContext(DbContextOptions options, ISeedService seedService)
             : base(options)
         {
+            this.seedService = seedService;
         }
 
         //tables
@@ -53,7 +56,16 @@ namespace WebShop.Dal.Context
                 u.OwnsOne(o => o.ShippingAddress);
             });
 
-            modelBuilder.ApplyConfiguration(new CompletPcConfiguration());
+
+            modelBuilder.ApplyConfiguration(new CompletPcConfiguration(seedService));
+            modelBuilder.ApplyConfiguration(new CaseConfiguration(seedService));
+            modelBuilder.ApplyConfiguration(new CpuConfiguration(seedService));
+            modelBuilder.ApplyConfiguration(new GraphicsConfigurator(seedService));
+            modelBuilder.ApplyConfiguration(new MemoryConfigurator(seedService));
+            modelBuilder.ApplyConfiguration(new MotherboardConfigurator(seedService));
+            modelBuilder.ApplyConfiguration(new PSUConfigurator(seedService));
+            modelBuilder.ApplyConfiguration(new HardDriveConfiguration(seedService));
+            //TODO seed miatt minden itemtypra
         }
     }
 }

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebShop.Dal;
 using WebShop.Dal.Context;
 
 namespace WebShop.Dal.Migrations
@@ -227,20 +226,17 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("Available")
                         .HasColumnType("int");
 
-                    b.Property<int>("AverageRating")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DiscountedPrice")
+                    b.Property<int?>("DiscountedPrice")
                         .HasColumnType("int");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpectedAvailalbleDate")
+                    b.Property<DateTime?>("ExpectedAvailalbleDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Manufacturer")
@@ -254,6 +250,9 @@ namespace WebShop.Dal.Migrations
 
                     b.Property<int>("OriginalPrice")
                         .HasColumnType("int");
+
+                    b.Property<string>("PicturePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Warranty")
                         .HasColumnType("nvarchar(max)");
@@ -418,7 +417,7 @@ namespace WebShop.Dal.Migrations
                 {
                     b.HasBaseType("WebShop.Dal.Models.Item");
 
-                    b.Property<int>("BuildInFanNumber")
+                    b.Property<int>("BuiltInFanNumber")
                         .HasColumnType("int");
 
                     b.Property<int>("Depth")
@@ -437,6 +436,42 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Case");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("04092a85-820c-4d74-bb16-d8211d9a0486"),
+                            Available = 10,
+                            Description = "Very nice case",
+                            Manufacturer = "Thermaltake",
+                            Name = "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete",
+                            OriginalPrice = 59000,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BuiltInFanNumber = 3,
+                            Depth = 503,
+                            HDDNumber = 4,
+                            Heigth = 613,
+                            SupportedMotherboard = 0,
+                            Width = 468
+                        },
+                        new
+                        {
+                            Id = new Guid("f4099481-9168-45cf-ad0d-8a1ff5eb125d"),
+                            Available = 10,
+                            Description = "Very white and big case",
+                            Manufacturer = "DeepCool",
+                            Name = "DeepCool EARLKASE RGB WH fehér számítógép ház",
+                            OriginalPrice = 59000,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BuiltInFanNumber = 3,
+                            Depth = 500,
+                            HDDNumber = 4,
+                            Heigth = 511,
+                            SupportedMotherboard = 0,
+                            Width = 204
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Hardware", b =>
@@ -475,6 +510,46 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Cpu");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f90a3c5a-9d32-4c9b-bc0b-003fc6c0c246"),
+                            Available = 10,
+                            Description = "So basic processor",
+                            Manufacturer = "AMD",
+                            Name = "AMD Ryzen 3 2200G",
+                            OriginalPrice = 31500,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 3400,
+                            TDP = 65,
+                            Weight = 0,
+                            CoreNumber = 4,
+                            ProcessorFamily = "AMD Ryzen 3",
+                            Socket = 3,
+                            Technology = 14,
+                            ThreadNumber = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("b6ffb02a-3623-43fa-bed6-2886eb6f26cb"),
+                            Available = 10,
+                            Description = "Very good gaming processor",
+                            Manufacturer = "Intel",
+                            Name = "Intel Core i5-9600K",
+                            OriginalPrice = 82000,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BaseClock = 3700,
+                            TDP = 65,
+                            Weight = 0,
+                            CoreNumber = 6,
+                            ProcessorFamily = "Intel core 5",
+                            Socket = 10,
+                            Technology = 14,
+                            ThreadNumber = 6
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.GraphicsCard", b =>
@@ -500,6 +575,48 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("GraphicsCard");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("be11e82a-d759-4f14-9a3d-3dfc1980ec37"),
+                            Available = 3,
+                            Description = "High end gpu in amazing white color",
+                            Manufacturer = "Gigabyte",
+                            Name = "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya",
+                            OriginalPrice = 216000,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 1770,
+                            TDP = 215,
+                            Weight = 0,
+                            BandWidth = 256,
+                            BuiltInMemory = 8192,
+                            CoolerType = "Windforce 3x",
+                            MemoryClock = 14000,
+                            MemoryType = 7,
+                            PowerSupplyConnection = "6 + 8"
+                        },
+                        new
+                        {
+                            Id = new Guid("6d1f6d66-ca74-47d0-a41e-7b06d13ef4b1"),
+                            Available = 15,
+                            Description = "Low end basic graphics card for work",
+                            Manufacturer = "MSI",
+                            Name = "MSI Radeon RX 5500 XT MECH 8G OC videokártya",
+                            OriginalPrice = 85500,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BaseClock = 1845,
+                            TDP = 130,
+                            Weight = 0,
+                            BandWidth = 128,
+                            BuiltInMemory = 8192,
+                            CoolerType = "Active",
+                            MemoryClock = 14000,
+                            MemoryType = 7,
+                            PowerSupplyConnection = "8"
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.HardDrive", b =>
@@ -512,10 +629,70 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
-                    b.Property<int>("WriteSize")
+                    b.Property<int>("Socket")
+                        .HasColumnName("HardDrive_Socket")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WriteSpeed")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("HardDrive");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0ce851c3-827a-4372-8ae7-d59f817a3023"),
+                            Available = 20,
+                            Description = "Very fast SSD ",
+                            Manufacturer = "Samsung",
+                            Name = "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó",
+                            OriginalPrice = 28600,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            ReadSpeed = 3500,
+                            Size = 250,
+                            Socket = 2,
+                            WriteSpeed = 2300
+                        },
+                        new
+                        {
+                            Id = new Guid("f3212a53-9952-40bb-a62f-2487ca73c321"),
+                            Available = 50,
+                            Description = "Resonably fast SSD ",
+                            Manufacturer = "Kingston",
+                            Name = "Kingston 240GB SA400S37/240G SSD meghajtó",
+                            OriginalPrice = 14000,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            ReadSpeed = 500,
+                            Size = 240,
+                            Socket = 1,
+                            WriteSpeed = 350
+                        },
+                        new
+                        {
+                            Id = new Guid("fe80a0c0-c034-4a6b-8b1f-bbd14788323f"),
+                            Available = 20,
+                            Description = "Biggest HDD you've ever seen",
+                            Manufacturer = "Seagate",
+                            Name = "Seagate SkyHawk Surveillance 10TB 7200rpm 256MB SATA3 3,5\" HDD",
+                            OriginalPrice = 108000,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            ReadSpeed = 50,
+                            Size = 10000,
+                            Socket = 0,
+                            WriteSpeed = 35
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Memory", b =>
@@ -536,6 +713,44 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Memory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("90734580-ca21-404b-956d-d5c98a6c44c6"),
+                            Available = 20,
+                            Description = "High end memory in amazing white color",
+                            Manufacturer = "Kingston",
+                            Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória",
+                            OriginalPrice = 38000,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 3200,
+                            TDP = 0,
+                            Weight = 0,
+                            Capacity = 8,
+                            Kit = 2,
+                            MemoryType = 3,
+                            Timing = 16
+                        },
+                        new
+                        {
+                            Id = new Guid("ef0f10d9-f90c-4197-a752-c71abdce0b8e"),
+                            Available = 20,
+                            Description = "High end memory with inbuilt RGB for so many fps!!!",
+                            Manufacturer = "Kingston",
+                            Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória",
+                            OriginalPrice = 41000,
+                            PicturePath = "",
+                            Warranty = "5 years",
+                            BaseClock = 3200,
+                            TDP = 0,
+                            Weight = 0,
+                            Capacity = 8,
+                            Kit = 2,
+                            MemoryType = 3,
+                            Timing = 16
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Motherboard", b =>
@@ -562,6 +777,48 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Motherboard");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0d406cec-4a45-4b25-86b1-7b7969bd8e83"),
+                            Available = 20,
+                            Description = "Great motherboard. Gets shit done",
+                            Manufacturer = "ASUS",
+                            Name = "Asus Prime Z390-A alaplap",
+                            OriginalPrice = 66000,
+                            PicturePath = "",
+                            Warranty = "20 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            Chipset = "Z390",
+                            MemorySocketNumber = 4,
+                            Socket = 10,
+                            SupportedMemorySpeed = "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600, 3733, 3866, 4000, 4133, 4266",
+                            SupportedMemoryType = 3,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("fb60813f-08cf-42de-afbb-9b7badbb2b5e"),
+                            Available = 20,
+                            Description = "Basic motherboard. No overcloccing here",
+                            Manufacturer = "Gigabyte",
+                            Name = "Gigabyte GA-B365-D3H alaplap",
+                            OriginalPrice = 35000,
+                            PicturePath = "",
+                            Warranty = "2 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            Chipset = "B365",
+                            MemorySocketNumber = 0,
+                            Socket = 10,
+                            SupportedMemorySpeed = "2133, 2400, 2666",
+                            SupportedMemoryType = 3,
+                            Type = 2
+                        });
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.PowerSupply", b =>
@@ -587,6 +844,48 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("PowerSupply");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("e5bf1add-8aba-42c6-96b5-c8bee3d8c02b"),
+                            Available = 20,
+                            Description = "Cheap ass psu, dont buy this",
+                            Manufacturer = "Chieftec",
+                            Name = "Chieftec ECO 400W GPE-400S tápegység",
+                            OriginalPrice = 13700,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            ATXConnector = 1,
+                            Efficiency = 85,
+                            IsModular = false,
+                            MolexConnector = 2,
+                            SixPinConnector = 0,
+                            SixPlusTwoConnector = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("e627406d-b2ef-49c7-94a7-d1353c06f644"),
+                            Available = 20,
+                            Description = "You should by this not that chinesee shit",
+                            Manufacturer = "FSP",
+                            Name = "FSP 650W Hyper M tápegység",
+                            OriginalPrice = 29790,
+                            PicturePath = "",
+                            Warranty = "3 years",
+                            BaseClock = 0,
+                            TDP = 0,
+                            Weight = 0,
+                            ATXConnector = 1,
+                            Efficiency = 85,
+                            IsModular = true,
+                            MolexConnector = 3,
+                            SixPinConnector = 0,
+                            SixPlusTwoConnector = 4
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -765,7 +1064,7 @@ namespace WebShop.Dal.Migrations
             modelBuilder.Entity("WebShop.Dal.Models.Rating", b =>
                 {
                     b.HasOne("WebShop.Dal.Models.Item", "Item")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

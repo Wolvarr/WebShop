@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebShop.Bll.Exceptions;
+﻿using WebShop.Bll.Exceptions;
 using WebShop.Bll.Extensions;
-using WebShop.Dal.Enums;
 using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
