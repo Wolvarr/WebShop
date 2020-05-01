@@ -9,8 +9,10 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: black;
 }
+
+
 
 .btn-primary {
   color: #fff;
@@ -18,10 +20,60 @@ a {
   border-color: #1861ac;
 }
 
+.cart-button {
+    position: relative;
+    color: white;
+    background-color: #f44336;
+    border-color: crimson;
+    border-radius: 8px;
+    padding: 8px 8px;
+    float: right;
+}
+
+.card{
+    height : 500px;
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header{
+    text-align:left;
+    background-color: none;
+    border:hidden;
+}
+
+.card-text {
+    margin-top: 5px;
+    
+}
+
+.card-img-top
+{
+    height:200px;
+}
+
+.text-original-price {
+    color: grey;
+    font-size: 18px;
+    text-decoration: line-through;
+}
+
+.text-discounted-price{
+    font-size:22px;
+    color:red;
+}
+
+.card-bottom{
+    margin-top: auto;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles

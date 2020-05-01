@@ -10,6 +10,7 @@ using WebShop.Dal.Models;
 using WebShop.Dal.Context;
 using WebShop.Dal.DataBaseSeed;
 using WebShop.Bll.Services;
+using WebShop.Bll.ServiceInterfaces;
 
 namespace WebShop
 {
@@ -34,7 +35,7 @@ namespace WebShop
                 )
                  .AddTransient<ISeedService, SeedService>();
 
-            services.AddScoped<ItemService>();
+            services.AddScoped<IItemService, ItemService>();
 
             services.AddMvc();
             services.AddControllersWithViews();
@@ -62,6 +63,9 @@ namespace WebShop
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

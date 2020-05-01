@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Services;
 using WebShop.Models;
 
@@ -8,13 +9,13 @@ namespace WebShop.Controllers
 {
     public class HomeController : Controller
     {
-        public ItemService itemService;
         private readonly ILogger<HomeController> _logger;
+        private readonly IItemService itemService;
 
-        public HomeController(ILogger<HomeController> logger, ItemService itemService)
+        public HomeController(ILogger<HomeController> logger, IItemService itemService)
         {
-            this.itemService = itemService;
             _logger = logger;
+            this.itemService = itemService;
         }
 
         public IActionResult Index()

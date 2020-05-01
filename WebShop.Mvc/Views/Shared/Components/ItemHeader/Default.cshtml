@@ -1,0 +1,28 @@
+﻿@model WebShop.Bll.DTO.AbstractItemDto
+
+
+    <div class="card" style="width: 20rem;">
+        <img class="card-img-top" src="~/images/@(Model.PicturePath)" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-header">
+                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@Model.Id">@Model.Name</a>
+            </h5>
+            <p class="card-text">@Model.Description</p>
+            <div class="card-bottom">
+                <span class="price_tag">
+                    @if (Model.DiscountedPrice.HasValue)
+                    {
+                        <span class="text-original-price">@Model.OriginalPrice&nbsp;Ft</span>
+                        <span class="text-discounted-price">@Model.DiscountedPrice&nbsp;Ft</span>
+                    }
+                    else
+                    {
+                        <span style="font-size:22px">
+                            @Model.OriginalPrice.ToString("N0")&nbsp;Ft
+                        </span>
+                    }
+                </span>
+                <a asp-controller="Item" asp-action="AddToCart" asp-route-id="@Model.Id" class="cart-button">Add to cart</a>
+            </div>
+        </div>
+    </div>

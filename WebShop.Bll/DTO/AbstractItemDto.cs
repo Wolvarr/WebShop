@@ -15,7 +15,7 @@ namespace WebShop.Bll.DTO
             this.ExpectedAvailalbleDate = item.ExpectedAvailalbleDate;
             this.OriginalPrice = item.OriginalPrice;
             this.DiscountedPrice = item.DiscountedPrice;
-            this.AverageRating = item.Ratings.Average(x => x.Value);
+            this.AverageRating = item.Ratings.Any() ? item.Ratings.Average(x => x.Value) : 0;
             this.Manufacturer = item.Manufacturer;
             this.Description = item.Description;
             this.Warranty = item.Warranty;

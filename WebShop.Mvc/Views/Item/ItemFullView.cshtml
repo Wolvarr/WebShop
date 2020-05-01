@@ -1,0 +1,34 @@
+﻿@model WebShop.Bll.DTO.AbstractItemDto
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h2 class="lead text-primary">@Model.Name</h2>
+<h4 class="lead text-info">@Model.Manufacturer</h4>
+<div class="card card-body">
+    <div class="row">
+        <div class="col-3">
+            <img src="~/images/@(Model.PicturePath)" class="mw-100"
+                 alt="@Model.Name" title="@Model.Name" />
+            <p class="text-left">
+                @if (Model.DiscountedPrice.HasValue)
+                {
+                    <span class="text-danger text-muted">@Model.OriginalPrice.ToString("N0") Ft</span>
+                    <span class="text-primary">@Model.DiscountedPrice.Value.ToString("N0") Ft</span>
+                }
+                else
+                {
+                    <text>@Model.OriginalPrice.ToString("N0") Ft</text>
+                }
+            </p>
+        </div>
+        <div class="col-9">
+            <p class="text-info">
+                Jelenleg elérhető: @Model.Available
+            </p>
+            <hr />
+            <p class="small">@Model.Description</p>
+        </div>
+    </div>
+</div>
