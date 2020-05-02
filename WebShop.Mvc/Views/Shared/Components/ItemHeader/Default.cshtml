@@ -1,12 +1,22 @@
 ﻿@model WebShop.Bll.DTO.AbstractItemDto
 
-
+<div class="column">
     <div class="card" style="width: 20rem;">
         <img class="card-img-top" src="~/images/@(Model.PicturePath)" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-header">
                 <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@Model.Id">@Model.Name</a>
             </h5>
+            <div class="rating">
+                @for (int i = 0; i < @Model.AverageRating; i++)
+                {
+                    <span class="fa fa-star checked"></span>
+                }
+                @for (int i = @Model.AverageRating; i < 5; i++)
+                {
+                    <span class="fa fa-star"></span>
+                }
+            </div>
             <p class="card-text">@Model.Description</p>
             <div class="card-bottom">
                 <span class="price_tag">
@@ -26,3 +36,6 @@
             </div>
         </div>
     </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

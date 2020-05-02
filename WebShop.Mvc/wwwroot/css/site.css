@@ -2,9 +2,9 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
@@ -15,9 +15,9 @@ a {
 
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .cart-button {
@@ -30,29 +30,51 @@ a {
     float: right;
 }
 
-.card{
-    height : 500px;
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .card {
+        width: auto !important;
+    }
 }
 
-.card-body{
+
+.card {
+    height: 450px;
+}
+
+.card-body {
     display: flex;
     flex-direction: column;
 }
 
-.card-header{
-    text-align:left;
+.card-header {
+    text-align: left;
     background-color: none;
-    border:hidden;
+    border: hidden;
+}
+
+.rating {
+    display: inline;
+    margin: 0 auto;
+}
+
+.checked {
+    color: orange;
 }
 
 .card-text {
     margin-top: 5px;
-    
 }
 
-.card-img-top
-{
-    height:200px;
+.card-img-top {
+    margin: 0 auto;
+    width: auto;
+    height: auto;
 }
 
 .text-original-price {
@@ -61,12 +83,12 @@ a {
     text-decoration: line-through;
 }
 
-.text-discounted-price{
-    font-size:22px;
-    color:red;
+.text-discounted-price {
+    font-size: 22px;
+    color: red;
 }
 
-.card-bottom{
+.card-bottom {
     margin-top: auto;
 }
 
@@ -79,45 +101,48 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }

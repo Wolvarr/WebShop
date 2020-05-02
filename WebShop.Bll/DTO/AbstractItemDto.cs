@@ -15,7 +15,7 @@ namespace WebShop.Bll.DTO
             this.ExpectedAvailalbleDate = item.ExpectedAvailalbleDate;
             this.OriginalPrice = item.OriginalPrice;
             this.DiscountedPrice = item.DiscountedPrice;
-            this.AverageRating = item.Ratings.Any() ? item.Ratings.Average(x => x.Value) : 0;
+            this.AverageRating = item.Ratings.Any() ? Convert.ToInt32(item.Ratings.Average(x => x.Value)) : 0;
             this.Manufacturer = item.Manufacturer;
             this.Description = item.Description;
             this.Warranty = item.Warranty;
@@ -36,7 +36,7 @@ namespace WebShop.Bll.DTO
         public int? DiscountedPrice { get; set; }
 
         // {0..5}
-        public double AverageRating { get; set; }
+        public int AverageRating { get; set; }
 
         public string Manufacturer { get; set; }
 
