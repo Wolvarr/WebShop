@@ -4,21 +4,22 @@ using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
 {
-    public class AbstractItemDto
+    public class ItemHeader
     {
-        public AbstractItemDto(Item item)
+        public ItemHeader(Item item)
         {
             this.Id = item.Id;
             this.Name = item.Name;
             this.Available = item.Available;
             this.PicturePath = item.PicturePath;
-            this.ExpectedAvailalbleDate = item.ExpectedAvailalbleDate;
             this.OriginalPrice = item.OriginalPrice;
             this.DiscountedPrice = item.DiscountedPrice;
             this.AverageRating = item.Ratings.Any() ? Convert.ToInt32(item.Ratings.Average(x => x.Value)) : 0;
             this.Manufacturer = item.Manufacturer;
             this.Description = item.Description;
-            this.Warranty = item.Warranty;
+            this.GamingFlag = item.GamingFlag;
+            this.IsUserd = item.IsUsed;
+            this.HasRGB = item.HasRGB;
         }
 
         public Guid Id { get; set; }
@@ -28,8 +29,6 @@ namespace WebShop.Bll.DTO
         public int Available { get; set; }
 
         public string PicturePath { get; set; }
-
-        public DateTime? ExpectedAvailalbleDate { get; set; }
 
         public int OriginalPrice { get; set; }
 
@@ -42,6 +41,10 @@ namespace WebShop.Bll.DTO
 
         public string Description { get; set; }
 
-        public string Warranty { get; set; }
+        public bool GamingFlag { get; set; }
+
+        public bool IsUserd { get; set; }
+
+        public bool HasRGB { get; set; }
     }
 }

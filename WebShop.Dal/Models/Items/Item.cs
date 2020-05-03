@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WebShop.Dal.Enums;
 
 namespace WebShop.Dal.Models
 {
@@ -8,6 +9,8 @@ namespace WebShop.Dal.Models
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public Category Category { get; set; }
 
         public int Available { get; set; }
 
@@ -26,6 +29,12 @@ namespace WebShop.Dal.Models
         public string Description { get; set; }
 
         public string Warranty { get; set; }
+
+        public bool GamingFlag { get; set; }
+
+        public bool IsUsed { get; set; }
+
+        public bool HasRGB { get; set; }
 
     }
 }

@@ -40,7 +40,7 @@ namespace WebShop.Dal.DataBaseSeed
                     Warranty = "3 years",
                     BuiltInFanNumber = 3,
                     SupportedMotherboard = Enums.MotherboardType.ATX,
-                    Heigth = 613,
+                    Height = 613,
                     Width = 468,
                     Depth = 503,
                     HDDNumber = 4
@@ -59,7 +59,7 @@ namespace WebShop.Dal.DataBaseSeed
                     Warranty = "3 years",
                     BuiltInFanNumber = 3,
                     SupportedMotherboard = Enums.MotherboardType.ATX,
-                    Heigth = 511,
+                    Height = 511,
                     Width = 204,
                     Depth = 500,
                     HDDNumber = 4

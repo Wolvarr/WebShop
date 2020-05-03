@@ -9,7 +9,7 @@ namespace WebShop.Mvc.Views.Shared.Components
 {
     public class ItemListViewComponent : ViewComponent
     {
-        public IViewComponentResult Invoke(PagedResult<AbstractItemDto> items)
+        public IViewComponentResult Invoke(PagedResult<ItemHeader> items)
         {
             return View(items);
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Bll.ServiceInterfaces;
+using WebShop.Bll.Specifications;
 
 namespace WebShop.Mvc.Controllers
 {
@@ -16,9 +17,12 @@ namespace WebShop.Mvc.Controllers
             this.itemService = itemService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(ItemSpecification specification)
         {
-            return View(this.itemService.GetAllItems());
+            if (specification?.PageNumber != null)
+                specification.PageNumber -= 1;
+
+            return View(this.itemService.GetAllItems(specification));
         }
 
         public IActionResult GetItemById(Guid? id)

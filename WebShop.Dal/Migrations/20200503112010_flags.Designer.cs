@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebShop.Dal.Context;
 
 namespace WebShop.Dal.Migrations
 {
     [DbContext(typeof(WebShopDbContext))]
-    partial class WebShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200503112010_flags")]
+    partial class flags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -438,7 +440,7 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("HDDNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("Height")
+                    b.Property<int>("Heigth")
                         .HasColumnType("int");
 
                     b.Property<int>("SupportedMotherboard")
@@ -452,7 +454,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77c9fcae-be22-4f12-b7fa-ab7dc58ae64d"),
+                            Id = new Guid("8569cf4d-68b3-4a48-bca7-06102bb68b9d"),
                             Available = 10,
                             Category = 0,
                             Description = "Very nice case",
@@ -467,13 +469,13 @@ namespace WebShop.Dal.Migrations
                             BuiltInFanNumber = 3,
                             Depth = 503,
                             HDDNumber = 4,
-                            Height = 613,
+                            Heigth = 613,
                             SupportedMotherboard = 0,
                             Width = 468
                         },
                         new
                         {
-                            Id = new Guid("fbd75247-0798-4784-974a-834d9869a70a"),
+                            Id = new Guid("b79bacb5-70db-4c08-9d05-7155e7b35005"),
                             Available = 10,
                             Category = 0,
                             Description = "Very white and big case",
@@ -488,7 +490,7 @@ namespace WebShop.Dal.Migrations
                             BuiltInFanNumber = 3,
                             Depth = 500,
                             HDDNumber = 4,
-                            Height = 511,
+                            Heigth = 511,
                             SupportedMotherboard = 0,
                             Width = 204
                         });
@@ -534,7 +536,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b7b94c1a-cb39-48d5-b0b4-4a04f48127fc"),
+                            Id = new Guid("6a982928-1e11-4cf5-924d-f776e0c8cda4"),
                             Available = 10,
                             Category = 0,
                             Description = "So basic processor",
@@ -557,7 +559,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("972fda98-c4ed-4cbc-a79d-195821607f34"),
+                            Id = new Guid("b1ee4fad-5615-4bd9-af03-f8343d3bcd29"),
                             Available = 10,
                             Category = 0,
                             Description = "Very good gaming processor",
@@ -607,7 +609,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c6bca433-7702-43bf-90a0-7ef69cb55a33"),
+                            Id = new Guid("861a5b7d-71ae-47b5-835e-57450def44cf"),
                             Available = 3,
                             Category = 0,
                             Description = "High end gpu in amazing white color",
@@ -631,7 +633,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c7727cfc-9189-447e-bda2-9d516d75c0aa"),
+                            Id = new Guid("2107df63-d2af-4e87-be13-47e3471d85bc"),
                             Available = 15,
                             Category = 0,
                             Description = "Low end basic graphics card for work",
@@ -677,7 +679,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e86e1c39-99b4-43c8-9916-fc026f9cdd85"),
+                            Id = new Guid("bb8fd077-9289-4185-9ef5-fab7090c03cd"),
                             Available = 20,
                             Category = 0,
                             Description = "Very fast SSD ",
@@ -699,7 +701,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("82d18601-bfe8-4343-9718-7ddfb978c65d"),
+                            Id = new Guid("9be8e5b8-ed88-4fde-9dd4-38e7f0342ab9"),
                             Available = 50,
                             Category = 0,
                             Description = "Resonably fast SSD ",
@@ -721,7 +723,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5982c152-3cb1-4e28-a3a1-8fa5497528c4"),
+                            Id = new Guid("d063a055-7e0d-4e75-8b6f-43eb5f56deaf"),
                             Available = 20,
                             Category = 0,
                             Description = "Biggest HDD you've ever seen",
@@ -765,7 +767,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("286e1aa8-ebd1-4454-b0b7-345770d8f503"),
+                            Id = new Guid("f4d1a769-3479-4fd5-b614-1dbc9c3684c5"),
                             Available = 20,
                             Category = 0,
                             Description = "High end memory in amazing white color",
@@ -787,7 +789,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c73edf2d-b6ee-4abe-808e-c509956f4639"),
+                            Id = new Guid("6d5e69b1-3bd5-4fdd-85e3-270e177b9497"),
                             Available = 20,
                             Category = 0,
                             Description = "High end memory with inbuilt RGB for so many fps!!!",
@@ -837,7 +839,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c578f03e-2a39-41d3-897d-6423db6afe9d"),
+                            Id = new Guid("d5491921-19e0-457a-b585-791a637998d8"),
                             Available = 20,
                             Category = 0,
                             Description = "Great motherboard. Gets shit done",
@@ -861,7 +863,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7aae5ffd-9f7e-4162-8e5e-8088119b0d67"),
+                            Id = new Guid("ed44c3f5-29fa-4d01-adfd-46c607982eda"),
                             Available = 20,
                             Category = 0,
                             Description = "Basic motherboard. No overcloccing here",
@@ -912,7 +914,7 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91899ffa-4e5b-4646-9552-616518ebc317"),
+                            Id = new Guid("6fecfe63-e382-48ea-902e-b086b8a3e965"),
                             Available = 20,
                             Category = 0,
                             Description = "Cheap ass psu, dont buy this",
@@ -936,7 +938,7 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("65803f10-dabe-4783-9dda-b55a6bfa5a70"),
+                            Id = new Guid("32951c3d-656a-4ba2-9052-84457f820b4b"),
                             Available = 20,
                             Category = 0,
                             Description = "You should by this not that chinesee shit",

@@ -8,7 +8,7 @@ namespace WebShop.Dal.Models
 
         public MotherboardType SupportedMotherboard { get; set; }
 
-        public int Heigth { get; set; }
+        public int Height { get; set; }
 
         public int Width { get; set; }
 

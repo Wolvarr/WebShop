@@ -3,8 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using WebShop.Bll.DTO;
 using WebShop.Bll.ServiceInterfaces;
+using WebShop.Bll.Specifications;
 using WebShop.Dal.Context;
 using WebShop.Dal.Models;
 
@@ -19,32 +21,97 @@ namespace WebShop.Bll.Services
             this.context = dbContext;
         }
 
-        public CpuDto GetCpuById(Guid cpuId)
-        {
-            return new CpuDto(this.context.Items.SingleOrDefault(x => x.Id == cpuId));
-        }
+        public static Expression<Func<Item, ItemHeader>> ItemHeaderSelector { get; } = x => new ItemHeader(x);
 
-        public PagedResult<AbstractItemDto> GetAllItems()
-        {
-            var results = this.context.Items
-                .Include(x => x.Ratings)
-                .Select(x => new AbstractItemDto(x))
-                .ToList();
+        public static Lazy<Func<Item, ItemHeader>> ItemHeaderSelectorFunc { get; } = new Lazy<Func<Item, ItemHeader>>(() => ItemHeaderSelector.Compile());
 
-            return new PagedResult<AbstractItemDto>
+        public PagedResult<ItemHeader> GetAllItems(ItemSpecification specification = null)
+        {
+            if (specification == null)
+                specification = new ItemSpecification();
+
+            if (specification.PageSize < 0)
+                specification.PageSize = null;
+            if (specification.PageNumber < 0)
+                specification.PageNumber = null;
+
+            IQueryable<Item> query = this.context.Items
+                .Include(x => x.Ratings);
+
+            if (!string.IsNullOrWhiteSpace(specification.Name))
+                query = query.Where(x => x.Name.Contains(specification.Name));
+
+            if (specification.Category.HasValue)
+                query = query.Where(x => x.Category == specification.Category);
+
+            if (!string.IsNullOrWhiteSpace(specification.Brand))
+                query = query.Where(x => x.Manufacturer.Contains(specification.Brand));
+
+            if (specification.HasRGB.HasValue)
+                query = query.Where(x => x.HasRGB == specification.HasRGB);
+
+            if (specification.IsGaming.HasValue)
+                query = query.Where(x => x.GamingFlag == specification.IsGaming);
+
+            if (specification.IsUsed.HasValue)
+                query = query.Where(x => x.IsUsed == specification.IsUsed);
+
+            if (specification.MinPrice != null)
+                query = query.Where(x => (x.DiscountedPrice ?? x.OriginalPrice) >= specification.MinPrice);
+
+            if (specification.MaxPrice != null)
+                query = query.Where(x => (x.DiscountedPrice ?? x.OriginalPrice) <= specification.MaxPrice);
+
+            if (specification.MinRating != null)
+                query = query.Where(x => (x.Ratings.Any() ? Convert.ToInt32(x.Ratings.Average(y => y.Value)) : 0) >= specification.MinRating);
+
+            if (specification.MaxRating != null)
+                query = query.Where(x => (x.Ratings.Any() ? Convert.ToInt32(x.Ratings.Average(y => y.Value)) : 0) <= specification.MaxRating);
+
+            //order
+            switch(specification.Order)
             {
-                AllResultsCount = results.Count,
-                Results = results,
-                PageNumber = 1,
-                PageSize = results.Count
+                case ItemSpecification.ItemOrder.PriceAscending:
+                    query = query.OrderBy(x => x.DiscountedPrice ?? x.OriginalPrice);
+                    break;
+
+                case ItemSpecification.ItemOrder.PriceDescending:
+                    query = query.OrderByDescending(x => x.DiscountedPrice ?? x.OriginalPrice);
+                    break;
+
+                case ItemSpecification.ItemOrder.RatingAscending:
+                    query = query.OrderBy(x => (x.Ratings.Any() ? Convert.ToInt32(x.Ratings.Average(y => y.Value)) : 0));
+                    break;
+
+                case ItemSpecification.ItemOrder.RatingDescending:
+                    query = query.OrderByDescending(x => (x.Ratings.Any() ? Convert.ToInt32(x.Ratings.Average(y => y.Value)) : 0));
+                    break;
+            }
+
+            int? allResultsCount = null;
+            if ((specification.PageSize ?? 0) != 0)
+            {
+                specification.PageNumber ??= 0;
+                allResultsCount = query.Count();
+                query = query
+                    .Skip(specification.PageNumber.Value * specification.PageSize.Value)
+                    .Take(specification.PageSize.Value);
+            }
+
+            return new PagedResult<ItemHeader>
+            {
+                AllResultsCount = allResultsCount,
+                Results = query.ToList().Select(ItemHeaderSelectorFunc.Value),
+                PageNumber = specification.PageNumber,
+                PageSize = specification.PageSize
             };
         }
 
 
 
-        public AbstractItemDto GetItemById(Guid id)
+        public ItemFullViewDTO GetItemById(Guid id)
         {
-            return new AbstractItemDto(this.context.Items
+            return new ItemFullViewDTO(this.context.Items
                 .Include(x => x.Ratings)
                 .SingleOrDefault(x => x.Id == id));
         }
