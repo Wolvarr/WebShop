@@ -11,6 +11,8 @@ using WebShop.Dal.Context;
 using WebShop.Dal.DataBaseSeed;
 using WebShop.Bll.Services;
 using WebShop.Bll.ServiceInterfaces;
+using WebShop.Mvc.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WebShop
 {
@@ -35,6 +37,10 @@ namespace WebShop
                 )
                  .AddTransient<ISeedService, SeedService>();
 
+            services.AddAuthentication();
+
+
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IItemService, ItemService>();
 
             services.AddMvc();
@@ -56,6 +62,9 @@ namespace WebShop
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+
 
             app.UseRouting();
 
