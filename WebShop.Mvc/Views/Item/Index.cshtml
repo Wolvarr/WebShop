@@ -1,8 +1,11 @@
 ﻿@model WebShop.Bll.DTO.PagedResult<WebShop.Bll.DTO.ItemHeader>
 @{
     ViewData["Title"] = "Items";
+
+    Dictionary<string, string> queryParams = Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
+    queryParams.TryAdd("pageNumber", String.Empty);
 }
 
-<h1>Termékek</h1>
+    <h1>Termékek</h1>
 
-<vc:item-list items="Model"></vc:item-list>
+    <vc:item-list items="Model"></vc:item-list>
