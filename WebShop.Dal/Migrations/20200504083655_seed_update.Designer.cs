@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebShop.Dal.Context;
 
 namespace WebShop.Dal.Migrations
 {
     [DbContext(typeof(WebShopDbContext))]
-    partial class WebShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200504083655_seed_update")]
+    partial class seed_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

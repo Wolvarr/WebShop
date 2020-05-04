@@ -69,15 +69,16 @@ namespace WebShop.Dal.DataBaseSeed
             {
                 new Cpu
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("10000000-0000-0000-0000-000000000000"),
                     Name = "AMD Ryzen 3 2200G",
                     Available = 10,
-                    PicturePath = "",
+                    PicturePath = "10000000-0000-0000-0000-000000000000",
                     ExpectedAvailalbleDate = null,
                     OriginalPrice = 31500,
                     DiscountedPrice = null,
+                    Category = Enums.Category.Cpu,
                     Manufacturer = "AMD",
-                    Description = "So basic processor",
+                    Description = "So basic processor\n random leírás ami ki tesz több sort, hogy kiderüljön, hogy a ui-on mégiscsak ugyanmár hogy a faszba néz ki.",
                     Warranty = "5 years",
                     ProcessorFamily = "AMD Ryzen 3",
                     Technology = 14,
@@ -93,6 +94,7 @@ namespace WebShop.Dal.DataBaseSeed
                     Name = "Intel Core i5-9600K",
                     Available = 10,
                     PicturePath = "",
+                     Category = Enums.Category.Cpu,
                     ExpectedAvailalbleDate = null,
                     OriginalPrice = 82000,
                     DiscountedPrice = null,
@@ -106,6 +108,27 @@ namespace WebShop.Dal.DataBaseSeed
                     Socket = Enums.CpuSocket.LGA1151,
                     BaseClock = 3700,
                     TDP = 65
+                },
+                  new Cpu
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Intel Core i5-9400f",
+                    Available = 10,
+                    PicturePath = "",
+                    Category = Enums.Category.Cpu,
+                    ExpectedAvailalbleDate = null,
+                    OriginalPrice = 82000,
+                    DiscountedPrice = null,
+                    Manufacturer = "Intel",
+                    Description = "Középkategóriás processor munkára és játékra egyaránt",
+                    Warranty = "3 years",
+                    ProcessorFamily = "Intel core 5",
+                    Technology = 14,
+                    CoreNumber = 4,
+                    ThreadNumber = 4,
+                    Socket = Enums.CpuSocket.LGA1151,
+                    BaseClock = 3500,
+                    TDP = 45
                 }
             };
             Graphics = new List<GraphicsCard>

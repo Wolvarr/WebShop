@@ -15,7 +15,7 @@ namespace WebShop.Bll.DTO
             : base(item)
         {
             SpecificProperties = new SpecificProperties(item);
-
+            SimilarItems = new PagedResult<ItemHeader>();
         }
 
 
@@ -23,9 +23,9 @@ namespace WebShop.Bll.DTO
 
         public string Warranty { get; set; }
 
-        public Category? Category { get; set; }
-
         public DateTime? ExpectedAvailalbleDate { get; set; }
+
+        public PagedResult<ItemHeader> SimilarItems { get; set; } 
     }
 
 

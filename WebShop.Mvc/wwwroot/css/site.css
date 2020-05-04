@@ -48,15 +48,22 @@ a {
 }
 
     .column > div.card > div.card-body {
+        margin-top: 0;
         display: flex;
         flex-direction: column;
+
     }
 
-    .column > div.card > divcard-header {
-        text-align: left;
-        background-color: none;
-        border: hidden;
-    }
+        .column > div.card > div.card-body > p.card-text
+        {
+            max-height: 85px;
+        }
+
+        .column > div.card > divcard-header {
+            text-align: left;
+            background-color: none;
+            border: hidden;
+        }
 
 .rating {
     display: inline;
@@ -72,7 +79,11 @@ a {
 }
 
 .column > div.card > img.card-img-top {
-    margin: 0 auto;
+    margin: auto;
+    padding-left : 10px;
+    padding-right :10px;
+    max-height: 200px;
+    max-width: 250px;
     width: auto;
     height: auto;
 }
@@ -101,18 +112,39 @@ a {
 /* Full item view styles
 -------------------------------------------------- */
 
-.specification-container {
-    width : 100%;
-    margin-top: 40px;
-    padding: 10px;
-    grid-row-gap: 15px;
+.item-full-view > div.card-body
+{
+    padding: 0px;
+    height: 350px;
+    margin-bottom: 30px;
 }
+
+
+
+    .item-full-view > div.col-5{
+        background-color : red;
+    }
+
+    .specification-container {
+        width: 100%;
+        margin-top: 40px;
+        padding: 10px;
+        grid-row-gap: 15px;
+    }
 
 @media screen and (max-width: 600px) {
     .specification-container {
         display: grid;
         grid-template-columns: auto;
+    }
 
+    .item-fullview-name {
+        color: maroon;
+        font-size: 16px;
+    }
+
+    .text-info {
+        font-size: 12px !important;
     }
 }
 
@@ -120,6 +152,11 @@ a {
     .specification-container {
         display: grid;
         grid-template-columns: auto auto;
+    }
+
+    .item-fullview-name {
+        color: maroon;
+        font-size: 30px;
     }
 }
 
@@ -130,12 +167,26 @@ a {
             border-bottom: 1px solid;
         }
 
+.input-field-for-quantity
+{
+    height: 40px;
+    width : 38px;
+    margin-left: 30px;
+    border-radius: 4px;
+    border : ridge;
+}
 
-    /* Sticky footer styles
+.cart-adding > button.cart-button
+{
+    position:absolute;
+    margin-left: 10px;
+}
+
+/* Sticky footer styles
 -------------------------------------------------- */
-    html {
-        font-size: 14px;
-    }
+html {
+    font-size: 14px;
+}
 
     @media (min-width: 768px) {
         html {

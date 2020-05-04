@@ -2,6 +2,11 @@
 {
     public class PowerSupply : Hardware
     {
+        public PowerSupply()
+        {
+            this.Category = Enums.Category.PowerSupply;
+        }
+
         public int ATXConnector { get; set; }
 
         public int MolexConnector { get; set; }

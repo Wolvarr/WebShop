@@ -4,6 +4,11 @@ namespace WebShop.Dal.Models
 {
     public class Case : Item
     {
+        public Case()
+        {
+            this.Category = Category.Case;
+        }
+
         public int BuiltInFanNumber { get; set; }
 
         public MotherboardType SupportedMotherboard { get; set; }

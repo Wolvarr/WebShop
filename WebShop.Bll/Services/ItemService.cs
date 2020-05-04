@@ -111,9 +111,31 @@ namespace WebShop.Bll.Services
 
         public ItemFullViewDTO GetItemById(Guid id)
         {
-            return new ItemFullViewDTO(this.context.Items
+            var similarItems = new List<ItemHeader>();
+
+            var returnDto= new ItemFullViewDTO(this.context.Items
                 .Include(x => x.Ratings)
                 .SingleOrDefault(x => x.Id == id));
+
+            var temp = this.context.Items.Where(x => x.Category == returnDto.Category).Include( x => x.Ratings).ToList();
+            temp.ForEach(x =>
+           {
+               if (x.Id != id)
+               {
+                   similarItems.Add(new ItemHeader(x));
+               }
+           });
+
+            returnDto.SimilarItems = new PagedResult<ItemHeader>
+            {
+                AllResultsCount = similarItems.Count <= 3 ? similarItems.Count : 3,
+                Results = similarItems.Count <= 3 ? similarItems : similarItems.Take(3).ToList(),
+                PageNumber = 0,
+                PageSize = 1
+            };
+
+            return returnDto;
         }
+
     }
 }

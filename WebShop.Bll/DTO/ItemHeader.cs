@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using WebShop.Dal.Enums;
 using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
@@ -20,11 +21,14 @@ namespace WebShop.Bll.DTO
             this.GamingFlag = item.GamingFlag;
             this.IsUserd = item.IsUsed;
             this.HasRGB = item.HasRGB;
+            this.Category = item.Category;
         }
 
         public Guid Id { get; set; }
 
         public string Name { get; set; }
+
+        public Category Category{ get; set; }
 
         public int Available { get; set; }
 

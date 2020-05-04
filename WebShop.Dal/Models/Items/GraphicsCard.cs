@@ -4,6 +4,12 @@ namespace WebShop.Dal.Models
 {
     public class GraphicsCard : Hardware
     {
+
+        public GraphicsCard()
+        {
+            this.Category = Category.Gpu;
+
+        }
         public int BuiltInMemory { get; set; }
 
         public int MemoryClock { get; set; }

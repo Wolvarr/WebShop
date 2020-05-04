@@ -31,8 +31,13 @@ namespace WebShop.Mvc.Controllers
                 return RedirectToAction("Index", "Home");
 
             return View("ItemFullView", this.itemService.GetItemById(id.Value));
+        }
 
-            
+        public ActionResult AddToCart(Guid id, [Bind("Quantity")] int quantity = 1)
+        {
+            //todo
+            var url = this.Request.Headers["Referer"].ToString();
+            return Redirect(url);
         }
     }
 }

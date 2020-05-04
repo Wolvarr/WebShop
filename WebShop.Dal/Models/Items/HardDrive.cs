@@ -2,6 +2,12 @@
 {
     public class HardDrive : Hardware
     {
+
+        public HardDrive()
+        {
+            this.Category = Enums.Category.HardDrive;
+
+        }
         public int Size { get; set; }
 
         public int ReadSpeed { get; set; }

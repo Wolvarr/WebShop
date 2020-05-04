@@ -4,6 +4,11 @@ namespace WebShop.Dal.Models
 {
     public class Motherboard : Hardware
     {
+        public Motherboard()
+        {
+            this.Category = Category.MotherBoard;
+        }
+
         public MotherboardType Type { get; set; }
 
         public string Chipset { get; set; }

@@ -4,54 +4,64 @@
     ViewData["Title"] = Model.Name;
 }
 
-<div class=" item-full-view">
-    <div class="card card-body">
-        <div class="row">
-            <div class="col-3" style="border-right: 1px solid black">
-                <img src="~/images/@(Model.PicturePath)" class="mw-100"
-                     alt="@Model.Name" title="@Model.Name" />
-                <p class="text-left">
-                    <h4 class="lead text-info">@Model.Manufacturer</h4>
-                    @if (Model.DiscountedPrice.HasValue)
-                    {
-                        <span class="text-danger text-muted">@Model.OriginalPrice.ToString("N0") Ft</span>
-                        <span class="text-primary">@Model.DiscountedPrice.Value.ToString("N0") Ft</span>
-                    }
-                    else
-                    {
-                        <text>@Model.OriginalPrice.ToString("N0") Ft</text>
-                    }
-                </p>
-            </div>
-            <div class="col-9">
-                <p class="text-info">
-                    <h2 class="div" style="color:maroon; font-size: 30px">@Model.Name</h2>
-                    <div class="rating">
-                        @for (int i = 0; i < @Model.AverageRating; i++)
-                        {
-                            <span class="fa fa-star checked"></span>
-                        }
-                        @for (int i = @Model.AverageRating; i < 5; i++)
-                        {
-                            <span class="fa fa-star"></span>
-                        }
+    <div class=" item-full-view">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-5" style="border-right: 1px solid black; padding: 10px">
+                    <img src="~/images/@(Model.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                         alt="@Model.Name" title="@Model.Name" />
+                </div>
+                <div class="col-7">
+                    <p class="text-info">
+                        <h2 class="item-fullview-name">@Model.Name</h2>
+                        <h4 class="lead text-info">@Model.Manufacturer</h4>
+                        <div class="rating">
+                            @for (int i = 0; i < @Model.AverageRating; i++)
+                            {
+                                <span class="fa fa-star checked"></span>
+                            }
+                            @for (int i = @Model.AverageRating; i < 5; i++)
+                            {
+                                <span class="fa fa-star"></span>
+                            }
+                        </div>
+                    </p>
+                    <hr />
+                    <div style="height : 100px">
+                        <p class="small">@Model.Description</p>
                     </div>
-                </p>
-                <hr />
-                <p class="small">@Model.Description</p>
-                <p style="font-size : 30px; text-align: center"> Tulajdonságok:</p>
-                <div class="specification-container">
-                    @foreach (var prop in Model.SpecificProperties.GetType().GetProperties())
-                    {
-                        if (prop.GetValue(Model.SpecificProperties, null) != null)
+                    <form id="addtocart-form" method="post" asp-action="AddToCart" class="cart-adding" >
+                        @if (Model.DiscountedPrice.HasValue)
                         {
-                            <div class="specification-item"> <b>@(Model.SpecificProperties.GetDisplayName(prop.Name)) : </b> @(prop.GetValue(Model.SpecificProperties, null))</div>
+                            <span class="text-original-price">@Model.OriginalPrice.ToString("N0") Ft</span>
+                            <span class="text-discounted-price">@Model.DiscountedPrice.Value.ToString("N0") Ft</span>
                         }
-                    }
+                        else
+                        {
+                            <text>@Model.OriginalPrice.ToString("N0") Ft</text>
+                        }
+                        
+                        <input class="input-field-for-quantity" type="number" id="cart_quantity" name="quantity" value="1" min="1" max="99" >
+                        <div></div>
+                        <button class="cart-button" value="@Model.Id" name="id" >Kosárba</button>
+                    </form>
                 </div>
             </div>
         </div>
+        <p style="font-size : 30px; text-align: center"> Tulajdonságok:</p>
+        <div class="specification-container">
+            @foreach (var prop in Model.SpecificProperties.GetType().GetProperties())
+            {
+                if (prop.GetValue(Model.SpecificProperties, null) != null)
+                {
+                    <div class="specification-item"> <b>@(Model.SpecificProperties.GetDisplayName(prop.Name)) : </b> @(prop.GetValue(Model.SpecificProperties, null))</div>
+                }
+            }
+        </div>
+
+        <p style="font-size : 30px; margin:30px 0 20px 0"> Hasonló termékek:</p>
+
+        <vc:item-list items="Model.SimilarItems"></vc:item-list>
     </div>
-</div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
