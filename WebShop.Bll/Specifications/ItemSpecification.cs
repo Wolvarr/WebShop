@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Text;
 using WebShop.Dal.Enums;
 
@@ -16,9 +17,9 @@ namespace WebShop.Bll.Specifications
 
         public string Name { get; set; }
 
-        public Category? Category { get; set; }
+        public List<Category> SelectedCategories { get; set; } = new List<Category>();
 
-        public string Brand { get; set; }
+        public List<string> SelectedManufacturers { get; set; } = new List<string>();
 
         public bool? HasRGB { get; set; }
 
