@@ -12,6 +12,8 @@ namespace WebShop.Bll.Specifications
 
         //filtering
 
+        public string ComplexFilter { get; set; }
+
         public string Name { get; set; }
 
         public Category? Category { get; set; }

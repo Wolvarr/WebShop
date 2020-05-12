@@ -10,9 +10,11 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3" style="height:65px">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3" style="height:65px">
+            <a asp-controller="Home" asp-action="Index" title="Home">
+                <img class="site-logo" border="0" alt="SiteLogo" src="~/images/logos/site_logo.png" />
+            </a>
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebShop</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,9 +23,9 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="search-container">
-                            <form asp-controller="Item" asp-action="Index" asp-route-name="name">
-                                <input id="Name "type="text" placeholder="Keresés.." name="name" >
-                                <button type="submit"><i  style="color:white;"></i></button>
+                            <form asp-controller="Item" asp-action="Index">
+                                <input id="ComplexFilter " type="text" placeholder="  Keresés.." name="complexfilter">
+                                <button type="submit"><i style="color:white;"></i></button>
                             </form>
                         </li>
                     </ul>

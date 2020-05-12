@@ -38,6 +38,11 @@ namespace WebShop.Bll.Services
             IQueryable<Item> query = this.context.Items
                 .Include(x => x.Ratings);
 
+            if(!string.IsNullOrWhiteSpace(specification.ComplexFilter))
+            {
+                query = query.Where(x => x.Name.Contains(specification.ComplexFilter) || x.Manufacturer.Contains(specification.ComplexFilter));
+            }
+
             if (!string.IsNullOrWhiteSpace(specification.Name))
                 query = query.Where(x => x.Name.Contains(specification.Name));
 

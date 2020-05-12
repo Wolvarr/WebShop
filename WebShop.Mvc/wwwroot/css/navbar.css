@@ -3,39 +3,58 @@
     width: 40px;
 }
 
-
-/*SEARCH BAR CONTAINER
------------------------------------------*/
-.search-container{
-    margin-left: 10px;
-    height: 43px;
-    width: 300px;
+@media screen and (min-width: 551px) {
+    .site-logo {
+        margin-left: 100px;
+        height: 60px;
+        float: right;
+    }
 }
 
-.search-container > form{
-    height: 100%;
-    width: 100%;
-}
-
-    .search-container > form > input {
+@media screen and (max-width: 550px) {
+    .site-logo {
         position: absolute;
-        height: 40px;
-        width: 250px;
-        border-radius: 4px;
-        border: none;
-        color: #7d1919;
-        background-color: #6f6f6f;
+        height: 60px;
+        top: 1px;
+        left:20%;
+        
+    }
+}
+    /*SEARCH BAR CONTAINER
+-----------------------------------------*/
+
+    /*RED: #880015*/
+
+    .search-container {
+        height: 43px;
+        width: 300px;
     }
 
-::placeholder { /* Microsoft Edge */
-    color: white;
-}
+        .search-container > form {
+            height: 100%;
+            width: 100%;
+        }
 
-.search-container > form > button {
-    float : right;
-    height: 40px;
-    width:40px;
-    border-radius: 50%;
-    border:none;
-    background-color : #7d1919;
-}
+            .search-container > form > input {
+                position: absolute;
+                height: 40px;
+                width: 250px;
+                border-radius: 4px;
+                border: solid;
+                border-color: #880015;
+                color: #880015;
+                background-color: #6f6f6f;
+            }
+
+    ::placeholder { /* Microsoft Edge */
+        color: white;
+    }
+
+    .search-container > form > button {
+        float: right;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: none;
+        background-color: #880015;
+    }
