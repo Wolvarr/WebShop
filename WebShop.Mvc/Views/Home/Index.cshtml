@@ -1,8 +1,84 @@
-﻿@{
+﻿@model WebShop.Models.HomePageViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="main-page-bar">
+    <button class="button">Újdonságok</button>
+    <button class="button">Akciók</button>
+    <button class="button">Termékek</button>
+    <button class="button">Gépösszerakó</button>
+    <button class="button">Komplett gépek</button>
+
 </div>
+
+
+<div class="slideshow-container">
+
+    @foreach (var item in Model.DiscountedItems)
+    {
+        <div class="mySlides">
+            <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">
+                <img class="slide-img" src="~/images/items/@item.PicturePath" style="width:100%">
+                <div class="action-text">
+                    <h2>@item.Name</h2>
+                    <span class="highlightedPrice">Most csak: @item.DiscountedPrice Ft!</span>
+                </div>
+            </a>
+        </div>
+    }
+
+    <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+</div>
+<div class="builder-ad-container">
+    <a asp-controller="PcBuilder" asp-action="Index">
+        <img class="full-sized-pic" src="~/images/pcBuilderFullRes.png" style="width:100%">
+    </a>
+</div>
+
+<div class="side-highlited-container">
+    @foreach (var item in Model.HighlightedItems)
+    {
+    <div class="right-bar-pic-container">
+        <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">
+            <img class="right-bar-ad-pic" src="~/images/items/@item.PicturePath" style="width:100%">
+        </a>
+        <div class="image-text-bottom">@(item.DiscountedPrice != null ? @item.DiscountedPrice : @item.OriginalPrice)Ft!</div>
+    </div>
+
+
+    }
+</div>
+
+
+
+<script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+</script>

@@ -16,8 +16,6 @@ namespace WebShop.Dal.Models
 
         public string PicturePath { get; set; }
 
-        public DateTime? ExpectedAvailalbleDate { get; set; }
-
         public int OriginalPrice { get; set; }
 
         public int? DiscountedPrice { get; set; }
@@ -35,6 +33,10 @@ namespace WebShop.Dal.Models
         public bool IsUsed { get; set; }
 
         public bool HasRGB { get; set; }
+
+        public DateTime DateSinceInStore { get; set; }
+
+        public bool HighlightedItem { get; set; }
 
     }
 }

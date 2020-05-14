@@ -28,11 +28,10 @@ namespace WebShop.Dal.DataBaseSeed
             {
                 new Case
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete",
+                    Id = new Guid("21000000-0000-0000-0000-000000000000"),
+                    PicturePath = "21000000-0000-0000-0000-000000000000",
+                     Name = "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete",
                     Available = 10,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 59000,
                     DiscountedPrice = null,
                     Manufacturer = "Thermaltake",
@@ -43,15 +42,16 @@ namespace WebShop.Dal.DataBaseSeed
                     Height = 613,
                     Width = 468,
                     Depth = 503,
-                    HDDNumber = 4
+                    HDDNumber = 4,
+                    DateSinceInStore = DateTime.Now.AddDays(-50),
+                    HighlightedItem = false,
                 },
                 new Case
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "DeepCool EARLKASE RGB WH fehér számítógép ház",
+                    Id = new Guid("22000000-0000-0000-0000-000000000000"),
+                    PicturePath = "22000000-0000-0000-0000-000000000000",
+                     Name = "DeepCool EARLKASE RGB WH fehér számítógép ház",
                     Available = 10,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 59000,
                     DiscountedPrice = null,
                     Manufacturer = "DeepCool",
@@ -62,7 +62,9 @@ namespace WebShop.Dal.DataBaseSeed
                     Height = 511,
                     Width = 204,
                     Depth = 500,
-                    HDDNumber = 4
+                    HDDNumber = 4,
+                    DateSinceInStore = DateTime.Now.AddDays(-50),
+                    HighlightedItem = false,
                 }
             };
             Cpus = new List<Cpu>()
@@ -70,10 +72,9 @@ namespace WebShop.Dal.DataBaseSeed
                 new Cpu
                 {
                     Id = new Guid("10000000-0000-0000-0000-000000000000"),
+                    PicturePath = "10000000-0000-0000-0000-000000000000",
                     Name = "AMD Ryzen 3 2200G",
                     Available = 10,
-                    PicturePath = "10000000-0000-0000-0000-000000000000",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 31500,
                     DiscountedPrice = null,
                     Category = Enums.Category.Cpu,
@@ -86,18 +87,19 @@ namespace WebShop.Dal.DataBaseSeed
                     ThreadNumber = 4,
                     Socket = Enums.CpuSocket.SocketAM4,
                     BaseClock = 3400,
-                    TDP = 65
+                    TDP = 65,
+                    DateSinceInStore = DateTime.Now.AddDays(-50),
+                    HighlightedItem = false,
                 },
                  new Cpu
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("20000000-0000-0000-0000-000000000000"),
+                    PicturePath = "20000000-0000-0000-0000-000000000000",
                     Name = "Intel Core i5-9600K",
                     Available = 10,
-                    PicturePath = "",
                      Category = Enums.Category.Cpu,
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 82000,
-                    DiscountedPrice = null,
+                    DiscountedPrice = 75000,
                     Manufacturer = "Intel",
                     Description = "Very good gaming processor",
                     Warranty = "3 years",
@@ -107,16 +109,17 @@ namespace WebShop.Dal.DataBaseSeed
                     ThreadNumber = 6,
                     Socket = Enums.CpuSocket.LGA1151,
                     BaseClock = 3700,
-                    TDP = 65
+                    TDP = 65,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = true,
                 },
                   new Cpu
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("30000000-0000-0000-0000-000000000000"),
+                    PicturePath = "30000000-0000-0000-0000-000000000000",
                     Name = "Intel Core i5-9400f",
                     Available = 10,
-                    PicturePath = "",
                     Category = Enums.Category.Cpu,
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 82000,
                     DiscountedPrice = null,
                     Manufacturer = "Intel",
@@ -128,18 +131,19 @@ namespace WebShop.Dal.DataBaseSeed
                     ThreadNumber = 4,
                     Socket = Enums.CpuSocket.LGA1151,
                     BaseClock = 3500,
-                    TDP = 45
+                    TDP = 45,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 }
             };
             Graphics = new List<GraphicsCard>
             {
                 new GraphicsCard
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya",
+                    Id = new Guid("40000000-0000-0000-0000-000000000000"),
+                    PicturePath = "40000000-0000-0000-0000-000000000000",
+                     Name = "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya",
                     Available = 3,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 216000,
                     DiscountedPrice = null,
                     Manufacturer = "Gigabyte",
@@ -152,18 +156,18 @@ namespace WebShop.Dal.DataBaseSeed
                     BandWidth = 256,
                     CoolerType = "Windforce 3x",
                     MemoryType = Enums.MemoryType.GDDR6,
-                    PowerSupplyConnection = "6 + 8"
-
+                    PowerSupplyConnection = "6 + 8",
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = true,
                 },
                  new GraphicsCard
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "MSI Radeon RX 5500 XT MECH 8G OC videokártya",
+                    Id = new Guid("50000000-0000-0000-0000-000000000000"),
+                    PicturePath = "50000000-0000-0000-0000-000000000000",
+                     Name = "MSI Radeon RX 5500 XT MECH 8G OC videokártya",
                     Available = 15,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 85500,
-                    DiscountedPrice = null,
+                    DiscountedPrice = 79900,
                     Manufacturer = "MSI",
                     Description = "Low end basic graphics card for work",
                     Warranty = "3 years",
@@ -174,19 +178,19 @@ namespace WebShop.Dal.DataBaseSeed
                     BandWidth = 128,
                     CoolerType = "Active",
                     MemoryType = Enums.MemoryType.GDDR6,
-                    PowerSupplyConnection = "8"
-
+                    PowerSupplyConnection = "8",
+                    DateSinceInStore = DateTime.Now.AddDays(-2),
+                    HighlightedItem = false,
                 }
             };
             HardDrives = new List<HardDrive>()
             {
                 new HardDrive
                 {
-                   Id = Guid.NewGuid(),
-                    Name = "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó",
+                    Id = new Guid("60000000-0000-0000-0000-000000000000"),
+                    PicturePath = "60000000-0000-0000-0000-000000000000",
+                     Name = "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 28600,
                     DiscountedPrice = null,
                     Manufacturer = "Samsung",
@@ -195,15 +199,16 @@ namespace WebShop.Dal.DataBaseSeed
                     Size = 250,
                     ReadSpeed = 3500,
                     WriteSpeed = 2300,
-                    Socket = HardDriveSocket.M_2
+                    Socket = HardDriveSocket.M_2,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 },
                  new HardDrive
                 {
-                   Id = Guid.NewGuid(),
-                    Name = "Kingston 240GB SA400S37/240G SSD meghajtó",
+                    Id = new Guid("70000000-0000-0000-0000-000000000000"),
+                    PicturePath = "70000000-0000-0000-0000-000000000000",
+                     Name = "Kingston 240GB SA400S37/240G SSD meghajtó",
                     Available = 50,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 14000,
                     DiscountedPrice = null,
                     Manufacturer = "Kingston",
@@ -212,15 +217,16 @@ namespace WebShop.Dal.DataBaseSeed
                     Size = 240,
                     ReadSpeed = 500,
                     WriteSpeed = 350,
-                    Socket = HardDriveSocket.SATA_III
+                    Socket = HardDriveSocket.SATA_III,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = true,
                 },
                   new HardDrive
                 {
-                   Id = Guid.NewGuid(),
+                    Id = new Guid("80000000-0000-0000-0000-000000000000"),
+                    PicturePath = "80000000-0000-0000-0000-000000000000",
                     Name = "Seagate SkyHawk Surveillance 10TB 7200rpm 256MB SATA3 3,5\" HDD",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 108000,
                     DiscountedPrice = null,
                     Manufacturer = "Seagate",
@@ -228,20 +234,21 @@ namespace WebShop.Dal.DataBaseSeed
                     Warranty = "5 years",
                     Size = 10000,
                     ReadSpeed = 50,
-                    WriteSpeed = 35
+                    WriteSpeed = 35,
+                    DateSinceInStore = DateTime.Now.AddDays(-3),
+                    HighlightedItem = false,
                 }
             };
             Memories = new List<Memory>()
             {
                 new Memory
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória",
+                    Id = new Guid("90000000-0000-0000-0000-000000000000"),
+                    PicturePath = "90000000-0000-0000-0000-000000000000",
+                     Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 38000,
-                    DiscountedPrice = null,
+                    DiscountedPrice = 34000,
                     Manufacturer = "Kingston",
                     Description = "High end memory in amazing white color",
                     Warranty = "5 years",
@@ -249,15 +256,16 @@ namespace WebShop.Dal.DataBaseSeed
                     Capacity = 8,
                     MemoryType = Enums.MemoryType.DDR4,
                     Timing = 16,
-                    Kit = 2
+                    Kit = 2,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 },
                  new Memory
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória",
+                    Id = new Guid("10000000-0000-0000-0000-000000000001"),
+                    PicturePath = "10000000-0000-0000-0000-000000000001",
+                     Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 41000,
                     DiscountedPrice = null,
                     Manufacturer = "Kingston",
@@ -267,18 +275,19 @@ namespace WebShop.Dal.DataBaseSeed
                     Capacity = 8,
                     MemoryType = Enums.MemoryType.DDR4,
                     Timing = 16,
-                    Kit = 2
+                    Kit = 2,
+                    DateSinceInStore = DateTime.Now.AddDays(-5),
+                    HighlightedItem = true,
                 }
             };
             Motherboards = new List<Motherboard>()
             {
                 new Motherboard
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Asus Prime Z390-A alaplap",
+                    Id = new Guid("11000000-0000-0000-0000-000000000000"),
+                    PicturePath = "11000000-0000-0000-0000-000000000000",
+                    Name = "ASUS PRIME Z390-A alaplap",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 66000,
                     DiscountedPrice = null,
                     Manufacturer = "ASUS",
@@ -289,16 +298,17 @@ namespace WebShop.Dal.DataBaseSeed
                     Socket = Enums.CpuSocket.LGA1151,
                     SupportedMemoryType = Enums.MemoryType.DDR4,
                     SupportedMemorySpeed = "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600, 3733, 3866, 4000, 4133, 4266",
-                    MemorySocketNumber = 4
+                    MemorySocketNumber = 4,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 },
 
                  new Motherboard
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("12000000-0000-0000-0000-000000000000"),
+                    PicturePath = "12000000-0000-0000-0000-000000000000",
                     Name = "Gigabyte GA-B365-D3H alaplap",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 35000,
                     DiscountedPrice = null,
                     Manufacturer = "Gigabyte",
@@ -308,18 +318,19 @@ namespace WebShop.Dal.DataBaseSeed
                     Chipset = "B365",
                     Socket = Enums.CpuSocket.LGA1151,
                     SupportedMemoryType = Enums.MemoryType.DDR4,
-                    SupportedMemorySpeed = "2133, 2400, 2666"
+                    SupportedMemorySpeed = "2133, 2400, 2666",
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 },
             };
             PowerSupplies = new List<PowerSupply>()
             {
                 new PowerSupply
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "Chieftec ECO 400W GPE-400S tápegység",
+                    Id = new Guid("13000000-0000-0000-0000-000000000000"),
+                    PicturePath = "13000000-0000-0000-0000-000000000000",
+                     Name = "Chieftec ECO 400W GPE-400S tápegység",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 13700,
                     DiscountedPrice = null,
                     Manufacturer = "Chieftec",
@@ -330,17 +341,18 @@ namespace WebShop.Dal.DataBaseSeed
                     SixPinConnector = 0,
                     SixPlusTwoConnector = 0,
                     Efficiency = 85,
-                    IsModular = false
+                    IsModular = false,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = false,
                 },
                 new PowerSupply
                 {
-                    Id = Guid.NewGuid(),
-                    Name = "FSP 650W Hyper M tápegység",
+                    Id = new Guid("14000000-0000-0000-0000-000000000000"),
+                    PicturePath = "14000000-0000-0000-0000-000000000000",
+                     Name = "FSP 650W Hyper M tápegység",
                     Available = 20,
-                    PicturePath = "",
-                    ExpectedAvailalbleDate = null,
                     OriginalPrice = 29790,
-                    DiscountedPrice = null,
+                    DiscountedPrice = 25000,
                     Manufacturer = "FSP",
                     Description = "You should by this not that chinesee shit",
                     Warranty = "3 years",
@@ -349,7 +361,9 @@ namespace WebShop.Dal.DataBaseSeed
                     SixPinConnector = 0,
                     SixPlusTwoConnector = 4,
                     Efficiency = 85,
-                    IsModular = true
+                    IsModular = true,
+                    DateSinceInStore = DateTime.Now.AddDays(-30),
+                    HighlightedItem = true,
                 }
             };
         }

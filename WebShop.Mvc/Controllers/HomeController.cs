@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebShop.Bll.ServiceInterfaces;
-using WebShop.Bll.Services;
 using WebShop.Models;
 
 namespace WebShop.Controllers
@@ -20,7 +19,8 @@ namespace WebShop.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new HomePageViewModel(this.itemService.GetAllDiscountedItems(),
+                this.itemService.GetAllHighLightedItems()));
         }
 
         public IActionResult Privacy()

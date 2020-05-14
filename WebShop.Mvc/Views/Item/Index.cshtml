@@ -1,11 +1,104 @@
-﻿@model WebShop.Bll.DTO.PagedResult<WebShop.Bll.DTO.ItemHeader>
+﻿@model WebShop.Models.ItemBrowserViewModel
 @{
     ViewData["Title"] = "Items";
 
     Dictionary<string, string> queryParams = Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
     queryParams.TryAdd("pageNumber", String.Empty);
+
 }
 
-    <h1>Termékek</h1>
+<h1 style="margin-bottom: 40px;">Termékek</h1>
 
-    <vc:item-list items="Model"></vc:item-list>
+<div class="item-list">
+    <vc:item-list items="Model.ItemResults"></vc:item-list>
+</div>
+
+<div class="cell-body">
+    <form asp-controller="Item" asp-action="Index">
+        <h4>Kategóriák</h4>
+        <div class="category-filter">
+            @foreach (var item in Model.AvailableCategories)
+            {
+                <div class="checkbox">
+                    <label>
+                        @item
+                        <input type="checkbox"
+                               name="SelectedCategories"
+                               value="@item" />
+                    </label>
+                </div>
+            }
+        </div>
+        <hr class="horizontal-line">
+        <h4>Gyártók</h4>
+        <div class="manufacturer-filter">
+            @foreach (var item in Model.AvailableManufacturers)
+            {
+                <div class="checkbox">
+                    <label>
+                        @item
+                        <input type="checkbox"
+                               name="SelectedManufacturers"
+                               value="@item" />
+                    </label>
+                </div>
+
+            }
+        </div>
+        <hr class="horizontal-line">
+        <div class="checkbox">
+            <label>
+                RGB
+                <input type="checkbox"
+                       name="HasRGB"
+                       value="True" />
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                Gaming ajánlat
+                <input type="checkbox"
+                       name="IsGaming"
+                       value="True" />
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                Használt termékek
+                <input type="checkbox"
+                       name="IsUsed"
+                       value="True" />
+            </label>
+        </div>
+        <hr class="horizontal-line">
+        <h4>Ár</h4>
+        <div class="slidecontainer">
+            <input type="range" min=@Model.TotalMinPrice max=@Model.TotalMaxPrice value=@Model.SelectedMinPrice class="slider" id="minRange" name="minPrice">
+            <p>Min: <span id="minValue"></span> Ft</p>
+            <input type="range" min=@Model.TotalMinPrice max=@Model.TotalMaxPrice value=@Model.SelectedMaxPrice class="slider" id="maxRange" name="maxPrice">
+
+            <p>Max: <span id="maxValue"></span> Ft</p>
+        </div>
+
+        <script>
+            var sliderMin = document.getElementById("minRange");
+            var outputMin = document.getElementById("minValue");
+            var sliderMax = document.getElementById("maxRange");
+            var outputMax = document.getElementById("maxValue");
+            outputMin.innerHTML = sliderMin.value;
+            outputMax.innerHTML = sliderMax.value;
+
+            sliderMin.oninput = function () {
+                outputMin.innerHTML = this.value;
+            }
+
+            sliderMax.oninput = function () {
+                outputMax.innerHTML = this.value;
+            }
+        </script>
+
+        <input type="submit" value="Submit Data" id="btnSubmit" />
+
+
+    </form>
+</div>

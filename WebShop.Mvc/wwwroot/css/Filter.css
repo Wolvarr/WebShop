@@ -17,7 +17,7 @@
     width: 250px;
     top: 66px;
     left: 3px;
-    background-color: #666666;
+    background-color: #8a8cb5;
 }
 
     .cell-body > form > div.category-filter {
@@ -31,7 +31,7 @@
     }
 
 hr.horizontal-line {
-    border: 3px solid #880015;
+    border: 3px solid #850c5d;
     border-radius: 5px;
     padding: 0px;
 }
@@ -55,7 +55,7 @@ hr.horizontal-line {
         -webkit-appearance: none;
         width: 25px;
         height: 25px;
-        background: #9d001d;
+        background: #850c5d;
         cursor: pointer;
     }
 
@@ -72,11 +72,11 @@ hr.horizontal-line {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #9d001d;
+    background: #850c5d;
     border-radius: 10px;
 }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #a5032a;
+        background: #a41173;
     }

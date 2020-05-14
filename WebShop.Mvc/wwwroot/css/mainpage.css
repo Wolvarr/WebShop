@@ -1,0 +1,205 @@
+﻿@media screen and (max-width: 1350px) {
+    .side-highlited-container {
+        display: none;
+        right: 10px;
+    }
+    
+    .action-text{
+        width: 0px;
+        height: 0px;
+        display: none !important;
+    }
+
+    .slide-img {
+        display: block;
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 300px;
+        width: auto;
+        height: 300px;
+        border: solid;
+        border-color: #850c5d;
+        border-radius: 6px;
+    }
+
+}
+
+@media screen and (max-width: 1600px) {
+    .side-highlited-container {
+        position: absolute;
+        top: 85px;
+        right: 40px;
+        border: solid;
+        border-bottom: none;
+        border-color: black;
+        height: auto;
+        width: 270px;
+        background-color: white;
+    }
+}
+
+    .main-page-bar {
+        border: solid;
+        border-color: black;
+        border-radius: 4px;
+        position: absolute;
+        top: 64px;
+        width: 500px;
+        height: 50px;
+        margin-left: -250px;
+        left: 50%;
+    }
+
+
+        .main-page-bar > button {
+            border: none;
+            margin-left: 1px;
+            color: white;
+            height: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: #cfd1fa;
+            color: black;
+        }
+
+            .main-page-bar > button:hover {
+                background-color: #850c5d;
+                color: white;
+            }
+
+    * {
+        box-sizing: border-box
+    }
+
+    .mySlides {
+        display: inline;
+    }
+
+
+@media screen and (min-width: 1351px) {
+
+    .slide-img {
+        margin-top: 5px;
+        margin-left: 35px;
+        display: inline-block;
+        max-width: 300px;
+        width: auto;
+        height: 300px;
+        border: solid;
+        border-color: #850c5d;
+        border-radius: 6px;
+    }
+}
+    .action-text {
+        float: right;
+        margin-right: 50px;
+        margin-top: 15px;
+        height: 300px;
+        width: 270px;
+        display: inline-block;
+    }
+
+    .highlightedPrice {
+        font-size: 30px;
+        color: ghostwhite;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    }
+
+        .highlightedPrice:hover {
+            font-size: 40px;
+            color: #850c5d;
+        }
+
+    /* Slideshow container */
+    .slideshow-container {
+        border: solid;
+        border-color: black;
+        max-width: 700px;
+        height: 320px;
+        position: relative;
+        margin: auto;
+        top: 50px;
+    }
+
+    /* Next & previous buttons */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+        /* On hover, add a grey background color */
+        .prev:hover, .next:hover {
+            background-color: #f1f1f1;
+            color: black;
+        }
+
+
+    .builder-ad-container {
+        border: solid;
+        border-color: black;
+        max-width: 700px;
+        height: 320px;
+        position: relative;
+        margin: auto;
+        top: 47px;
+    }
+
+    .full-sized-pic {
+    }
+
+    @media screen and (min-width: 1601px) {
+        .side-highlited-container {
+            position: absolute;
+            top: 85px;
+            right: 180px;
+            border: solid;
+            border-bottom: none;
+            border-color: black;
+            height: auto;
+            width: 270px;
+            background-color: white;
+        }
+    }
+
+    .right-bar-ad-pic {
+        border-bottom: solid;
+        border-color: black;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 10px;
+    }
+
+    .right-bar-pic-container {
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+
+    .image-text-bottom {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        font-size: 20px;
+        color: black;
+    }

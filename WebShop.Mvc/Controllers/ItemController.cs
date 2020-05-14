@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
+using WebShop.Models;
 
 namespace WebShop.Mvc.Controllers
 {
@@ -22,7 +20,7 @@ namespace WebShop.Mvc.Controllers
             if (specification?.PageNumber != null)
                 specification.PageNumber -= 1;
 
-            return View(this.itemService.GetAllItems(specification));
+            return View(new ItemBrowserViewModel(this.itemService.GetAllItems(specification)));
         }
 
         public IActionResult GetItemById(Guid? id)
