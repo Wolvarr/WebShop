@@ -38,7 +38,7 @@ namespace WebShop.Dal.Enums
         LGA1151,
 
         [Description("LGA2066")]
-        LGA2066
-        
+        LGA2066,
+        AMDTR4
     }
 }

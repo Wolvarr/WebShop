@@ -24,6 +24,8 @@ namespace WebShop.Dal.Models
 
         public string Manufacturer { get; set; }
 
+        public string ShortDescription { get; set; }
+
         public string Description { get; set; }
 
         public string Warranty { get; set; }

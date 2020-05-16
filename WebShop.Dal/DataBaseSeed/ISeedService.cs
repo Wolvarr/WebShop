@@ -12,7 +12,6 @@ namespace WebShop.Dal.DataBaseSeed
         IList<Memory> Memories { get; }
         IList<Motherboard> Motherboards { get; }
         IList<PowerSupply> PowerSupplies { get; }
-
         //TODO
 
         IList<CompletPC> CompletPCs { get; }

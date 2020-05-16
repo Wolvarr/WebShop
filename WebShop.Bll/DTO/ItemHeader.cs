@@ -17,6 +17,7 @@ namespace WebShop.Bll.DTO
             this.DiscountedPrice = item.DiscountedPrice;
             this.AverageRating = item.Ratings.Any() ? Convert.ToInt32(item.Ratings.Average(x => x.Value)) : 0;
             this.Manufacturer = item.Manufacturer;
+            this.ShortDescription = item.ShortDescription;
             this.Description = item.Description;
             this.GamingFlag = item.GamingFlag;
             this.IsUserd = item.IsUsed;
@@ -44,6 +45,8 @@ namespace WebShop.Bll.DTO
         public string Manufacturer { get; set; }
 
         public string Description { get; set; }
+
+        public string ShortDescription { get; set; }
 
         public bool GamingFlag { get; set; }
 

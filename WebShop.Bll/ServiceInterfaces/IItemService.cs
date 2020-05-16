@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using WebShop.Bll.DTO;
 using WebShop.Bll.Specifications;
+using WebShop.Dal.Models;
 
 namespace WebShop.Bll.ServiceInterfaces
 {
@@ -14,5 +15,7 @@ namespace WebShop.Bll.ServiceInterfaces
         List<ItemHeader> GetAllDiscountedItems();
 
         List<ItemHeader> GetAllHighLightedItems();
+
+        void AddItemToCart(Guid userId, Guid itemId, int quantity);
     }
 }

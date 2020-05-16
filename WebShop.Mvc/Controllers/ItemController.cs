@@ -1,7 +1,9 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
+using WebShop.Dal.Models;
 using WebShop.Models;
 
 namespace WebShop.Mvc.Controllers
@@ -9,10 +11,12 @@ namespace WebShop.Mvc.Controllers
     public class ItemController : Controller
     {
         private readonly IItemService itemService;
+        private readonly UserManager<User> userManager;
 
-        public ItemController(IItemService itemService)
+        public ItemController(IItemService itemService, UserManager<User> userManager)
         {
             this.itemService = itemService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index(ItemSpecification specification)
@@ -31,9 +35,9 @@ namespace WebShop.Mvc.Controllers
             return View("ItemFullView", this.itemService.GetItemById(id.Value));
         }
 
-        public ActionResult AddToCart(Guid id, [Bind("Quantity")] int quantity = 1)
+        public IActionResult AddItemToCart(Guid userId, Guid id, int quantity = 1)
         {
-            //todo
+            this.itemService.AddItemToCart(userId, id, quantity);
             var url = this.Request.Headers["Referer"].ToString();
             return Redirect(url);
         }

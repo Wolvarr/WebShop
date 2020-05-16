@@ -3,14 +3,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Xml;
 using WebShop.Bll.DTO;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
 using WebShop.Dal.Context;
 using WebShop.Dal.Models;
+using WebShop.Dal.Models.Users;
 
 namespace WebShop.Bll.Services
 {
+    public static class ListShuffleHelper
+    {
+        private static Random rng = new Random();
+
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+    }
+
     public class ItemService : IItemService
     {
         private readonly WebShopDbContext context;
@@ -19,6 +39,8 @@ namespace WebShop.Bll.Services
         {
             this.context = dbContext;
         }
+
+
 
         public static Expression<Func<Item, ItemHeader>> ItemHeaderSelector { get; } = x => new ItemHeader(x);
 
@@ -41,7 +63,7 @@ namespace WebShop.Bll.Services
             {
                 query = query.Where(x => x.Name.Contains(specification.ComplexFilter) || 
                                  x.Manufacturer.Contains(specification.ComplexFilter) || 
-                                 x.Description.Contains(specification.ComplexFilter));
+                                 x.ShortDescription.Contains(specification.ComplexFilter));
             }
 
             if (!string.IsNullOrWhiteSpace(specification.Name))
@@ -165,8 +187,9 @@ namespace WebShop.Bll.Services
 
         public List<ItemHeader> GetAllDiscountedItems()
         {
-            var items = this.context.Items.Include(x => x.Ratings).Where(x => x.DiscountedPrice! != null && x.DiscountedPrice <= (x.OriginalPrice * 0.7)).ToList();
-            if(items.Count() >= 5)
+            var items = this.context.Items.Include(x => x.Ratings).Where(x => x.DiscountedPrice! != null && x.DiscountedPrice <= (x.OriginalPrice * 0.75)).ToList();
+            items.Shuffle();
+            if (items.Count() >= 5)
             {
                 items = items.Take(5).ToList();
             }
@@ -186,6 +209,7 @@ namespace WebShop.Bll.Services
             var items = this.context.Items.Include(x => x.Ratings).Where(x => x.HighlightedItem).ToList();
             if (items.Count() >= 3)
             {
+                items.Shuffle();
                 items = items.Take(3).ToList();
             }
 
@@ -197,6 +221,27 @@ namespace WebShop.Bll.Services
 
 
             return itemHeaders;
+        }
+
+        public void AddItemToCart(Guid userId, Guid itemId, int quantity)
+        {
+            if(quantity < 1)
+            {
+                throw new ArgumentException("Provide a vlid quantity for adding item to cart");
+            }
+            var User = this.context.Users.SingleOrDefault(u => u.Id == userId);
+            var Item = this.context.Items.SingleOrDefault(u => u.Id == itemId);
+
+            var alreadyInCartItem = this.context.UserCartItems.SingleOrDefault(x => x.ItemId == itemId && x.UserId == userId);
+            if (alreadyInCartItem != default)
+            {
+                alreadyInCartItem.Quantity += quantity;
+            }
+            else
+            {
+                this.context.UserCartItems.Add(new UserCartItem(User, Item, quantity));
+            }
+            this.context.SaveChanges();
         }
 
     }

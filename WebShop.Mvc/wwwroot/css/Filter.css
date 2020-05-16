@@ -80,3 +80,13 @@ hr.horizontal-line {
     ::-webkit-scrollbar-thumb:hover {
         background: #a41173;
     }
+
+
+input[type=submit] {
+    margin-left: 45px;
+    padding: 5px 15px;
+    background: #ccc;
+    border: 2px solid;
+    border-color: #850c5d;
+    border-radius: 5px;
+}

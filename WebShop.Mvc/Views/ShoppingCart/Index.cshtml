@@ -1,0 +1,46 @@
+﻿@model WebShop.Models.ShoppingCartViewModel
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
+@{
+    ViewData["Title"] = "Index";
+}
+@inject UserManager<User> UserManager
+<h1>Kosár</h1>
+
+@foreach (var item in Model.ItemsInCart)
+{
+    <div class="card cart-card-body">
+        <div class="row">
+            <div class="col-3" style="border-right: 1px solid black; padding: 10px">
+                <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                     alt="@item.Name" title="@item.Name" />
+            </div>
+            <div class="col-9">
+                <h4 class="card-header">
+                    <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                </h4>
+                <div class="price-tag">@item.Price Ft/db</div>
+                <div class="quantity-picker">
+                    Mennyiség:
+                    <input class="cart-quantity-input " type="number" id="cart_quantity" name="quantity" value="@item.Quantity" min="1" max="99">
+                </div>
+                @{ var currentUser = await UserManager.GetUserAsync(User);
+                    <div class="remove-from-cart-button">
+                        <a asp-controller="ShoppingCart" asp-action="RemoveItemFromCart" asp-route-userId="@currentUser.Id" asp-route-itemId="@item.Id" class="remove-from-chart-button">Eltávolítás</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.ItemsInCart.Count < 0)
+{
+    <div class="price-sum-container">
+        Végösszeg: @Model.TotalPrice Ft
+    </div>
+}
+else
+{
+    <h2>A kosarad jelenleg üres</h2>
+}

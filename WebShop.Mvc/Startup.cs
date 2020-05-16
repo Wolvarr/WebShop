@@ -42,13 +42,14 @@ namespace WebShop
 
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddMvc();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager, WebShopDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +80,9 @@ namespace WebShop
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            UserSeeder.SeedUsers(userManager, context);
+
         }
     }
 }

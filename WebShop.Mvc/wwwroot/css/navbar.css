@@ -4,23 +4,14 @@
     margin-left: 5px;
 }
 
-@media screen and (min-width: 551px) {
-    .site-logo {
-        margin-left: 100px;
-        height: 60px;
-        float: right;
-    }
+.site-logo {
+    position: absolute;
+    left: 5rem;
+    top: 1px;
+    height: 60px;
 }
 
-@media screen and (max-width: 550px) {
-    .site-logo {
-        position: absolute;
-        height: 60px;
-        top: 1px;
-        left:20%;
-        
-    }
-}
+
     /*SEARCH BAR CONTAINER
 -----------------------------------------*/
 

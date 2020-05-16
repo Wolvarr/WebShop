@@ -5,6 +5,7 @@ using System;
 using WebShop.Dal.BuilderConfiguration;
 using WebShop.Dal.DataBaseSeed;
 using WebShop.Dal.Models;
+using WebShop.Dal.Models.Users;
 
 namespace WebShop.Dal.Context
 {
@@ -27,6 +28,10 @@ namespace WebShop.Dal.Context
         public DbSet<PC_Drive> PC_Drives { get; set; }
         public DbSet<PC_Memory> PC_Memories { get; set; }
 
+        public DbSet<UserCartItem> UserCartItems { get; set; }
+        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -40,9 +45,9 @@ namespace WebShop.Dal.Context
             modelBuilder.Entity<Motherboard>().HasBaseType<Hardware>();
             modelBuilder.Entity<PowerSupply>().HasBaseType<Hardware>();
 
-            // Egy user 1x értékelhet 1 terméket.
-            modelBuilder.Entity<Rating>().HasAlternateKey(
-                r => new { r.ItemId, r.UserId });
+            //// Egy user 1x értékelhet 1 terméket.
+            //modelBuilder.Entity<Rating>().HasAlternateKey(
+            //    r => new { r.ItemId, r.UserId });
 
             modelBuilder.Entity<Order>(e =>
             {
@@ -65,6 +70,7 @@ namespace WebShop.Dal.Context
             modelBuilder.ApplyConfiguration(new MotherboardConfigurator(seedService));
             modelBuilder.ApplyConfiguration(new PSUConfigurator(seedService));
             modelBuilder.ApplyConfiguration(new HardDriveConfiguration(seedService));
+
             //TODO seed miatt minden itemtypra
         }
     }

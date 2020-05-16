@@ -1,67 +1,102 @@
 ﻿@model WebShop.Bll.DTO.ItemFullViewDTO
-
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
 @{
     ViewData["Title"] = Model.Name;
 }
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
-    <div class=" item-full-view">
-        <div class="card card-body">
-            <div class="row">
-                <div class="col-5" style="border-right: 1px solid black; padding: 10px">
-                    <img src="~/images/items/@(Model.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
-                         alt="@Model.Name" title="@Model.Name" />
-                </div>
-                <div class="col-7">
-                    <p class="text-info">
-                        <h2 class="item-fullview-name">@Model.Name</h2>
-                        <h4 class="lead text-info">@Model.Manufacturer</h4>
-                        <div class="rating">
-                            @for (int i = 0; i < @Model.AverageRating; i++)
-                            {
-                                <span class="fa fa-star checked"></span>
-                            }
-                            @for (int i = @Model.AverageRating; i < 5; i++)
-                            {
-                                <span class="fa fa-star"></span>
-                            }
-                        </div>
-                    </p>
-                    <hr />
-                    <div style="height : 100px">
-                        <p class="small">@Model.Description</p>
-                    </div>
-                    <form id="addtocart-form" method="post" asp-action="AddToCart" class="cart-adding" >
-                        @if (Model.DiscountedPrice.HasValue)
+<div class=" item-full-view">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-5" style="border-right: 1px solid black; padding: 10px">
+                <img src="~/images/items/@(Model.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                     alt="@Model.Name" title="@Model.Name" />
+            </div>
+            <div class="col-7">
+                <p class="text-info">
+                    <h2 class="item-fullview-name">@Model.Name</h2>
+                    <h4 class="lead text-info">@Model.Manufacturer</h4>
+                    <div class="rating">
+                        @for (int i = 0; i < @Model.AverageRating; i++)
                         {
-                            <span class="text-original-price">@Model.OriginalPrice.ToString("N0") Ft</span>
-                            <span class="text-discounted-price">@Model.DiscountedPrice.Value.ToString("N0") Ft</span>
+                            <span class="fa fa-star checked"></span>
+                        }
+                        @for (int i = @Model.AverageRating; i < 5; i++)
+                        {
+                            <span class="fa fa-star"></span>
+                        }
+                    </div>
+                </p>
+                <hr />
+                <div style="height : 100px">
+                    <p class="small">@Model.Description</p>
+                </div>
+                @{ var currentUser = await UserManager.GetUserAsync(User);
+                    <form class="add-to-cart-form " id="addtocart-form" method="post" asp-action="AddItemToCart" asp-route-userId="@(currentUser.Id)">
+                        @if (Model.Available != 0)
+                        {
+                            @if (Model.DiscountedPrice.HasValue)
+                            {
+                                <span class="text-original-price">@Model.OriginalPrice.ToString("N0") Ft</span>
+                                <span class="text-discounted-price">@Model.DiscountedPrice.Value.ToString("N0") Ft</span>
+                            }
+                            else
+                            {
+                                <text>@Model.OriginalPrice.ToString("N0") Ft</text>
+
+                            }
+                            <input class="input-field-for-quantity" type="number" id="cart_quantity" name="quantity" value="1" min="1" max="99">
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <button class="cart-button" value="@Model.Id" name="id">Kosárba</button>
+
+                            }
+                            else
+                            {
+                                <a asp-area="Identity" asp-page="/Account/Login">
+                                    <div class="not-logged-in-cart-button">Kosárba</div>
+                                </a>
+                            }
                         }
                         else
                         {
-                            <text>@Model.OriginalPrice.ToString("N0") Ft</text>
+                            <span style="font-size:16px">
+                                A termék jelenleg nem elérhető. Az alábbi gombbal feliratkozhat emailes értesítésre:
+                            </span>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-controller="User" asp-action="SubscriebeToNotification" asp-route-id="@Model.Id" class="full-view-subscriebe-button">Feliratkozás</a>
+                            }
+                            else
+                            {
+                                <a asp-area="Identity" asp-page="/Account/Login">
+                                    <div class="full-view-subscriebe-button">Feliratkozás</div>
+                                </a>
+                            }
                         }
-                        
-                        <input class="input-field-for-quantity" type="number" id="cart_quantity" name="quantity" value="1" min="1" max="99" >
-                        <div></div>
-                        <button class="cart-button" value="@Model.Id" name="id" >Kosárba</button>
                     </form>
-                </div>
+                }
             </div>
         </div>
-        <p style="font-size : 30px; text-align: center"> Tulajdonságok:</p>
-        <div class="specification-container">
-            @foreach (var prop in Model.SpecificProperties.GetType().GetProperties())
-            {
-                if (prop.GetValue(Model.SpecificProperties, null) != null)
-                {
-                    <div class="specification-item"> <b>@(Model.SpecificProperties.GetDisplayName(prop.Name)) : </b> @(prop.GetValue(Model.SpecificProperties, null))</div>
-                }
-            }
-        </div>
-
-        <p style="font-size : 30px; margin:30px 0 20px 0"> Hasonló termékek:</p>
-
-        <vc:item-list items="Model.SimilarItems"></vc:item-list>
     </div>
+    <p style="font-size : 30px; text-align: center"> Tulajdonságok:</p>
+    <div class="specification-container">
+        @foreach (var prop in Model.SpecificProperties.GetType().GetProperties())
+        {
+            if (prop.GetValue(Model.SpecificProperties, null) != null)
+            {
+                <div class="specification-item"> <b>@(Model.SpecificProperties.GetDisplayName(prop.Name)) : </b> @(prop.GetValue(Model.SpecificProperties, null))</div>
+            }
+        }
+    </div>
+
+    <p style="font-size : 30px; margin:30px 0 20px 0"> Hasonló termékek:</p>
+
+    <vc:item-list items="Model.SimilarItems"></vc:item-list>
+</div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

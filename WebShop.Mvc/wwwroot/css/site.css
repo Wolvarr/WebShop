@@ -2,7 +2,7 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 body {
-    background-color: #cfd1fa;
+    background-image: linear-gradient(to right, #cfd1fa, #815290);
 }
 
 
@@ -30,24 +30,26 @@ a {
 .cart-button {
     position: relative;
     color: white;
-    background-color: #f44336;
-    border-color: crimson;
+    background-color: #850c5d;
+    border-color: black;
     border-radius: 8px;
     padding: 8px 8px;
     float: right;
 }
 
-@media screen and (max-width: 600px) {
-    .column {
-        width: 100%;
-        display: block;
-        margin-bottom: 20px;
-    }
 
-    .card {
-        width: auto !important;
-    }
+
+.full-view-subscriebe-button {
+    position: relative;
+    color: white;
+    background-color: #850c5d;
+    margin-top: 5px;
+    border-color: black;
+    border-radius: 8px;
+    padding: 8px 8px;
+    top: 10px;
 }
+
 
 
 .column > div.card {
@@ -122,6 +124,8 @@ a {
     padding: 0px;
     height: 350px;
     margin-bottom: 30px;
+    border-color: #850c5d;
+    border-width: 2px;
 }
 
 
@@ -137,33 +141,6 @@ a {
     grid-row-gap: 15px;
 }
 
-@media screen and (max-width: 600px) {
-    .specification-container {
-        display: grid;
-        grid-template-columns: auto;
-    }
-
-    .item-fullview-name {
-        color: maroon;
-        font-size: 16px;
-    }
-
-    .text-info {
-        font-size: 12px !important;
-    }
-}
-
-@media screen and (min-width: 601px) {
-    .specification-container {
-        display: grid;
-        grid-template-columns: auto auto;
-    }
-
-    .item-fullview-name {
-        color: maroon;
-        font-size: 30px;
-    }
-}
 
 .specification-container > div.specification-item {
     text-align: left;
@@ -177,17 +154,35 @@ a {
     width: 38px;
     margin-left: 30px;
     border-radius: 4px;
-    border: ridge;
+    border-color: black;
 }
 
-.cart-adding > button.cart-button {
+ button.cart-button {
     position: absolute;
-    margin-left: 10px;
+    margin-left: 8px;
+    background-color: #850c5d;
+    border-color: black;
+    height: 40px;
 }
 
 
 
+.add-to-cart-form {
+    position: absolute;
+    bottom: 15px;
+}
 
+.not-logged-in-cart-button {
+    display: inline-block;
+    position: absolute;
+    margin-left: 8px;
+    background-color: #850c5d;
+    border-color: black;
+    border-radius: 8px;
+    padding: 8px 8px;
+    height: 40px;
+    float: right;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

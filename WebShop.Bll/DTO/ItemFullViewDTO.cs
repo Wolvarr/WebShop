@@ -1,4 +1,5 @@
 ﻿using Helpers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel;
 using WebShop.Bll.Extensions;
@@ -14,7 +15,6 @@ namespace WebShop.Bll.DTO
             SpecificProperties = new SpecificProperties(item);
             SimilarItems = new PagedResult<ItemHeader>();
         }
-
 
         public SpecificProperties SpecificProperties { get; set; }
 

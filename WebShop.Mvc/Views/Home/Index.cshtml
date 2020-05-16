@@ -1,8 +1,7 @@
 ﻿@model WebShop.Models.HomePageViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "QuicShop Webáruház";
 }
-
 
 <div class="main-page-bar">
     <button class="button">Újdonságok</button>
@@ -41,12 +40,12 @@
 <div class="side-highlited-container">
     @foreach (var item in Model.HighlightedItems)
     {
-    <div class="right-bar-pic-container">
-        <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">
-            <img class="right-bar-ad-pic" src="~/images/items/@item.PicturePath" style="width:100%">
-        </a>
-        <div class="image-text-bottom">@(item.DiscountedPrice != null ? @item.DiscountedPrice : @item.OriginalPrice)Ft!</div>
-    </div>
+        <div class="right-bar-pic-container">
+            <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">
+                <img class="right-bar-ad-pic" src="~/images/items/@item.PicturePath" style="width:100%">
+            </a>
+            <div class="image-text-bottom">@(item.DiscountedPrice != null ? @item.DiscountedPrice : @item.OriginalPrice)Ft!</div>
+        </div>
 
 
     }

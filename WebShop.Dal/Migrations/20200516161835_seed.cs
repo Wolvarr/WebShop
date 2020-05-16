@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebShop.Dal.Migrations
 {
-    public partial class SeedDone : Migration
+    public partial class seed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -184,24 +184,69 @@ namespace WebShop.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserCartItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    ItemId = table.Column<Guid>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserCartItems_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSubscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
+                    ItemId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSubscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserSubscriptions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Items",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    Category = table.Column<int>(nullable: false),
                     Available = table.Column<int>(nullable: false),
                     PicturePath = table.Column<string>(nullable: true),
-                    ExpectedAvailalbleDate = table.Column<DateTime>(nullable: true),
                     OriginalPrice = table.Column<int>(nullable: false),
                     DiscountedPrice = table.Column<int>(nullable: true),
                     Manufacturer = table.Column<string>(nullable: true),
+                    ShortDescription = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Warranty = table.Column<string>(nullable: true),
+                    GamingFlag = table.Column<bool>(nullable: false),
+                    IsUsed = table.Column<bool>(nullable: false),
+                    HasRGB = table.Column<bool>(nullable: false),
+                    DateSinceInStore = table.Column<DateTime>(nullable: false),
+                    HighlightedItem = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     OrderId = table.Column<Guid>(nullable: true),
                     BuiltInFanNumber = table.Column<int>(nullable: true),
                     SupportedMotherboard = table.Column<int>(nullable: true),
-                    Heigth = table.Column<int>(nullable: true),
+                    Height = table.Column<int>(nullable: true),
                     Width = table.Column<int>(nullable: true),
                     Depth = table.Column<int>(nullable: true),
                     HDDNumber = table.Column<int>(nullable: true),
@@ -338,7 +383,6 @@ namespace WebShop.Dal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ratings", x => x.Id);
-                    table.UniqueConstraint("AK_Ratings_ItemId_UserId", x => new { x.ItemId, x.UserId });
                     table.ForeignKey(
                         name: "FK_Ratings_Items_ItemId",
                         column: x => x.ItemId,
@@ -393,67 +437,80 @@ namespace WebShop.Dal.Migrations
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BuiltInFanNumber", "Depth", "HDDNumber", "Heigth", "SupportedMotherboard", "Width" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BuiltInFanNumber", "Depth", "HDDNumber", "Height", "SupportedMotherboard", "Width" },
+                values: new object[] { new Guid("21000000-0000-0000-0000-000000000000"), 10, 2, new DateTime(2020, 3, 27, 18, 18, 34, 829, DateTimeKind.Local).AddTicks(2675), "E-ATX formátumú Torony kialakítású számtógépház beépített 2 db 140 mm-es ventilátorral. Letisztul formabontó design, Edzett üveg oldalpanelek, TT LCS tanúsítvány. ", null, "Case", false, false, false, false, "Thermaltake", "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete", null, 59000, "21000000-0000-0000-0000-000000000000.jpg", "Very nice case", "3 years", 3, 503, 4, 613, 0, 468 });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "Chipset", "MemorySocketNumber", "Motherboard_Socket", "SupportedMemorySpeed", "SupportedMemoryType", "Type" },
                 values: new object[,]
                 {
-                    { new Guid("04092a85-820c-4d74-bb16-d8211d9a0486"), 10, "Very nice case", null, "Case", null, "Thermaltake", "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete", null, 59000, "", "3 years", 3, 503, 4, 613, 0, 468 },
-                    { new Guid("f4099481-9168-45cf-ad0d-8a1ff5eb125d"), 10, "Very white and big case", null, "Case", null, "DeepCool", "DeepCool EARLKASE RGB WH fehér számítógép ház", null, 59000, "", "3 years", 3, 500, 4, 511, 0, 204 }
+                    { new Guid("12000000-0000-0000-0000-000000000000"), 20, 5, new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(2189), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", null, "Motherboard", false, false, false, false, "Gigabyte", "Gigabyte GA-B365-D3H alaplap", null, 35000, "12000000-0000-0000-0000-000000000000.jpg", "Basic motherboard. No overcloccing here", "2 years", 0, 0, 0, "B365", 0, 10, "2133, 2400, 2666", 3, 2 },
+                    { new Guid("11000000-0000-0000-0000-000000000000"), 20, 5, new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(2118), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 48000, "Motherboard", false, false, false, false, "ASUS", "ASUS PRIME Z390-A alaplap", null, 69000, "11000000-0000-0000-0000-000000000000.jpg", "Great motherboard. Gets the job done", "20 years", 0, 0, 0, "Z390", 4, 10, "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600", 3, 0 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "CoreNumber", "ProcessorFamily", "Socket", "Technology", "ThreadNumber" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "Capacity", "Kit", "MemoryType1", "Timing" },
                 values: new object[,]
                 {
-                    { new Guid("f90a3c5a-9d32-4c9b-bc0b-003fc6c0c246"), 10, "So basic processor", null, "Cpu", null, "AMD", "AMD Ryzen 3 2200G", null, 31500, "", "5 years", 3400, 65, 0, 4, "AMD Ryzen 3", 3, 14, 4 },
-                    { new Guid("b6ffb02a-3623-43fa-bed6-2886eb6f26cb"), 10, "Very good gaming processor", null, "Cpu", null, "Intel", "Intel Core i5-9600K", null, 82000, "", "3 years", 3700, 65, 0, 6, "Intel core 5", 10, 14, 6 }
+                    { new Guid("10000000-0000-0000-0000-000000000001"), 20, 4, new DateTime(2020, 5, 11, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(9820), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", null, "Memory", false, false, true, false, "Kingston", "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória", null, 41000, "10000000-0000-0000-0000-000000000001.jpg", "High end memory with inbuilt RGB for so many fps!!!", "5 years", 3200, 0, 0, 8, 2, 3, 16 },
+                    { new Guid("90000000-0000-0000-0000-000000000000"), 20, 4, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(9753), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 34000, "Memory", false, false, false, false, "Kingston", "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória", null, 38000, "90000000-0000-0000-0000-000000000000.jpg", "High end memory in amazing white color", "5 years", 3200, 0, 0, 8, 2, 3, 16 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "BandWidth", "BuiltInMemory", "CoolerType", "MemoryClock", "MemoryType", "PowerSupplyConnection" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "ReadSpeed", "Size", "HardDrive_Socket", "WriteSpeed" },
                 values: new object[,]
                 {
-                    { new Guid("be11e82a-d759-4f14-9a3d-3dfc1980ec37"), 3, "High end gpu in amazing white color", null, "GraphicsCard", null, "Gigabyte", "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya", null, 216000, "", "5 years", 1770, 215, 0, 256, 8192, "Windforce 3x", 14000, 7, "6 + 8" },
-                    { new Guid("6d1f6d66-ca74-47d0-a41e-7b06d13ef4b1"), 15, "Low end basic graphics card for work", null, "GraphicsCard", null, "MSI", "MSI Radeon RX 5500 XT MECH 8G OC videokártya", null, 85500, "", "3 years", 1845, 130, 0, 128, 8192, "Active", 14000, 7, "8" }
+                    { new Guid("80000000-0000-0000-0000-000000000000"), 20, 3, new DateTime(2020, 5, 13, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8125), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 65000, "HardDrive", false, false, false, false, "Seagate", "Seagate SkyHawk Surveillance 10TB 7200rpm 256MB SATA3 3,5\" HDD", null, 108000, "80000000-0000-0000-0000-000000000000.jpg", "Biggest HDD you've ever seen", "5 years", 0, 0, 0, 50, 10000, 0, 35 },
+                    { new Guid("70000000-0000-0000-0000-000000000000"), 0, 3, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8117), "A Kingston A400 egy 2,5\" -os SSD meghajtó, melynek kapacitása 240 GB és PC vagy notebook felhasználást képes teljesmértékben egy egy erőteljes géppé változtatni. A készülék frissítése még sosem volt egyszerűbb. Összehasonlítva a mechanikus merevlemezekkel azonnal észrevehető a teljesítmény növekedés. Már az indítás során észlelhetjük, hogy az operációs rendszer betöltése sokkal gyorsabb. Ésegyéb műveletek, mint az alkalmazások indítására, másolás vagy mozgó kép indítására sem kell már olyan sokáig várni, mint korábban", null, "HardDrive", false, false, true, false, "Kingston", "Kingston 240GB SA400S37/240G SSD meghajtó", null, 14000, "70000000-0000-0000-0000-000000000000.jpg", "Resonably fast SSD ", "5 years", 0, 0, 0, 500, 240, 1, 350 },
+                    { new Guid("60000000-0000-0000-0000-000000000000"), 20, 3, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8051), null, null, "HardDrive", false, false, false, false, "Samsung", "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó", null, 28600, "60000000-0000-0000-0000-000000000000.jpg", "Very fast SSD ", "5 years", 0, 0, 0, 3500, 250, 2, 2300 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "ReadSpeed", "Size", "HardDrive_Socket", "WriteSpeed" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "ATXConnector", "Efficiency", "IsModular", "MolexConnector", "SixPinConnector", "SixPlusTwoConnector" },
+                values: new object[] { new Guid("13000000-0000-0000-0000-000000000000"), 20, 6, new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(4562), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", null, "PowerSupply", false, false, false, false, "Chieftec", "Chieftec ECO 400W GPE-400S tápegység", null, 13700, "13000000-0000-0000-0000-000000000000.jpg", "Cheap ass psu, dont buy this", "3 years", 0, 0, 0, 1, 85, false, 2, 0, 0 });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "BandWidth", "BuiltInMemory", "CoolerType", "MemoryClock", "MemoryType", "PowerSupplyConnection" },
                 values: new object[,]
                 {
-                    { new Guid("0ce851c3-827a-4372-8ae7-d59f817a3023"), 20, "Very fast SSD ", null, "HardDrive", null, "Samsung", "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó", null, 28600, "", "5 years", 0, 0, 0, 3500, 250, 2, 2300 },
-                    { new Guid("f3212a53-9952-40bb-a62f-2487ca73c321"), 50, "Resonably fast SSD ", null, "HardDrive", null, "Kingston", "Kingston 240GB SA400S37/240G SSD meghajtó", null, 14000, "", "5 years", 0, 0, 0, 500, 240, 1, 350 },
-                    { new Guid("fe80a0c0-c034-4a6b-8b1f-bbd14788323f"), 20, "Biggest HDD you've ever seen", null, "HardDrive", null, "Seagate", "Seagate SkyHawk Surveillance 10TB 7200rpm 256MB SATA3 3,5\" HDD", null, 108000, "", "5 years", 0, 0, 0, 50, 10000, 0, 35 }
+                    { new Guid("55500000-0000-0000-0000-000000000000"), 15, 1, new DateTime(2020, 5, 14, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6375), "Új Turing GPU architektúra és Ray-tracing technológia: tükröződés és fejlettebb effektek valós időben. DirectX 12: fejlettebb vizualitás és optimalizált teljesítmény. Axial-tech fans: különleges és egyedi hűtés, halk és hatékony működés. Super Alloy Power II: elsőosztályú alkatrészekkel szerelve a hosszú élettartamért és a stabil energiaellátásért.MaxContact Technology: a hűtőborda hatékonyabb elhelyezésével nő a hővezetőképesség", 370000, "GraphicsCard", false, false, true, false, "MSI", "Asus RTX2080 Ti 11GB GDDR6 ROG-STRIX-RTX2080TI-O11G-GAMING", null, 548590, "55500000-0000-0000-0000-000000000000.jpg", "Best GPU money can buy", "3 years", 1350, 170, 0, 128, 11264, "Active", 14000, 7, "8 + 8" },
+                    { new Guid("40000000-0000-0000-0000-000000000000"), 3, 1, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6266), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 165000, "GraphicsCard", false, false, true, false, "Gigabyte", "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya", null, 216000, "40000000-0000-0000-0000-000000000000.jpg", "High end gpu in amazing white color", "5 years", 1770, 215, 0, 256, 8192, "Windforce 3x", 14000, 7, "6 + 8" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "Capacity", "Kit", "MemoryType1", "Timing" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "CoreNumber", "ProcessorFamily", "Socket", "Technology", "ThreadNumber" },
                 values: new object[,]
                 {
-                    { new Guid("90734580-ca21-404b-956d-d5c98a6c44c6"), 20, "High end memory in amazing white color", null, "Memory", null, "Kingston", "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória", null, 38000, "", "5 years", 3200, 0, 0, 8, 2, 3, 16 },
-                    { new Guid("ef0f10d9-f90c-4197-a752-c71abdce0b8e"), 20, "High end memory with inbuilt RGB for so many fps!!!", null, "Memory", null, "Kingston", "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória", null, 41000, "", "5 years", 3200, 0, 0, 8, 2, 3, 16 }
+                    { new Guid("33000000-0000-0000-0000-000000000000"), 1, 0, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3756), "Magok száma:24, Család:AMD Ryzen Threadripper, Processzor foglalat:AMD TR4, Órajel (Mhz):3000, VGA típus:Nem, Fogyasztás (W):250, L3 Cache (MB):64, Architektúra (bit):Zen+, Gyártási technológia (nm):12, Hűtőventilátor:Nem, L2 Cache (MB):12, Hűtőborda:Nem", 410000, "Cpu", false, false, false, false, "AMD", "AMD Ryzen Threadripper 2970WX ", null, 443390, "33000000-0000-0000-0000-000000000000.jpg", "Felsőkategóriás processor, munkaállomásba", "3 years", 3000, 250, 0, 24, "AMD threadripper", 12, 12, 24 },
+                    { new Guid("30000000-0000-0000-0000-000000000000"), 10, 0, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3748), "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):2900, VGA típus:Nem, Hűtőventilátor:Igen, Fogyasztás (W):65, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Igen, Gyártási technológia (nm):14, L2 Cache (MB):1,5, Szálak száma:6,", null, "Cpu", false, false, false, false, "Intel", "Intel Core i5-9400f", null, 82000, "30000000-0000-0000-0000-000000000000.jpg", "Középkategóriás processor munkára és játékra egyaránt", "3 years", 3500, 45, 0, 4, "Intel core 5", 10, 14, 4 },
+                    { new Guid("20000000-0000-0000-0000-000000000000"), 10, 0, new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3737), "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):3700, VGA típus:Intel UHD Graphics 630, Hűtőventilátor:Nem, Fogyasztás (W):95, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Nem, Gyártási technológia (nm):14, L2 Cache (MB):2, Szálak száma:6,", 65000, "Cpu", false, false, true, false, "Intel", "Intel Core i5-9600K", null, 82000, "20000000-0000-0000-0000-000000000000.jpg", "Very good gaming processor", "3 years", 3700, 65, 0, 6, "Intel core 5", 10, 14, 6 },
+                    { new Guid("10000000-0000-0000-0000-000000000000"), 10, 0, new DateTime(2020, 3, 27, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3601), "A legjobb többprocesszoros teljesítmény az osztályában, a játékosok számára. Jobb teljesítmény. Hihetetlen technológia. Az intelligens Ryzen processzorok csak még okosabbak lettek. ", null, "Cpu", false, false, false, false, "AMD", "AMD Ryzen 3 2200G", null, 31500, "10000000-0000-0000-0000-000000000000.jpg", "So basic processor", "5 years", 3400, 65, 0, 4, "AMD Ryzen 3", 3, 14, 4 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "Chipset", "MemorySocketNumber", "Motherboard_Socket", "SupportedMemorySpeed", "SupportedMemoryType", "Type" },
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BuiltInFanNumber", "Depth", "HDDNumber", "Height", "SupportedMotherboard", "Width" },
                 values: new object[,]
                 {
-                    { new Guid("0d406cec-4a45-4b25-86b1-7b7969bd8e83"), 20, "Great motherboard. Gets shit done", null, "Motherboard", null, "ASUS", "Asus Prime Z390-A alaplap", null, 66000, "", "20 years", 0, 0, 0, "Z390", 4, 10, "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600, 3733, 3866, 4000, 4133, 4266", 3, 0 },
-                    { new Guid("fb60813f-08cf-42de-afbb-9b7badbb2b5e"), 20, "Basic motherboard. No overcloccing here", null, "Motherboard", null, "Gigabyte", "Gigabyte GA-B365-D3H alaplap", null, 35000, "", "2 years", 0, 0, 0, "B365", 0, 10, "2133, 2400, 2666", 3, 2 }
+                    { new Guid("31000000-0000-0000-0000-000000000000"), 2, 2, new DateTime(2020, 3, 27, 18, 18, 34, 830, DateTimeKind.Local).AddTicks(9822), "A Thermaltake a számítógépházába összeolvasztotta a szépséget és a teljesítményt, a View 32 Tempered Glass RGB Edition középkategóriás számítógépház tervezésébe. Négy prémium minőségű, 4 mm vastag, edzett üvegablakkal (felső, elülső, bal és jobb) készült, a belső rendszer közvetlen megtekintéséhez és a kiváló alvázvédelemhez. Három beépített 120 mm-es Riing LED RGB ventilátor (kettő elöl és egy hátul) biztosítja az RGB megvilágítását és az optimális szellőzést.", 18000, "Case", false, false, true, false, "Thermaltake", "Thermaltake View 32 Tempered Glass RGB Edition", null, 49000, "31000000-0000-0000-0000-000000000000.jpg", "So much RGB => So much FPS", "3 years", 3, 500, 4, 521, 0, 201 },
+                    { new Guid("22000000-0000-0000-0000-000000000000"), 10, 2, new DateTime(2020, 3, 27, 18, 18, 34, 830, DateTimeKind.Local).AddTicks(9733), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque.", null, "Case", false, false, false, false, "DeepCool", "DeepCool EARLKASE RGB WH fehér számítógép ház", null, 59000, "22000000-0000-0000-0000-000000000000.jpg", "White and big case", "3 years", 3, 500, 4, 511, 0, 204 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Items",
-                columns: new[] { "Id", "Available", "Description", "DiscountedPrice", "Discriminator", "ExpectedAvailalbleDate", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "Warranty", "BaseClock", "TDP", "Weight", "ATXConnector", "Efficiency", "IsModular", "MolexConnector", "SixPinConnector", "SixPlusTwoConnector" },
-                values: new object[,]
-                {
-                    { new Guid("e5bf1add-8aba-42c6-96b5-c8bee3d8c02b"), 20, "Cheap ass psu, dont buy this", null, "PowerSupply", null, "Chieftec", "Chieftec ECO 400W GPE-400S tápegység", null, 13700, "", "3 years", 0, 0, 0, 1, 85, false, 2, 0, 0 },
-                    { new Guid("e627406d-b2ef-49c7-94a7-d1353c06f644"), 20, "You should by this not that chinesee shit", null, "PowerSupply", null, "FSP", "FSP 650W Hyper M tápegység", null, 29790, "", "3 years", 0, 0, 0, 1, 85, true, 3, 0, 4 }
-                });
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "BandWidth", "BuiltInMemory", "CoolerType", "MemoryClock", "MemoryType", "PowerSupplyConnection" },
+                values: new object[] { new Guid("50000000-0000-0000-0000-000000000000"), 0, 1, new DateTime(2020, 5, 14, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6364), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 79900, "GraphicsCard", false, false, false, false, "MSI", "MSI Radeon RX 5500 XT MECH 8G OC videokártya", null, 85500, "50000000-0000-0000-0000-000000000000.jpg", "Low end basic graphics card for work", "3 years", 1845, 130, 0, 128, 8192, "Active", 14000, 7, "8" });
+
+            migrationBuilder.InsertData(
+                table: "Items",
+                columns: new[] { "Id", "Available", "Category", "DateSinceInStore", "Description", "DiscountedPrice", "Discriminator", "GamingFlag", "HasRGB", "HighlightedItem", "IsUsed", "Manufacturer", "Name", "OrderId", "OriginalPrice", "PicturePath", "ShortDescription", "Warranty", "BaseClock", "TDP", "Weight", "ATXConnector", "Efficiency", "IsModular", "MolexConnector", "SixPinConnector", "SixPlusTwoConnector" },
+                values: new object[] { new Guid("14000000-0000-0000-0000-000000000000"), 0, 6, new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(4653), "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.", 25000, "PowerSupply", false, false, true, false, "FSP", "FSP 650W Hyper M tápegység", null, 29790, "14000000-0000-0000-0000-000000000000.jpg", "You should by this not that chinesee crap", "3 years", 0, 0, 0, 1, 85, true, 3, 0, 4 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -550,8 +607,23 @@ namespace WebShop.Dal.Migrations
                 column: "CompletPCId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Ratings_ItemId",
+                table: "Ratings",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ratings_UserId",
                 table: "Ratings",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserCartItems_UserId",
+                table: "UserCartItems",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSubscriptions_UserId",
+                table: "UserSubscriptions",
                 column: "UserId");
         }
 
@@ -583,6 +655,12 @@ namespace WebShop.Dal.Migrations
 
             migrationBuilder.DropTable(
                 name: "Ratings");
+
+            migrationBuilder.DropTable(
+                name: "UserCartItems");
+
+            migrationBuilder.DropTable(
+                name: "UserSubscriptions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

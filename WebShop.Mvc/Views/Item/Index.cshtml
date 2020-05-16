@@ -1,6 +1,6 @@
 ﻿@model WebShop.Models.ItemBrowserViewModel
 @{
-    ViewData["Title"] = "Items";
+    ViewData["Title"] = "Termékek";
 
     Dictionary<string, string> queryParams = Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
     queryParams.TryAdd("pageNumber", String.Empty);

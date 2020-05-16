@@ -4,7 +4,7 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-
+@{ var currentUser = await UserManager.GetUserAsync(User);
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
@@ -29,10 +29,21 @@
                 <img class="navbar-icon" border="0" alt="PcBuilderLogo" src="~/images/logos/builder.png" />
             </a>
         </li>
-
-        <li class="nav-item">
-            <a asp-controller="ShoppingCart" asp-action="Index" title="Bevásárló kocsi">
-                <img class="navbar-icon" border="0" alt="CartLogo" src="~/images/logos/cart.png" />
-            </a>
-        </li>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a asp-controller="ShoppingCart" asp-action="Index" asp-route-userId="@(currentUser.Id)" title="Bevásárló kocsi">
+                    <img class="navbar-icon" border="0" alt="CartLogo" src="~/images/logos/cart.png" />
+                </a>
+            </li>
+        }
+        else
+        {
+    <li class="nav-item">
+        <a asp-area="Identity" asp-page="/Account/Login" title="Bevásárló kocsi">
+            <img class="navbar-icon" border="0" alt="CartLogo" src="~/images/logos/cart.png" />
+        </a>
+    </li>
+        }
     </ul>
+    }

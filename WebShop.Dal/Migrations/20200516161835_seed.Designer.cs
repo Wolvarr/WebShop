@@ -10,8 +10,8 @@ using WebShop.Dal.Context;
 namespace WebShop.Dal.Migrations
 {
     [DbContext(typeof(WebShopDbContext))]
-    [Migration("20200503112010_flags")]
-    partial class flags
+    [Migration("20200516161835_seed")]
+    partial class seed
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -231,6 +231,9 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateSinceInStore")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -241,13 +244,13 @@ namespace WebShop.Dal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ExpectedAvailalbleDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("GamingFlag")
                         .HasColumnType("bit");
 
                     b.Property<bool>("HasRGB")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HighlightedItem")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsUsed")
@@ -266,6 +269,9 @@ namespace WebShop.Dal.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PicturePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Warranty")
@@ -354,7 +360,7 @@ namespace WebShop.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("ItemId", "UserId");
+                    b.HasIndex("ItemId");
 
                     b.HasIndex("UserId");
 
@@ -427,6 +433,47 @@ namespace WebShop.Dal.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("WebShop.Dal.Models.UserSubscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSubscriptions");
+                });
+
+            modelBuilder.Entity("WebShop.Dal.Models.Users.UserCartItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCartItems");
+                });
+
             modelBuilder.Entity("WebShop.Dal.Models.Case", b =>
                 {
                     b.HasBaseType("WebShop.Dal.Models.Item");
@@ -440,7 +487,7 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("HDDNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("Heigth")
+                    b.Property<int>("Height")
                         .HasColumnType("int");
 
                     b.Property<int>("SupportedMotherboard")
@@ -454,45 +501,76 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8569cf4d-68b3-4a48-bca7-06102bb68b9d"),
+                            Id = new Guid("21000000-0000-0000-0000-000000000000"),
                             Available = 10,
-                            Category = 0,
-                            Description = "Very nice case",
+                            Category = 2,
+                            DateSinceInStore = new DateTime(2020, 3, 27, 18, 18, 34, 829, DateTimeKind.Local).AddTicks(2675),
+                            Description = "E-ATX formátumú Torony kialakítású számtógépház beépített 2 db 140 mm-es ventilátorral. Letisztul formabontó design, Edzett üveg oldalpanelek, TT LCS tanúsítvány. ",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Thermaltake",
                             Name = "Thermaltake CA-1P6-00F1WN-00 Level 20 HT számítógépház fekete",
                             OriginalPrice = 59000,
-                            PicturePath = "",
+                            PicturePath = "21000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Very nice case",
                             Warranty = "3 years",
                             BuiltInFanNumber = 3,
                             Depth = 503,
                             HDDNumber = 4,
-                            Heigth = 613,
+                            Height = 613,
                             SupportedMotherboard = 0,
                             Width = 468
                         },
                         new
                         {
-                            Id = new Guid("b79bacb5-70db-4c08-9d05-7155e7b35005"),
+                            Id = new Guid("22000000-0000-0000-0000-000000000000"),
                             Available = 10,
-                            Category = 0,
-                            Description = "Very white and big case",
+                            Category = 2,
+                            DateSinceInStore = new DateTime(2020, 3, 27, 18, 18, 34, 830, DateTimeKind.Local).AddTicks(9733),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque.",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "DeepCool",
                             Name = "DeepCool EARLKASE RGB WH fehér számítógép ház",
                             OriginalPrice = 59000,
-                            PicturePath = "",
+                            PicturePath = "22000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "White and big case",
                             Warranty = "3 years",
                             BuiltInFanNumber = 3,
                             Depth = 500,
                             HDDNumber = 4,
-                            Heigth = 511,
+                            Height = 511,
                             SupportedMotherboard = 0,
                             Width = 204
+                        },
+                        new
+                        {
+                            Id = new Guid("31000000-0000-0000-0000-000000000000"),
+                            Available = 2,
+                            Category = 2,
+                            DateSinceInStore = new DateTime(2020, 3, 27, 18, 18, 34, 830, DateTimeKind.Local).AddTicks(9822),
+                            Description = "A Thermaltake a számítógépházába összeolvasztotta a szépséget és a teljesítményt, a View 32 Tempered Glass RGB Edition középkategóriás számítógépház tervezésébe. Négy prémium minőségű, 4 mm vastag, edzett üvegablakkal (felső, elülső, bal és jobb) készült, a belső rendszer közvetlen megtekintéséhez és a kiváló alvázvédelemhez. Három beépített 120 mm-es Riing LED RGB ventilátor (kettő elöl és egy hátul) biztosítja az RGB megvilágítását és az optimális szellőzést.",
+                            DiscountedPrice = 18000,
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = true,
+                            IsUsed = false,
+                            Manufacturer = "Thermaltake",
+                            Name = "Thermaltake View 32 Tempered Glass RGB Edition",
+                            OriginalPrice = 49000,
+                            PicturePath = "31000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "So much RGB => So much FPS",
+                            Warranty = "3 years",
+                            BuiltInFanNumber = 3,
+                            Depth = 500,
+                            HDDNumber = 4,
+                            Height = 521,
+                            SupportedMotherboard = 0,
+                            Width = 201
                         });
                 });
 
@@ -536,17 +614,20 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6a982928-1e11-4cf5-924d-f776e0c8cda4"),
+                            Id = new Guid("10000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 0,
-                            Description = "So basic processor",
+                            DateSinceInStore = new DateTime(2020, 3, 27, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3601),
+                            Description = "A legjobb többprocesszoros teljesítmény az osztályában, a játékosok számára. Jobb teljesítmény. Hihetetlen technológia. Az intelligens Ryzen processzorok csak még okosabbak lettek. ",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "AMD",
                             Name = "AMD Ryzen 3 2200G",
                             OriginalPrice = 31500,
-                            PicturePath = "",
+                            PicturePath = "10000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "So basic processor",
                             Warranty = "5 years",
                             BaseClock = 3400,
                             TDP = 65,
@@ -559,17 +640,21 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b1ee4fad-5615-4bd9-af03-f8343d3bcd29"),
+                            Id = new Guid("20000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 0,
-                            Description = "Very good gaming processor",
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3737),
+                            Description = "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):3700, VGA típus:Intel UHD Graphics 630, Hűtőventilátor:Nem, Fogyasztás (W):95, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Nem, Gyártási technológia (nm):14, L2 Cache (MB):2, Szálak száma:6,",
+                            DiscountedPrice = 65000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = true,
                             IsUsed = false,
                             Manufacturer = "Intel",
                             Name = "Intel Core i5-9600K",
                             OriginalPrice = 82000,
-                            PicturePath = "",
+                            PicturePath = "20000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Very good gaming processor",
                             Warranty = "3 years",
                             BaseClock = 3700,
                             TDP = 65,
@@ -579,6 +664,59 @@ namespace WebShop.Dal.Migrations
                             Socket = 10,
                             Technology = 14,
                             ThreadNumber = 6
+                        },
+                        new
+                        {
+                            Id = new Guid("30000000-0000-0000-0000-000000000000"),
+                            Available = 10,
+                            Category = 0,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3748),
+                            Description = "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):2900, VGA típus:Nem, Hűtőventilátor:Igen, Fogyasztás (W):65, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Igen, Gyártási technológia (nm):14, L2 Cache (MB):1,5, Szálak száma:6,",
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = false,
+                            IsUsed = false,
+                            Manufacturer = "Intel",
+                            Name = "Intel Core i5-9400f",
+                            OriginalPrice = 82000,
+                            PicturePath = "30000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Középkategóriás processor munkára és játékra egyaránt",
+                            Warranty = "3 years",
+                            BaseClock = 3500,
+                            TDP = 45,
+                            Weight = 0,
+                            CoreNumber = 4,
+                            ProcessorFamily = "Intel core 5",
+                            Socket = 10,
+                            Technology = 14,
+                            ThreadNumber = 4
+                        },
+                        new
+                        {
+                            Id = new Guid("33000000-0000-0000-0000-000000000000"),
+                            Available = 1,
+                            Category = 0,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(3756),
+                            Description = "Magok száma:24, Család:AMD Ryzen Threadripper, Processzor foglalat:AMD TR4, Órajel (Mhz):3000, VGA típus:Nem, Fogyasztás (W):250, L3 Cache (MB):64, Architektúra (bit):Zen+, Gyártási technológia (nm):12, Hűtőventilátor:Nem, L2 Cache (MB):12, Hűtőborda:Nem",
+                            DiscountedPrice = 410000,
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = false,
+                            IsUsed = false,
+                            Manufacturer = "AMD",
+                            Name = "AMD Ryzen Threadripper 2970WX ",
+                            OriginalPrice = 443390,
+                            PicturePath = "33000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Felsőkategóriás processor, munkaállomásba",
+                            Warranty = "3 years",
+                            BaseClock = 3000,
+                            TDP = 250,
+                            Weight = 0,
+                            CoreNumber = 24,
+                            ProcessorFamily = "AMD threadripper",
+                            Socket = 12,
+                            Technology = 12,
+                            ThreadNumber = 24
                         });
                 });
 
@@ -609,17 +747,21 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("861a5b7d-71ae-47b5-835e-57450def44cf"),
+                            Id = new Guid("40000000-0000-0000-0000-000000000000"),
                             Available = 3,
-                            Category = 0,
-                            Description = "High end gpu in amazing white color",
+                            Category = 1,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6266),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 165000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = true,
                             IsUsed = false,
                             Manufacturer = "Gigabyte",
                             Name = "Gigabyte RTX2070 Super 8GB GDDR6 GV-N207SGAMINGOC WHITE-8GD videokártya",
                             OriginalPrice = 216000,
-                            PicturePath = "",
+                            PicturePath = "40000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "High end gpu in amazing white color",
                             Warranty = "5 years",
                             BaseClock = 1770,
                             TDP = 215,
@@ -633,17 +775,21 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2107df63-d2af-4e87-be13-47e3471d85bc"),
-                            Available = 15,
-                            Category = 0,
-                            Description = "Low end basic graphics card for work",
+                            Id = new Guid("50000000-0000-0000-0000-000000000000"),
+                            Available = 0,
+                            Category = 1,
+                            DateSinceInStore = new DateTime(2020, 5, 14, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6364),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 79900,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "MSI",
                             Name = "MSI Radeon RX 5500 XT MECH 8G OC videokártya",
                             OriginalPrice = 85500,
-                            PicturePath = "",
+                            PicturePath = "50000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Low end basic graphics card for work",
                             Warranty = "3 years",
                             BaseClock = 1845,
                             TDP = 130,
@@ -654,6 +800,34 @@ namespace WebShop.Dal.Migrations
                             MemoryClock = 14000,
                             MemoryType = 7,
                             PowerSupplyConnection = "8"
+                        },
+                        new
+                        {
+                            Id = new Guid("55500000-0000-0000-0000-000000000000"),
+                            Available = 15,
+                            Category = 1,
+                            DateSinceInStore = new DateTime(2020, 5, 14, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(6375),
+                            Description = "Új Turing GPU architektúra és Ray-tracing technológia: tükröződés és fejlettebb effektek valós időben. DirectX 12: fejlettebb vizualitás és optimalizált teljesítmény. Axial-tech fans: különleges és egyedi hűtés, halk és hatékony működés. Super Alloy Power II: elsőosztályú alkatrészekkel szerelve a hosszú élettartamért és a stabil energiaellátásért.MaxContact Technology: a hűtőborda hatékonyabb elhelyezésével nő a hővezetőképesség",
+                            DiscountedPrice = 370000,
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = true,
+                            IsUsed = false,
+                            Manufacturer = "MSI",
+                            Name = "Asus RTX2080 Ti 11GB GDDR6 ROG-STRIX-RTX2080TI-O11G-GAMING",
+                            OriginalPrice = 548590,
+                            PicturePath = "55500000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Best GPU money can buy",
+                            Warranty = "3 years",
+                            BaseClock = 1350,
+                            TDP = 170,
+                            Weight = 0,
+                            BandWidth = 128,
+                            BuiltInMemory = 11264,
+                            CoolerType = "Active",
+                            MemoryClock = 14000,
+                            MemoryType = 7,
+                            PowerSupplyConnection = "8 + 8"
                         });
                 });
 
@@ -679,17 +853,19 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bb8fd077-9289-4185-9ef5-fab7090c03cd"),
+                            Id = new Guid("60000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "Very fast SSD ",
+                            Category = 3,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8051),
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Samsung",
                             Name = "Samsung 250GB 970 EVO Plus MZ-V7S250BW M.2 PCIe SSD meghajtó",
                             OriginalPrice = 28600,
-                            PicturePath = "",
+                            PicturePath = "60000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Very fast SSD ",
                             Warranty = "5 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -701,17 +877,20 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9be8e5b8-ed88-4fde-9dd4-38e7f0342ab9"),
-                            Available = 50,
-                            Category = 0,
-                            Description = "Resonably fast SSD ",
+                            Id = new Guid("70000000-0000-0000-0000-000000000000"),
+                            Available = 0,
+                            Category = 3,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8117),
+                            Description = "A Kingston A400 egy 2,5\" -os SSD meghajtó, melynek kapacitása 240 GB és PC vagy notebook felhasználást képes teljesmértékben egy egy erőteljes géppé változtatni. A készülék frissítése még sosem volt egyszerűbb. Összehasonlítva a mechanikus merevlemezekkel azonnal észrevehető a teljesítmény növekedés. Már az indítás során észlelhetjük, hogy az operációs rendszer betöltése sokkal gyorsabb. Ésegyéb műveletek, mint az alkalmazások indítására, másolás vagy mozgó kép indítására sem kell már olyan sokáig várni, mint korábban",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = true,
                             IsUsed = false,
                             Manufacturer = "Kingston",
                             Name = "Kingston 240GB SA400S37/240G SSD meghajtó",
                             OriginalPrice = 14000,
-                            PicturePath = "",
+                            PicturePath = "70000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Resonably fast SSD ",
                             Warranty = "5 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -723,17 +902,21 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d063a055-7e0d-4e75-8b6f-43eb5f56deaf"),
+                            Id = new Guid("80000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "Biggest HDD you've ever seen",
+                            Category = 3,
+                            DateSinceInStore = new DateTime(2020, 5, 13, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(8125),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 65000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Seagate",
                             Name = "Seagate SkyHawk Surveillance 10TB 7200rpm 256MB SATA3 3,5\" HDD",
                             OriginalPrice = 108000,
-                            PicturePath = "",
+                            PicturePath = "80000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Biggest HDD you've ever seen",
                             Warranty = "5 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -767,17 +950,21 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f4d1a769-3479-4fd5-b614-1dbc9c3684c5"),
+                            Id = new Guid("90000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "High end memory in amazing white color",
+                            Category = 4,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(9753),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 34000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Kingston",
                             Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator XMP HX432C16PB3K2/16 memória",
                             OriginalPrice = 38000,
-                            PicturePath = "",
+                            PicturePath = "90000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "High end memory in amazing white color",
                             Warranty = "5 years",
                             BaseClock = 3200,
                             TDP = 0,
@@ -789,17 +976,20 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6d5e69b1-3bd5-4fdd-85e3-270e177b9497"),
+                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
                             Available = 20,
-                            Category = 0,
-                            Description = "High end memory with inbuilt RGB for so many fps!!!",
+                            Category = 4,
+                            DateSinceInStore = new DateTime(2020, 5, 11, 18, 18, 34, 831, DateTimeKind.Local).AddTicks(9820),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = true,
                             IsUsed = false,
                             Manufacturer = "Kingston",
                             Name = "Kingston 2x8GB DDR4 3200MHz HyperX Predator RGB HX432C16PB3AK2/16 memória",
                             OriginalPrice = 41000,
-                            PicturePath = "",
+                            PicturePath = "10000000-0000-0000-0000-000000000001.jpg",
+                            ShortDescription = "High end memory with inbuilt RGB for so many fps!!!",
                             Warranty = "5 years",
                             BaseClock = 3200,
                             TDP = 0,
@@ -839,17 +1029,21 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d5491921-19e0-457a-b585-791a637998d8"),
+                            Id = new Guid("11000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "Great motherboard. Gets shit done",
+                            Category = 5,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(2118),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 48000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "ASUS",
-                            Name = "Asus Prime Z390-A alaplap",
-                            OriginalPrice = 66000,
-                            PicturePath = "",
+                            Name = "ASUS PRIME Z390-A alaplap",
+                            OriginalPrice = 69000,
+                            PicturePath = "11000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Great motherboard. Gets the job done",
                             Warranty = "20 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -857,23 +1051,26 @@ namespace WebShop.Dal.Migrations
                             Chipset = "Z390",
                             MemorySocketNumber = 4,
                             Socket = 10,
-                            SupportedMemorySpeed = "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600, 3733, 3866, 4000, 4133, 4266",
+                            SupportedMemorySpeed = "2133, 2400, 2666, 2800, 3000, 3200, 3300, 3333, 3400, 3466, 3600",
                             SupportedMemoryType = 3,
                             Type = 0
                         },
                         new
                         {
-                            Id = new Guid("ed44c3f5-29fa-4d01-adfd-46c607982eda"),
+                            Id = new Guid("12000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "Basic motherboard. No overcloccing here",
+                            Category = 5,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(2189),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Gigabyte",
                             Name = "Gigabyte GA-B365-D3H alaplap",
                             OriginalPrice = 35000,
-                            PicturePath = "",
+                            PicturePath = "12000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Basic motherboard. No overcloccing here",
                             Warranty = "2 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -914,17 +1111,20 @@ namespace WebShop.Dal.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6fecfe63-e382-48ea-902e-b086b8a3e965"),
+                            Id = new Guid("13000000-0000-0000-0000-000000000000"),
                             Available = 20,
-                            Category = 0,
-                            Description = "Cheap ass psu, dont buy this",
+                            Category = 6,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(4562),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = false,
                             IsUsed = false,
                             Manufacturer = "Chieftec",
                             Name = "Chieftec ECO 400W GPE-400S tápegység",
                             OriginalPrice = 13700,
-                            PicturePath = "",
+                            PicturePath = "13000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "Cheap ass psu, dont buy this",
                             Warranty = "3 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -938,17 +1138,21 @@ namespace WebShop.Dal.Migrations
                         },
                         new
                         {
-                            Id = new Guid("32951c3d-656a-4ba2-9052-84457f820b4b"),
-                            Available = 20,
-                            Category = 0,
-                            Description = "You should by this not that chinesee shit",
+                            Id = new Guid("14000000-0000-0000-0000-000000000000"),
+                            Available = 0,
+                            Category = 6,
+                            DateSinceInStore = new DateTime(2020, 4, 16, 18, 18, 34, 832, DateTimeKind.Local).AddTicks(4653),
+                            Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
+                            DiscountedPrice = 25000,
                             GamingFlag = false,
                             HasRGB = false,
+                            HighlightedItem = true,
                             IsUsed = false,
                             Manufacturer = "FSP",
                             Name = "FSP 650W Hyper M tápegység",
                             OriginalPrice = 29790,
-                            PicturePath = "",
+                            PicturePath = "14000000-0000-0000-0000-000000000000.jpg",
+                            ShortDescription = "You should by this not that chinesee crap",
                             Warranty = "3 years",
                             BaseClock = 0,
                             TDP = 0,
@@ -1137,13 +1341,13 @@ namespace WebShop.Dal.Migrations
 
             modelBuilder.Entity("WebShop.Dal.Models.Rating", b =>
                 {
-                    b.HasOne("WebShop.Dal.Models.Item", "Item")
+                    b.HasOne("WebShop.Dal.Models.Item", null)
                         .WithMany("Ratings")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebShop.Dal.Models.User", "User")
+                    b.HasOne("WebShop.Dal.Models.User", null)
                         .WithMany("Ratings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1195,6 +1399,24 @@ namespace WebShop.Dal.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
                         });
+                });
+
+            modelBuilder.Entity("WebShop.Dal.Models.UserSubscription", b =>
+                {
+                    b.HasOne("WebShop.Dal.Models.User", null)
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebShop.Dal.Models.Users.UserCartItem", b =>
+                {
+                    b.HasOne("WebShop.Dal.Models.User", null)
+                        .WithMany("CartItems")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
