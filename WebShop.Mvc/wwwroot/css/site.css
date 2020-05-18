@@ -232,3 +232,49 @@ body {
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
 }
+
+/*USER DATA
+////////////////////////////////////////////////
+*/
+.user-data-container {
+    border: 5px solid black !important;
+    border-radius: 8px !important;
+    padding: 10px !important;
+    margin-bottom: 20px !important;
+    margin-top: 10px !important;
+    color: white !important;
+    background-color: #850c5d;
+}
+
+.log-out-button {
+    color: white;
+    margin-top: 10px;
+    float:right;
+    background-color: #850c5d;
+    border-color: black;
+    border-radius: 8px;
+    padding: 8px 8px;
+    height: 60px;
+}
+
+.save-button {
+    color: white;
+    background-color: #850c5d;
+    border-color: black;
+    border-radius: 8px;
+    padding: 8px 8px;
+    height: 60px;
+    width: 100%;
+}
+
+.sort-selector {
+    margin-bottom: 30px;
+}
+
+.sorting-button {
+    padding: 5px 15px;
+    background: #ccc;
+    border: 2px solid;
+    border-color: #850c5d;
+    border-radius: 5px;
+}

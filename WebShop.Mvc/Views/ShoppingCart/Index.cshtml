@@ -4,43 +4,54 @@
 @{
     ViewData["Title"] = "Index";
 }
-@inject UserManager<User> UserManager
+@inject UserManager<WebShopUser> UserManager
 <h1>Kosár</h1>
-
-@foreach (var item in Model.ItemsInCart)
-{
-    <div class="card cart-card-body">
-        <div class="row">
-            <div class="col-3" style="border-right: 1px solid black; padding: 10px">
-                <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
-                     alt="@item.Name" title="@item.Name" />
-            </div>
-            <div class="col-9">
-                <h4 class="card-header">
-                    <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
-                </h4>
-                <div class="price-tag">@item.Price Ft/db</div>
-                <div class="quantity-picker">
-                    Mennyiség:
-                    <input class="cart-quantity-input " type="number" id="cart_quantity" name="quantity" value="@item.Quantity" min="1" max="99">
+@{
+    var currentUser = await UserManager.GetUserAsync(User);
+    var list = new Dictionary<Guid, int>();
+    @foreach (var item in Model.ItemsInCart)
+    {
+        list.Add(item.Id, 0);
+        <div class="card cart-card-body">
+            <div class="row">
+                <div class="col-3" style="border-right: 1px solid black; padding: 10px">
+                    <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                         alt="@item.Name" title="@item.Name" />
                 </div>
-                @{ var currentUser = await UserManager.GetUserAsync(User);
+                <div class="col-9">
+                    <h4 class="card-header">
+                        <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                    </h4>
+                    <div class="price-tag">@item.Price Ft/db</div>
+                    <form class="modify-cart-quantity-form" id="quantity-form" method="post" asp-action="EditCartItemQuantity" asp-route-userId="@(currentUser.Id)" asp-route-cartItemId="@item.Id">
+
+                        <div class="quantity-picker">
+                            Mennyiség:
+                            <input class="cart-quantity-input " type="number" id="quantity" name="quantity" value="@item.Quantity" min="1" max="99">
+                            <button class="cart-button" onclick="reloadWithoutScroll" value="@currentUser.Id" name="id">Ok</button>
+
+
+                        </div>
+                    </form>
                     <div class="remove-from-cart-button">
                         <a asp-controller="ShoppingCart" asp-action="RemoveItemFromCart" asp-route-userId="@currentUser.Id" asp-route-itemId="@item.Id" class="remove-from-chart-button">Eltávolítás</a>
                     </div>
-                }
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
 
-@if (Model.ItemsInCart.Count < 0)
-{
-    <div class="price-sum-container">
-        Végösszeg: @Model.TotalPrice Ft
-    </div>
-}
-else
-{
-    <h2>A kosarad jelenleg üres</h2>
+    @if (Model.ItemsInCart.Count > 0)
+    {
+        <div class="price-sum-container">
+            <h2>Végösszeg: @Model.TotalPrice Ft</h2>
+            <a asp-controller="ShoppingCart" asp-action="FinalizeOrder" asp-route-userId="@currentUser.Id" asp-route-items="@list" class="finalize-button">Tovább</a>
+        </div>
+
+    }
+    else
+    {
+        <h2>A kosarad jelenleg üres</h2>
+    }
+
 }

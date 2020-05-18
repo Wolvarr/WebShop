@@ -6,7 +6,7 @@ namespace WebShop.Bll.Specifications
     public class ItemSpecification
     {
         public int? PageNumber { get; set; }
-        public int? PageSize { get; set; } = 30;
+        public int? PageSize { get; set; } = 15;
 
         //filtering
 

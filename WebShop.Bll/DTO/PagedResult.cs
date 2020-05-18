@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using WebShop.Bll.Specifications;
 using WebShop.Dal.Enums;
 
 namespace WebShop.Bll.DTO
@@ -20,5 +21,7 @@ namespace WebShop.Bll.DTO
         public int? PageNumber { get; set; }
 
         public int? PageSize { get; set; }
+
+        public ItemSpecification Specification { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace WebShop.Dal.Models
 
         }
 
-        public UserSubscription(User user, Item item)
+        public UserSubscription(WebShopUser user, Item item)
         {
             this.UserId = user.Id;
             this.ItemId = item.Id;

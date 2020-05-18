@@ -10,7 +10,7 @@ namespace WebShop.Dal.Models
 
         public Guid UserId { get; set; }
 
-        public User User { get; set; }
+        public WebShopUser User { get; set; }
 
         public OrderStatus OrderStatus { get; set; }
 
@@ -19,5 +19,9 @@ namespace WebShop.Dal.Models
         public Address BillingAddress { get; set; }
 
         public Address ShippingAddress { get; set; }
+
+        public DateTime OrderDate { get; set; }
+
+        public DateTime? DeliveryDate { get; set; }
     }
 }

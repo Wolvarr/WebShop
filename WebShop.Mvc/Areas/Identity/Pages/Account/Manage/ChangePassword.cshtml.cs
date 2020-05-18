@@ -9,13 +9,13 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<WebShopUser> _userManager;
+        private readonly SignInManager<WebShopUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<WebShopUser> userManager,
+            SignInManager<WebShopUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

@@ -12,7 +12,7 @@ namespace WebShop.Dal.Models.Users
                 
         }
 
-        public UserCartItem(User user, Item item, int quantity)
+        public UserCartItem(WebShopUser user, Item item, int quantity)
         {
             this.UserId = user.Id;
             this.ItemId = item.Id;

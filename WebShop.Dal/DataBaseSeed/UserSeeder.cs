@@ -10,17 +10,34 @@ namespace WebShop.Dal.DataBaseSeed
 {
     public static class UserSeeder
     { 
-        public static void SeedUsers(UserManager<User> userManager, WebShopDbContext context)
+        public static void SeedUsers(UserManager<WebShopUser> userManager, WebShopDbContext context)
         {
             if (userManager.FindByEmailAsync("asd@asd.hu").Result == null)
             {
-                User testUser = new User
+                WebShopUser testUser = new WebShopUser
                 {
+                    NickName= "Gipsz Jakab",
                     Id = new Guid("12345678-0000-0000-0000-120000000000"),
-                    UserName = "ASD@ASD.HU",
+                    UserName = "asd@asd.hu",
                     NormalizedUserName = "ASD@ASD.HU",
                     Email = "asd@asd.hu",
-                    NormalizedEmail = "ASD@ASD.HU"
+                    NormalizedEmail = "ASD@ASD.HU",
+                    ShippingAddress = new Address()
+                    {
+                        ZipCode = "1091",
+                        Country = "Magyarország",
+                        City = "Budapest",
+                        Street ="Random utca",
+                        HouseNumberAndDoor = "13,  3/12",
+                    },
+                    BillingAddress = new Address()
+                    {
+                        ZipCode = "1091",
+                        Country = "Magyarország",
+                        City = "Budapest",
+                        Street = "Random utca",
+                        HouseNumberAndDoor = "13,  3/12",
+                    }
                 };
 
                 IdentityResult result = userManager.CreateAsync(testUser, "Asdf1234.").Result;

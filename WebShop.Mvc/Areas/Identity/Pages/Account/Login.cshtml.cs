@@ -15,13 +15,13 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<WebShopUser> _userManager;
+        private readonly SignInManager<WebShopUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<User> signInManager, 
+        public LoginModel(SignInManager<WebShopUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<User> userManager)
+            UserManager<WebShopUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

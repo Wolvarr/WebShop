@@ -9,7 +9,7 @@ using WebShop.Dal.Models.Users;
 
 namespace WebShop.Dal.Context
 {
-    public class WebShopDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class WebShopDbContext : IdentityDbContext<WebShopUser, IdentityRole<Guid>, Guid>
     {
 
         private readonly ISeedService seedService;
@@ -24,6 +24,7 @@ namespace WebShop.Dal.Context
         public DbSet<Item> Items { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<CompletPC> CompletPCs { get; set; }
         public DbSet<PC_Drive> PC_Drives { get; set; }
         public DbSet<PC_Memory> PC_Memories { get; set; }
@@ -55,7 +56,7 @@ namespace WebShop.Dal.Context
                 e.OwnsOne(o => o.ShippingAddress);
             });
 
-            modelBuilder.Entity<User>(u =>
+            modelBuilder.Entity<WebShopUser>(u =>
             {
                 u.OwnsOne(o => o.BillingAddress);
                 u.OwnsOne(o => o.ShippingAddress);

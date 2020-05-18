@@ -13,9 +13,9 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ResetPasswordModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<WebShopUser> _userManager;
 
-        public ResetPasswordModel(UserManager<User> userManager)
+        public ResetPasswordModel(UserManager<WebShopUser> userManager)
         {
             _userManager = userManager;
         }

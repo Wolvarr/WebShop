@@ -41,7 +41,6 @@ namespace WebShop.Bll.Services
         }
 
 
-
         public static Expression<Func<Item, ItemHeader>> ItemHeaderSelector { get; } = x => new ItemHeader(x);
 
         public static Lazy<Func<Item, ItemHeader>> ItemHeaderSelectorFunc { get; } = new Lazy<Func<Item, ItemHeader>>(() => ItemHeaderSelector.Compile());
@@ -151,7 +150,8 @@ namespace WebShop.Bll.Services
                 TotalMaxPrice = totalMaxPrice,
                 TotalMinPrice = totalMinPrice,
                 PageNumber = specification.PageNumber,
-                PageSize = specification.PageSize
+                PageSize = specification.PageSize,
+                Specification = specification
             };
         }
 

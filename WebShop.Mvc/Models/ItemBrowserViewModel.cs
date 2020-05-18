@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using WebShop.Bll.DTO;
+using WebShop.Bll.Specifications;
 using WebShop.Dal.Enums;
 
 namespace WebShop.Models

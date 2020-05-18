@@ -10,7 +10,7 @@ namespace WebShop.Dal.Models
         public Item Item { get; set; }
 
         public Guid UserId { get; set; }
-        public User User { get; set; }
+        public WebShopUser User { get; set; }
 
         public string CommentText { get; set; }
 

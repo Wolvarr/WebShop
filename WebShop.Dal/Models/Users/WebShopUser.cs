@@ -5,8 +5,10 @@ using WebShop.Dal.Models.Users;
 
 namespace WebShop.Dal.Models
 {
-    public class User : IdentityUser<Guid>
+    public class WebShopUser : IdentityUser<Guid>
     {
+        public string NickName { get; set; }
+
         public Address BillingAddress { get; set; }
 
         public Address ShippingAddress { get; set; }

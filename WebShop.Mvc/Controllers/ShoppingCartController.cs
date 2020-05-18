@@ -36,5 +36,17 @@ namespace WebShop.Mvc.Controllers
             var url = this.Request.Headers["Referer"].ToString();
             return Redirect(url);
         }
+
+        public IActionResult EditCartItemQuantity(Guid userId, Guid cartItemId, int quantity)
+        {
+            this.userService.EditCartItemQuantity(userId, cartItemId, quantity);
+            var url = this.Request.Headers["Referer"].ToString();
+            return Redirect(url);
+        }
+
+        public IActionResult FinalizeOrder()
+        {
+            return View();
+        }
     }
 }

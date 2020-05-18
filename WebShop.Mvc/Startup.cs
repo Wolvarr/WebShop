@@ -28,12 +28,12 @@ namespace WebShop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole<Guid>>()
+            services.AddIdentity<WebShopUser, IdentityRole<Guid>>()
                .AddEntityFrameworkStores<WebShopDbContext>()
                .AddDefaultTokenProviders();
 
             services.AddDbContext<WebShopDbContext>(o =>
-                   o.UseSqlServer(Configuration.GetConnectionString(nameof(WebShopDbContext)))
+                   o.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"))
                 )
                  .AddTransient<ISeedService, SeedService>();
 
@@ -49,7 +49,7 @@ namespace WebShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager, WebShopDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<WebShopUser> userManager, WebShopDbContext context)
         {
             if (env.IsDevelopment())
             {

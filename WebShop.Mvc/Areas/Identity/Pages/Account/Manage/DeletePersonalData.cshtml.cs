@@ -11,13 +11,13 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account.Manage
 {
     public class DeletePersonalDataModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<WebShopUser> _userManager;
+        private readonly SignInManager<WebShopUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
 
         public DeletePersonalDataModel(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<WebShopUser> userManager,
+            SignInManager<WebShopUser> signInManager,
             ILogger<DeletePersonalDataModel> logger)
         {
             _userManager = userManager;

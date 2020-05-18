@@ -2,9 +2,9 @@
 @using Microsoft.AspNetCore.Identity
 @using WebShop.Dal.Models
 
-@inject SignInManager<User> SignInManager
+@inject SignInManager<WebShopUser> SignInManager
 
-@inject UserManager<User> UserManager
+@inject UserManager<WebShopUser> UserManager
 
 @{ var currentUser = await UserManager.GetUserAsync(User);
     <div class="column">

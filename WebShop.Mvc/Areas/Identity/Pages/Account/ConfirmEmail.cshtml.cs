@@ -12,9 +12,9 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<WebShopUser> _userManager;
 
-        public ConfirmEmailModel(UserManager<User> userManager)
+        public ConfirmEmailModel(UserManager<WebShopUser> userManager)
         {
             _userManager = userManager;
         }

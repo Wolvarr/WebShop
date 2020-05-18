@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using WebShop.Bll.DTO;
 using WebShop.Bll.Exceptions;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Dal.Context;
 using WebShop.Dal.Models;
+using WebShop.Dal.Models.Users;
 
 namespace WebShop.Bll.Services
 {
@@ -57,6 +59,19 @@ namespace WebShop.Bll.Services
 
             var itemToRemove = this.context.UserCartItems.SingleOrDefault(x => x.UserId == x.UserId && x.ItemId == itemId);
             this.context.UserCartItems.Remove(itemToRemove);
+            this.context.SaveChanges();
+        }
+
+    
+        public void EditCartItemQuantity(Guid userId, Guid cartItemId, int quantity)
+        {
+            if (this.context.UserCartItems.SingleOrDefault(x => x.ItemId == cartItemId && x.UserId == userId) == default)
+            {
+                throw new UserNotFoundException("This cart item does not belong to this user, or does not exist");
+            }
+
+            var itemToModify = this.context.UserCartItems.SingleOrDefault(x => x.ItemId == cartItemId);
+            itemToModify.Quantity = quantity;
             this.context.SaveChanges();
         }
     }

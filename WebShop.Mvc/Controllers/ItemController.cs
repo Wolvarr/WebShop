@@ -11,9 +11,9 @@ namespace WebShop.Mvc.Controllers
     public class ItemController : Controller
     {
         private readonly IItemService itemService;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<WebShopUser> userManager;
 
-        public ItemController(IItemService itemService, UserManager<User> userManager)
+        public ItemController(IItemService itemService, UserManager<WebShopUser> userManager)
         {
             this.itemService = itemService;
             this.userManager = userManager;

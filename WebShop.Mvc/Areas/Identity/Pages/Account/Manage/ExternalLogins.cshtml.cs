@@ -12,12 +12,12 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<WebShopUser> _userManager;
+        private readonly SignInManager<WebShopUser> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            UserManager<WebShopUser> userManager,
+            SignInManager<WebShopUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

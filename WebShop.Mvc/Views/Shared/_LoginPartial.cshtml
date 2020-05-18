@@ -1,15 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WebShop.Dal.Models
 
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject SignInManager<WebShopUser> SignInManager
+@inject UserManager<WebShopUser> UserManager
 
 @{ var currentUser = await UserManager.GetUserAsync(User);
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
             <li class="nav-item">
-                <div class="d-inline">Hello @UserManager.GetUserName(User)!</div>
+                <div style="color:white" class="d-inline">Hello @(currentUser.NickName)!</div>
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Felhasználó">
                     <img class="navbar-icon" border="0" alt="UserLogo" src="~/images/logos/user_logo.png" />
                 </a>

@@ -13,5 +13,6 @@ namespace WebShop.Bll.ServiceInterfaces
 
         void RemoveItemFromCart(Guid userId, Guid itemId);
 
+        void EditCartItemQuantity(Guid userId, Guid cartItemId, int quantity);
     }
 }
