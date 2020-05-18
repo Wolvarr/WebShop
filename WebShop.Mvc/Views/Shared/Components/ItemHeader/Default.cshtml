@@ -47,7 +47,7 @@
                         }
                         else
                         {
-                            <a asp-area="Identity" asp-page="/Account/Login"></a>
+                            <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Kosárba</a>
                         }
                     }
                     else
@@ -55,7 +55,14 @@
                         <span style="font-size:16px">
                             A termék jelenleg nem elérhető. Az alábbi gombbal feliratkozhat emailes értesítésre:
                         </span>
-                        <a asp-controller="User" asp-action="SubscriebeToNotification" asp-route-id="@Model.Id" class="cart-button">Feliratkozás</a>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-userId="@currentUser.Id" asp-route-itemId="@Model.Id" class="cart-button">Feliratkozás</a>
+                        }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Feliratkozás</a>
+                        }
                     }
 
                 </div>

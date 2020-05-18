@@ -7,16 +7,17 @@
 
 }
 
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 <h1 style="margin-bottom: 40px;">Termékek</h1>
 <div class="sort-selector">
-<div class="w3-dropdown-hover">
-    <button class="sorting-button">Rendezés</button>
-    <div class="w3-dropdown-content w3-bar-block w3-border">
-        <a href="/Item?order=PriceDescending" class="w3-bar-item w3-button">Ár: csökkenő</a>
-        <a href="/Item?order=PriceAscending" class="w3-bar-item w3-button">Ár: növekvő</a>
-        <a href="/Item?order=RatingDescending" class="w3-bar-item w3-button">Értékelés: csökkenő</a>
-        <a href="/Item?order=RatingAscending" class="w3-bar-item w3-button">Értékelés: növekvő</a>
-    </div>
+    <div class="w3-dropdown-hover">
+        <button class="sorting-button">Rendezés</button>
+        <div class="w3-dropdown-content w3-bar-block w3-border">
+            <a href="/Item?order=PriceDescending" class="w3-bar-item w3-button">Ár: csökkenő</a>
+            <a href="/Item?order=PriceAscending" class="w3-bar-item w3-button">Ár: növekvő</a>
+            <a href="/Item?order=RatingDescending" class="w3-bar-item w3-button">Értékelés: csökkenő</a>
+            <a href="/Item?order=RatingAscending" class="w3-bar-item w3-button">Értékelés: növekvő</a>
+        </div>
     </div>
 </div>
 
@@ -63,7 +64,7 @@
                             <input type="checkbox"
                                    name="SelectedManufacturers"
                                    value="@item"
-                                   checked="checked"/>
+                                   checked="checked" />
                         }
                         else
                         {
@@ -91,7 +92,7 @@
                 {
                     <input type="checkbox"
                            name="HasRGB"
-                           value="True"/>
+                           value="True" />
                 }
             </label>
         </div>
@@ -103,7 +104,7 @@
                     <input type="checkbox"
                            name="IsGaming"
                            value="True"
-                           checked="checked"/>
+                           checked="checked" />
                 }
                 else
                 {
@@ -121,7 +122,7 @@
                     <input type="checkbox"
                            name="IsUsed"
                            value="True"
-                           checked="checked"/>
+                           checked="checked" />
                 }
                 else
                 {

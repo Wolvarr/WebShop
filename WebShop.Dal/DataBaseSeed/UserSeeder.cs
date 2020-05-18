@@ -22,7 +22,7 @@ namespace WebShop.Dal.DataBaseSeed
                     NormalizedUserName = "ASD@ASD.HU",
                     Email = "asd@asd.hu",
                     NormalizedEmail = "ASD@ASD.HU",
-                    ShippingAddress = new Address()
+                    BillingAddress = new Address()
                     {
                         ZipCode = "1091",
                         Country = "Magyarország",
@@ -30,14 +30,6 @@ namespace WebShop.Dal.DataBaseSeed
                         Street ="Random utca",
                         HouseNumberAndDoor = "13,  3/12",
                     },
-                    BillingAddress = new Address()
-                    {
-                        ZipCode = "1091",
-                        Country = "Magyarország",
-                        City = "Budapest",
-                        Street = "Random utca",
-                        HouseNumberAndDoor = "13,  3/12",
-                    }
                 };
 
                 IdentityResult result = userManager.CreateAsync(testUser, "Asdf1234.").Result;

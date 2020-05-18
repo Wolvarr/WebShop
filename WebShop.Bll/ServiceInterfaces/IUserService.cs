@@ -7,7 +7,7 @@ namespace WebShop.Bll.ServiceInterfaces
 {
     public interface IUserService
     {
-        void SubscriebeToNotification(Guid userId, Guid itemId);
+        bool SubscriebeToNotification(Guid userId, Guid itemId);
 
         List<ItemForShoppingCartDTO> GetAllItemsInCart(Guid userId);
 

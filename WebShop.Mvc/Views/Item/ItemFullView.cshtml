@@ -69,7 +69,7 @@
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a asp-controller="User" asp-action="SubscriebeToNotification" asp-route-id="@Model.Id" class="full-view-subscriebe-button">Feliratkozás</a>
+                                <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-id="@Model.Id" class="full-view-subscriebe-button">Feliratkozás</a>
                             }
                             else
                             {

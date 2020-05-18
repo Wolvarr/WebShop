@@ -37,7 +37,12 @@ namespace WebShop
                 )
                  .AddTransient<ISeedService, SeedService>();
 
-            services.AddAuthentication();
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = "1495221980637214";
+                facebookOptions.AppSecret = "7c33b04e3806e1bda4a44525a6702696";
+            });
+
 
 
             services.AddScoped<IEmailSender, EmailSender>();

@@ -21,13 +21,19 @@ namespace WebShop.Bll.Services
             this.context = dbContext;
         }
 
-        public void SubscriebeToNotification(Guid userId, Guid itemId)
+        public bool SubscriebeToNotification(Guid userId, Guid itemId)
         {
+            if(this.context.UserSubscriptions.SingleOrDefault(x => x.UserId == userId && x.ItemId == itemId) != null)
+            {
+                return false;
+            }
+
             var User = this.context.Users.SingleOrDefault(u => u.Id == userId);
             var Item = this.context.Items.SingleOrDefault(u => u.Id == itemId);
 
             this.context.UserSubscriptions.Add(new UserSubscription(User, Item));
             this.context.SaveChanges();
+            return true;
         }
 
         public List<ItemForShoppingCartDTO> GetAllItemsInCart(Guid userId)

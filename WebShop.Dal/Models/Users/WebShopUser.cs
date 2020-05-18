@@ -11,8 +11,6 @@ namespace WebShop.Dal.Models
 
         public Address BillingAddress { get; set; }
 
-        public Address ShippingAddress { get; set; }
-
         public List<Comment> Comments { get; set; }
 
         public List<Rating> Ratings { get; set; }

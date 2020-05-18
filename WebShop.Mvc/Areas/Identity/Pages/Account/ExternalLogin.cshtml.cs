@@ -49,6 +49,30 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [Display(Name = "Felhasználónév")]
+            public string NickName { get; set; }
+
+            [Display(Name = "Ország")]
+            public string Country { get; set; }
+
+            [Display(Name = "Település")]
+            public string City { get; set; }
+
+            [Display(Name = "Irányítószám")]
+            public string ZipCode { get; set; }
+
+            [Display(Name = "Utca")]
+            public string Street { get; set; }
+
+            [Display(Name = "Házszám, emelet/ajtó")]
+            public string HouseNumberAndDoor { get; set; }
+
+            [Required]
+            [Phone]
+            [Display(Name = "Telefonszám")]
+            public string PhoneNumber { get; set; }
         }
 
         public IActionResult OnGetAsync()
@@ -70,7 +94,7 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -80,7 +104,7 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -119,7 +143,21 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new WebShopUser { UserName = Input.Email, Email = Input.Email };
+                var user = new WebShopUser
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    PhoneNumber = Input.PhoneNumber,
+                    NickName = Input.NickName,
+                    BillingAddress = new Address()
+                    {
+                        ZipCode = Input.ZipCode,
+                        Country = Input.Country,
+                        City = Input.City,
+                        Street = Input.Street,
+                        HouseNumberAndDoor = Input.HouseNumberAndDoor
+                    },
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

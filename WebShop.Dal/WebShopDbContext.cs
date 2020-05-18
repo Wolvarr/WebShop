@@ -59,7 +59,6 @@ namespace WebShop.Dal.Context
             modelBuilder.Entity<WebShopUser>(u =>
             {
                 u.OwnsOne(o => o.BillingAddress);
-                u.OwnsOne(o => o.ShippingAddress);
             });
 
 

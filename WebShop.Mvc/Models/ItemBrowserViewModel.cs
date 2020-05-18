@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Collections.Generic;
 using System.Linq;
 using WebShop.Bll.DTO;
 using WebShop.Bll.Specifications;
@@ -53,5 +55,8 @@ namespace WebShop.Models
         public int TotalMaxPrice { get; set; }
 
         public int TotalMinPrice { get; set; }
+
+        [TempData]
+        public string StatusMessage { get; set; }
     }
 }

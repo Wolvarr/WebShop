@@ -151,7 +151,7 @@ namespace WebShop.Bll.Services
                 TotalMinPrice = totalMinPrice,
                 PageNumber = specification.PageNumber,
                 PageSize = specification.PageSize,
-                Specification = specification
+                Specification = specification,
             };
         }
 

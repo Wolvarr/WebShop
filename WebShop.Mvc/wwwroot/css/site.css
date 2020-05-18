@@ -22,9 +22,11 @@ a {
 
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: white;
+    background-color: #850c5d;
+    border-color: black;
+    border-radius: 8px;
+    padding: 8px 8px;
 }
 
 .cart-button {
