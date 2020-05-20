@@ -65,6 +65,10 @@ namespace WebShop.Dal.Context
                 u.HasMany(x => x.CartItems)
                 .WithOne(c => c.User)
                 .HasForeignKey(x => x.UserId);
+
+                u.HasMany(x => x.Comments)
+                .WithOne(c => c.User)
+                .HasForeignKey(x => x.UserId);
             });
 
             modelBuilder.Entity<Order>(u =>

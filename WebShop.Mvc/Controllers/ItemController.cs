@@ -42,7 +42,7 @@ namespace WebShop.Mvc.Controllers
         [Authorize]
         public IActionResult AddItemToCart(Guid userId, Guid id, int quantity = 1)
         {
-            this.itemService.AddItemToCart(userId, id, quantity);
+            this.userService.AddItemToCart(userId, id, quantity);
             TempData["message"] = "Termék sikeresen hozzáadva a kosárhoz";
             var url = this.Request.Headers["Referer"].ToString();
             return Redirect(url);

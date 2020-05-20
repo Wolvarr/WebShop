@@ -7,7 +7,7 @@ body {
 }
 
 
-   
+
 
 a.navbar-brand {
     white-space: normal;
@@ -106,7 +106,7 @@ a {
 }
 
 
-.price_tag{
+.price_tag {
     position: absolute;
     bottom: 10px;
 }
@@ -133,11 +133,10 @@ a {
 }
 
 
-.paging-container
-{   background-color: red;
+.paging-container {
     margin-top: 10px;
     margin-bottom: 100px;
-    text-align:center;
+    text-align: center;
 }
 /* Full item view styles
 -------------------------------------------------- */
@@ -163,12 +162,12 @@ a {
 }
 
 
-.specification-container > div.specification-item {
-    text-align: left;
-    color: black;
-    font-size: 16px;
-    border-bottom: 1px solid;
-}
+    .specification-container > div.specification-item {
+        text-align: left;
+        color: black;
+        font-size: 16px;
+        border-bottom: 1px solid;
+    }
 
 .input-field-for-quantity {
     height: 40px;
@@ -178,7 +177,7 @@ a {
     border-color: black;
 }
 
- button.cart-button {
+button.cart-button {
     position: absolute;
     margin-left: 8px;
     background-color: #850c5d;
@@ -206,6 +205,50 @@ a {
     padding: 8px 8px;
     height: 40px;
     float: right;
+}
+
+.comments-container {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.comment-header {
+    font-size: 24px;
+    padding: 5px;
+    border: 5px solid #850c5d;
+    border-radius: 8px;
+    background-color: #c9f3fc
+}
+
+.comment-header >span{
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.comment-text {
+    margin-top: -2px;
+    padding: 5px;
+    border-width: 1px;
+    border-left: solid;
+    border-right: solid;
+    border-bottom: solid;
+    border-color: #850c5d;
+    border-radius: 8px;
+    background-color: #f2fdff;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.comment-date{
+    font-size: 18px;
+    float:right;
+}
+
+.rating-for-comment {
+    margin-left: 15px;
+    display: inline;
+    margin: 0 auto;
 }
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -273,7 +316,7 @@ body {
 .log-out-button {
     color: white;
     margin-top: 10px;
-    float:right;
+    float: right;
     background-color: #850c5d;
     border-color: black;
     border-radius: 8px;

@@ -16,5 +16,9 @@ namespace WebShop.Bll.ServiceInterfaces
         void EditCartItemQuantity(Guid userId, Guid cartItemId, int quantity);
         void CreateOrder(CreateOrderDTO orderDto);
         FinalizeOrderDTO GetDataForFinalizeOrder(Guid userId);
+
+        void AddItemToCart(Guid userId, Guid itemId, int quantity);
+
+        void AddAllItemsToCart(Guid userId, List<Guid> items);
     }
 }

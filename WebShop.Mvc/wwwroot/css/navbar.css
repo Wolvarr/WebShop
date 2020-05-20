@@ -44,9 +44,6 @@
 
 .search-container > form > button {
     float: right;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
+    background-color: #343a40;
     border: none;
-    background-color: #850c5d;
 }

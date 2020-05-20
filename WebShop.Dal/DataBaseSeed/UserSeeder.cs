@@ -42,6 +42,15 @@ namespace WebShop.Dal.DataBaseSeed
                     Value = 4
                 });
 
+                context.Comments.Add(new Comment()
+                {
+                    Id= Guid.NewGuid(),
+                    UserId = new Guid("12345678-0000-0000-0000-120000000000"),
+                    ItemId = new Guid("10000000-0000-0000-0000-000000000000"),
+                    CommentText = "Nagyon jó termék, évek óta használom hiba nélkül.",
+                    Date = DateTime.Now
+                });
+
                 context.SaveChanges();
             }
         }

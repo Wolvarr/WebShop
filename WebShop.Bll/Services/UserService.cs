@@ -154,5 +154,34 @@ namespace WebShop.Bll.Services
 
             return dto;
         }
+
+        public void AddItemToCart(Guid userId, Guid itemId, int quantity)
+        {
+            if (quantity < 1)
+            {
+                throw new ArgumentException("Provide a vlid quantity for adding item to cart");
+            }
+            var User = this.context.Users.SingleOrDefault(u => u.Id == userId);
+            var Item = this.context.Items.SingleOrDefault(u => u.Id == itemId);
+
+            var alreadyInCartItem = this.context.UserCartItems.SingleOrDefault(x => x.ItemId == itemId && x.UserId == userId);
+            if (alreadyInCartItem != default)
+            {
+                alreadyInCartItem.Quantity += quantity;
+            }
+            else
+            {
+                this.context.UserCartItems.Add(new UserCartItem(User, Item, quantity));
+            }
+            this.context.SaveChanges();
+        }
+
+        public void AddAllItemsToCart(Guid userId, List<Guid> items)
+        {
+            items.ForEach(x =>
+           {
+               this.AddItemToCart(userId, x, 1);
+           });
+        }
     }
 }

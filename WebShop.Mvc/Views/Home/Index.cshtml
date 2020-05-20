@@ -3,7 +3,7 @@
     ViewData["Title"] = "QuicShop Webáruház";
 }
         <partial name="_StatusMessage" model="@Model.StatusMessage" />
-<div class="main-page-bar" style="z-index: -1">
+<div class="main-page-bar" >
     <a asp-controller="Item" asp-action="Index" asp-route-IsNewArrival="true">Újdonságok</a>
     <a asp-controller="Item" asp-action="Index" asp-route-IsDiscounted="true">Akciók</a>
     <a asp-controller="Item" asp-action="Index">Termékek</a>

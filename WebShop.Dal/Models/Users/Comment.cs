@@ -10,6 +10,8 @@ namespace WebShop.Dal.Models
 
         public Guid UserId { get; set; }
 
+        public WebShopUser User { get; set; }
+
         public string CommentText { get; set; }
 
         public DateTime Date { get; set; }

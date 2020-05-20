@@ -441,7 +441,7 @@ namespace WebShop.Dal.DataBaseSeed
                     Warranty = "2 years",
                     Type = Enums.MotherboardType.Micro_ATX,
                     Chipset = "B365",
-                    Socket = Enums.CpuSocket.LGA1151,
+                    Socket = Enums.CpuSocket.SocketAM4,
                     SupportedMemoryType = Enums.MemoryType.DDR4,
                     SupportedMemorySpeed = "2133, 2400, 2666",
                     DateSinceInStore = DateTime.Now.AddDays(-30),

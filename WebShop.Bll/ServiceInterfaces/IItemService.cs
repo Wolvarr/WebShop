@@ -16,7 +16,7 @@ namespace WebShop.Bll.ServiceInterfaces
 
         List<ItemHeader> GetAllHighLightedItems();
 
-        void AddItemToCart(Guid userId, Guid itemId, int quantity);
+        List<ItemHeader> GetAvailableItems();
 
         void AddComment(Guid userId, Guid itemId, string content, int? rating, DateTime date);
 

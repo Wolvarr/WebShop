@@ -24,6 +24,14 @@ namespace WebShop.Bll.DTO
             this.IsUserd = item.IsUsed;
             this.HasRGB = item.HasRGB;
             this.Category = EnumExtensionMethods.GetDescription(item.Category);
+            if(item is Motherboard)
+            {
+                this.CpuSocket = (item as Motherboard).Socket;
+            }
+            if (item is Cpu)
+            {
+                this.CpuSocket = (item as Cpu).Socket;
+            }
         }
 
         public Guid Id { get; set; }
@@ -54,5 +62,7 @@ namespace WebShop.Bll.DTO
         public bool IsUserd { get; set; }
 
         public bool HasRGB { get; set; }
+
+        public CpuSocket? CpuSocket { get; set; }
     }
 }

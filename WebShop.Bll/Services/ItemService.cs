@@ -178,7 +178,7 @@ namespace WebShop.Bll.Services
 
             var returnDto = new ItemFullViewDTO(this.context.Items
                 .Include(x => x.Ratings)
-                .Include(x => x.Comments)
+                .Include(x => x.Comments).ThenInclude(c => c.User)
                 .SingleOrDefault(x => x.Id == id));
 
             var temp = this.context.Items.Where(x => x.Category  == EnumExtensionMethods.GetValueFromDescription<Category>(returnDto.Category)).Include(x => x.Ratings).Include(x => x.Comments).ToList();
@@ -239,26 +239,7 @@ namespace WebShop.Bll.Services
             return itemHeaders;
         }
 
-        public void AddItemToCart(Guid userId, Guid itemId, int quantity)
-        {
-            if(quantity < 1)
-            {
-                throw new ArgumentException("Provide a vlid quantity for adding item to cart");
-            }
-            var User = this.context.Users.SingleOrDefault(u => u.Id == userId);
-            var Item = this.context.Items.SingleOrDefault(u => u.Id == itemId);
 
-            var alreadyInCartItem = this.context.UserCartItems.SingleOrDefault(x => x.ItemId == itemId && x.UserId == userId);
-            if (alreadyInCartItem != default)
-            {
-                alreadyInCartItem.Quantity += quantity;
-            }
-            else
-            {
-                this.context.UserCartItems.Add(new UserCartItem(User, Item, quantity));
-            }
-            this.context.SaveChanges();
-        }
 
         public void AddComment(Guid userId, Guid itemId, string content, int? rating, DateTime date)
         {
@@ -303,6 +284,16 @@ namespace WebShop.Bll.Services
 
         }
 
+        public List<ItemHeader> GetAvailableItems()
+        {
+            var items = this.context.Items.Include(x => x.Ratings).Where(x => x.Available > 0).ToList();
+            var itemHeaders = new List<ItemHeader>();
+            items.ForEach(x =>
+            {
+                itemHeaders.Add(new ItemHeader(x));
+            });
 
+            return itemHeaders;
+        }
     }
 }

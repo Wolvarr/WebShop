@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/navbar.css" />
     <link rel="stylesheet" href="~/css/cart.css" />
+    <link rel="stylesheet" href="~/css/builder.css" />
 </head>
 <body>
     <header>
@@ -28,7 +29,10 @@
                         <li class="search-container">
                             <form asp-controller="Item" asp-action="Index">
                                 <input id="ComplexFilter " type="text" placeholder="  Keresés.." name="complexfilter">
-                                <button type="submit"><i style="color:white;"></i></button>
+                                <button  type="submit"> 
+                                    <img class="navbar-icon"  alt="SearchLogo" src="~/images/logos/search_logo.png" />
+                                </button>
+                               
                             </form>
                         </li>
                     </ul>

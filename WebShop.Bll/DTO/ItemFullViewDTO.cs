@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using WebShop.Bll.Extensions;
 using WebShop.Dal.Models;
 
@@ -16,7 +17,17 @@ namespace WebShop.Bll.DTO
             SpecificProperties = new SpecificProperties(item);
             SimilarItems = new PagedResult<ItemHeader>();
             this.Ratings = item.Ratings;
-            this.Comments = item.Comments;
+            item.Comments.ForEach(x =>
+            {
+                this.Comments.Add(new CommentDTO()
+                {
+                    Id = x.Id,
+                    Date = x.Date,
+                    CommentText = x.CommentText,
+                    UserName = x.User.NickName,
+                    Rating = item.Ratings.Any() ? item.Ratings.Single(r => r.UserId == x.UserId).Value : 0
+                }) ;
+            });
         }
 
         public SpecificProperties SpecificProperties { get; set; }
@@ -28,7 +39,7 @@ namespace WebShop.Bll.DTO
         public PagedResult<ItemHeader> SimilarItems { get; set; }
 
         public List<Rating> Ratings { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
     }
 
 

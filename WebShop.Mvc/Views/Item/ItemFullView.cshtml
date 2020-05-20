@@ -130,7 +130,24 @@
     <div class="comments-container">
         @foreach (var comment in Model.Comments)
         {
-            <p>@comment.CommentText</p>
+        <div class="comment-header">
+            <span>@comment.UserName</span>
+            <span class="comment-date"> @comment.Date</span>
+            <div class="rating-for-comment">
+                @for (int i = 0; i < comment.Rating; i++)
+                {
+                    <span class="fa fa-star checked"></span>
+                }
+                @for (int i = comment.Rating; i < 5; i++)
+                {
+                    <span class="fa fa-star"></span>
+                }
+            </div>
+        </div>
+            <div class="comment-text">
+                <p>@comment.CommentText</p>
+               
+            </div>
         }
     </div>
 
