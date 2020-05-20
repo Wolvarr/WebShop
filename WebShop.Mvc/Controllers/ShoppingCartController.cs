@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Dal.Models;
 using WebShop.Models;
@@ -44,9 +45,17 @@ namespace WebShop.Mvc.Controllers
             return Redirect(url);
         }
 
-        public IActionResult FinalizeOrder()
+        public IActionResult FinalizeOrder(Guid userId)
         {
-            return View();
+            return View(new FinalizeOrderViewModel(this.userService.GetDataForFinalizeOrder(userId)));
+        }
+
+        public IActionResult CreateOrder(FinalizeOrderViewModel order)
+        {
+
+                this.userService.CreateOrder(order.OrderDto);
+            //return Redirect("../home");
+            return RedirectToAction("Index", "Home", new { message = "Köszönjük a vásárlást" });
         }
     }
 }

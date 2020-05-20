@@ -1,14 +1,26 @@
-﻿namespace WebShop.Dal.Enums
+﻿using System.ComponentModel;
+
+namespace WebShop.Dal.Enums
 {
     public enum Category
-    {
+    {   
+        [Description("Processzor")]
         Cpu,
+        [Description("Videókártya")]
         Gpu,
+        [Description("Gépház")]
         Case,
+        [Description("Merevlemez")]
         HardDrive,
+        [Description("Memória")]
         Memory,
+        [Description("Alaplap")]
         MotherBoard,
+        [Description("Tápegység")]
         PowerSupply,
-        Extra
+        [Description("Kiegészítő")]
+        Extra,
+        [Description("Számítógép")]
+        CompletPc
     }
 }

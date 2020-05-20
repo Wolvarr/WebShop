@@ -44,7 +44,7 @@ namespace WebShop.Models
 
         public PagedResult<ItemHeader> ItemResults { get; set; }
 
-        public List<Category> AvailableCategories { get; set; } = new List<Category>();
+        public List<string> AvailableCategories { get; set; } = new List<string>();
 
         public List<string> AvailableManufacturers { get; set; } = new List<string>();
 
@@ -56,7 +56,5 @@ namespace WebShop.Models
 
         public int TotalMinPrice { get; set; }
 
-        [TempData]
-        public string StatusMessage { get; set; }
     }
 }

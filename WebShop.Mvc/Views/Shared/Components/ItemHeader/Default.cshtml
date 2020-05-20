@@ -28,11 +28,11 @@
                 <div class="card-bottom">
                     @if (Model.Available != 0)
                     {
-                        <span class="price_tag">
+                        <div class="price_tag">
                             @if (Model.DiscountedPrice.HasValue)
                             {
-                                <span class="text-original-price">@Model.OriginalPrice&nbsp;Ft</span>
-                                <span class="text-discounted-price">@Model.DiscountedPrice&nbsp;Ft</span>
+                                <div class="text-original-price">@Model.OriginalPrice&nbsp;Ft</div>
+                                <div class="text-discounted-price">@Model.DiscountedPrice&nbsp;Ft</div>
                             }
                             else
                             {
@@ -40,7 +40,7 @@
                                     @Model.OriginalPrice.ToString("N0")&nbsp;Ft
                                 </span>
                             }
-                        </span>
+                        </div>
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <a asp-controller="Item" asp-action="AddItemToCart" asp-route-id="@Model.Id" asp-route-userId="@(currentUser.Id)" class="cart-button">Kosárba</a>
@@ -52,7 +52,7 @@
                     }
                     else
                     {
-                        <span style="font-size:16px">
+                        <span style="font-size:13px">
                             A termék jelenleg nem elérhető. Az alábbi gombbal feliratkozhat emailes értesítésre:
                         </span>
                         @if (SignInManager.IsSignedIn(User))

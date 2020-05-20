@@ -7,7 +7,8 @@
 
 }
 
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<partial name="_StatusMessage" model="@TempData["message"]" />
+
 <h1 style="margin-bottom: 40px;">Termékek</h1>
 <div class="sort-selector">
     <div class="w3-dropdown-hover">
@@ -141,6 +142,8 @@
 
             <p>Max: <span id="maxValue"></span> Ft</p>
         </div>
+        <input type="submit" value="Szűrés" id="btnSubmit" />
+
 
         <script>
             var sliderMin = document.getElementById("minRange");
@@ -157,12 +160,22 @@
             sliderMax.oninput = function () {
                 outputMax.innerHTML = this.value;
             }
+
         </script>
 
-        <input type="submit" value="Submit Data" id="btnSubmit" />
 
 
     </form>
 </div>
+<div class="paging-container">
+    @if (Model.ItemResults.Specification.PageNumber > 0)
+    {
+        <a asp-controller="Item" asp-action="Index" asp-route-PageNumber="@(Model.ItemResults.Specification.PageNumber)">Előző oldal</a>
 
+    }
+    @if (Model.ItemResults.AllResultsCount > (Model.ItemResults.Specification.PageNumber + 1) * Model.ItemResults.Specification.PageSize)
+    {
+        <a asp-controller="Item" asp-action="Index" asp-route-PageNumber="@(Model.ItemResults.Specification.PageNumber +2)">Következő oldal</a>
+    }
+</div>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

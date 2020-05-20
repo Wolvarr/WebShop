@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using WebShop.Bll.Extensions;
 using WebShop.Dal.Models;
@@ -14,6 +15,8 @@ namespace WebShop.Bll.DTO
         {
             SpecificProperties = new SpecificProperties(item);
             SimilarItems = new PagedResult<ItemHeader>();
+            this.Ratings = item.Ratings;
+            this.Comments = item.Comments;
         }
 
         public SpecificProperties SpecificProperties { get; set; }
@@ -22,7 +25,10 @@ namespace WebShop.Bll.DTO
 
         public DateTime? ExpectedAvailalbleDate { get; set; }
 
-        public PagedResult<ItemHeader> SimilarItems { get; set; } 
+        public PagedResult<ItemHeader> SimilarItems { get; set; }
+
+        public List<Rating> Ratings { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 
 
@@ -108,6 +114,17 @@ namespace WebShop.Bll.DTO
                 this.Efficiency = psu.Efficiency;
                 this.IsModular = psu.IsModular;
             }
+            if(item is CompletPC)
+            {
+                CompletPC pc = item as CompletPC;
+                this.Case = pc.Case;
+                this.Motherboard = pc.Motherboard;
+                this.Cpu = pc.Cpu;
+                this.Gpu = pc.Gpu;
+                this.Memories = pc.Memories;
+                this.Drives = pc.Drives;
+                this.PowerSupply = pc.PowerSupply;
+            }
         }
         #region hardware
         
@@ -116,6 +133,30 @@ namespace WebShop.Bll.DTO
         public int? TDP { get; set; }
 
         public int? Weight { get; set; }
+        #endregion
+
+        #region PC
+
+        [DisplayName("Gépház")]
+        public string Case { get; set; }
+
+        [DisplayName("Alaplap")]
+        public string Motherboard { get; set; }
+
+        [DisplayName("Processzor")]
+        public string Cpu { get; set; }
+
+        [DisplayName("Videókártya")]
+        public string Gpu { get; set; }
+
+        [DisplayName("Memória")]
+        public string Memories { get; set; }
+
+        [DisplayName("Meghajtók")]
+        public string Drives { get; set; }
+
+        [DisplayName("Tápegység")]
+        public string PowerSupply { get; set; }
         #endregion
 
         #region case

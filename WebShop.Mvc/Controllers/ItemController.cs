@@ -1,6 +1,8 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WebShop.Bll.DTO;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
 using WebShop.Dal.Models;
@@ -37,25 +39,48 @@ namespace WebShop.Mvc.Controllers
             return View("ItemFullView", this.itemService.GetItemById(id.Value));
         }
 
+        [Authorize]
         public IActionResult AddItemToCart(Guid userId, Guid id, int quantity = 1)
         {
             this.itemService.AddItemToCart(userId, id, quantity);
-            return View("Index", new ItemBrowserViewModel(this.itemService.GetAllItems(null)) { StatusMessage = "Termék sikeresen hozzáadva a kosárhoz" });
-
+            TempData["message"] = "Termék sikeresen hozzáadva a kosárhoz";
+            var url = this.Request.Headers["Referer"].ToString();
+            return Redirect(url);
         }
 
+        [Authorize]
         public IActionResult SubscriebeToNotification(Guid userId, Guid itemId)
         {
             if (this.userService.SubscriebeToNotification(userId, itemId))
             {
-                return View("Index", new ItemBrowserViewModel(this.itemService.GetAllItems(null)) { StatusMessage = "Sikeresen feliratkoztál az értesítésre" });
+                TempData["message"] = "Sikeresen feliratkoztál a termékre";
+                var url = this.Request.Headers["Referer"].ToString();
+                return Redirect(url);
 
             }
             else
             {
-                return View("Index", new ItemBrowserViewModel(this.itemService.GetAllItems(null)) { StatusMessage = "Már feliratkoztál az adott termékre" });
-
+                TempData["message"] = "Erre a termékre már korábban feliratkoztál";
+                var url = this.Request.Headers["Referer"].ToString();
+                return Redirect(url);
             }
+        }
+
+        [Authorize]
+        public IActionResult AddRating(int rating)
+        {
+            TempData["message"] = "Sikeresen feliratkoztál a termékre";
+            var url = this.Request.Headers["Referer"].ToString();
+            return Redirect(url);
+        }
+
+        [Authorize]
+        public IActionResult AddComment(AddCommentDTO dto)
+        {
+            this.itemService.AddComment(dto.UserId, dto.ItemId, dto.Content, dto.Rating, DateTime.Now);
+            TempData["message"] = "Kommentedet sikeresen rögzítettük";
+            var url = this.Request.Headers["Referer"].ToString();
+            return Redirect(url);
         }
     }
 }

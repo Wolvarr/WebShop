@@ -2,13 +2,14 @@
 @{
     ViewData["Title"] = "QuicShop Webáruház";
 }
+        <partial name="_StatusMessage" model="@Model.StatusMessage" />
+<div class="main-page-bar" style="z-index: -1">
+    <a asp-controller="Item" asp-action="Index" asp-route-IsNewArrival="true">Újdonságok</a>
+    <a asp-controller="Item" asp-action="Index" asp-route-IsDiscounted="true">Akciók</a>
+    <a asp-controller="Item" asp-action="Index">Termékek</a>
+    <a asp-controller="PcBuilder" asp-action="Index" asp-route-IsDiscounted="true">Gépösszerakó</a>
+    <a asp-controller="Item" asp-action="Index" asp-route-SelectedCategories="Számítógép">Komplett gépek</a>
 
-<div class="main-page-bar">
-    <button class="button">Újdonságok</button>
-    <button class="button">Akciók</button>
-    <button class="button">Termékek</button>
-    <button class="button">Gépösszerakó</button>
-    <button class="button">Komplett gépek</button>
 
 </div>
 

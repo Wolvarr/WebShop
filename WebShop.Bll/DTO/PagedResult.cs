@@ -10,7 +10,7 @@ namespace WebShop.Bll.DTO
 
         public int? AllResultsCount { get; set; }
 
-        public List<Category> Categories { get; set; }
+        public List<string> Categories { get; set; }
 
         public List<string> Manufacturers { get; set; }
 

@@ -25,12 +25,10 @@ namespace WebShop.Dal.Context
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<CompletPC> CompletPCs { get; set; }
-        public DbSet<PC_Drive> PC_Drives { get; set; }
-        public DbSet<PC_Memory> PC_Memories { get; set; }
 
         public DbSet<UserCartItem> UserCartItems { get; set; }
         public DbSet<UserSubscription> UserSubscriptions { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +37,7 @@ namespace WebShop.Dal.Context
 
             modelBuilder.Entity<Hardware>().HasBaseType<Item>();
             modelBuilder.Entity<Case>().HasBaseType<Item>();
+            modelBuilder.Entity<CompletPC>().HasBaseType<Item>();
             modelBuilder.Entity<Cpu>().HasBaseType<Hardware>();
             modelBuilder.Entity<GraphicsCard>().HasBaseType<Hardware>();
             modelBuilder.Entity<HardDrive>().HasBaseType<Hardware>();
@@ -46,9 +45,9 @@ namespace WebShop.Dal.Context
             modelBuilder.Entity<Motherboard>().HasBaseType<Hardware>();
             modelBuilder.Entity<PowerSupply>().HasBaseType<Hardware>();
 
-            //// Egy user 1x értékelhet 1 terméket.
-            //modelBuilder.Entity<Rating>().HasAlternateKey(
-            //    r => new { r.ItemId, r.UserId });
+            // Egy user 1x értékelhet 1 terméket.
+            modelBuilder.Entity<Rating>().HasAlternateKey(
+                r => new { r.ItemId, r.UserId });
 
             modelBuilder.Entity<Order>(e =>
             {
@@ -59,6 +58,19 @@ namespace WebShop.Dal.Context
             modelBuilder.Entity<WebShopUser>(u =>
             {
                 u.OwnsOne(o => o.BillingAddress);
+            });
+
+            modelBuilder.Entity<WebShopUser>(u =>
+            {
+                u.HasMany(x => x.CartItems)
+                .WithOne(c => c.User)
+                .HasForeignKey(x => x.UserId);
+            });
+
+            modelBuilder.Entity<Order>(u =>
+            {
+                u.OwnsOne(o => o.BillingAddress);
+                u.OwnsOne(o => o.ShippingAddress);
             });
 
 

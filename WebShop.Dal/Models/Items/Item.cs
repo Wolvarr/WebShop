@@ -22,6 +22,8 @@ namespace WebShop.Dal.Models
 
         public List<Rating> Ratings { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
         public string Manufacturer { get; set; }
 
         public string ShortDescription { get; set; }

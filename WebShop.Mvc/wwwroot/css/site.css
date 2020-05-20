@@ -3,6 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 body {
     background-image: linear-gradient(to right, #cfd1fa, #815290);
+    min-height: 1000px;
 }
 
 
@@ -37,6 +38,12 @@ a {
     border-radius: 8px;
     padding: 8px 8px;
     float: right;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #850c5d;
+    border-color: white;
 }
 
 
@@ -98,6 +105,12 @@ a {
     width: auto;
 }
 
+
+.price_tag{
+    position: absolute;
+    bottom: 10px;
+}
+
 .text-original-price {
     color: grey;
     font-size: 18px;
@@ -119,9 +132,15 @@ a {
     border-color: #1861ac;
 }
 
+
+.paging-container
+{   background-color: red;
+    margin-top: 10px;
+    margin-bottom: 100px;
+    text-align:center;
+}
 /* Full item view styles
 -------------------------------------------------- */
-
 .item-full-view > div.card-body {
     padding: 0px;
     height: 350px;
@@ -167,7 +186,10 @@ a {
     height: 40px;
 }
 
-
+.item-description {
+    max-height: 90px;
+    overflow-y: auto
+}
 
 .add-to-cart-form {
     position: absolute;

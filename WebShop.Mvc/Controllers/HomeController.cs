@@ -17,10 +17,10 @@ namespace WebShop.Controllers
             this.itemService = itemService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string message = null)
         {
             return View(new HomePageViewModel(this.itemService.GetAllDiscountedItems(),
-                this.itemService.GetAllHighLightedItems()));
+                this.itemService.GetAllHighLightedItems(), message));
         }
 
         public IActionResult Privacy()

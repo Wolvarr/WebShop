@@ -5,7 +5,7 @@ namespace WebShop.Bll.Specifications
 {
     public class ItemSpecification
     {
-        public int? PageNumber { get; set; }
+        public int? PageNumber { get; set; } = 1;
         public int? PageSize { get; set; } = 15;
 
         //filtering
@@ -14,7 +14,7 @@ namespace WebShop.Bll.Specifications
 
         public string Name { get; set; }
 
-        public List<Category> SelectedCategories { get; set; } = new List<Category>();
+        public List<string> SelectedCategories { get; set; } = new List<string>();
 
         public List<string> SelectedManufacturers { get; set; } = new List<string>();
 
@@ -33,6 +33,10 @@ namespace WebShop.Bll.Specifications
         public int? MaxRating { get; set; }
 
         public ItemOrder? Order { get; set; }
+
+        public bool? IsNewArrival { get; set; }
+
+        public bool? IsDiscounted { get; set; }
 
         public enum ItemOrder
         {

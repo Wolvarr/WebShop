@@ -14,7 +14,9 @@ namespace WebShop.Dal.Models
 
         public OrderStatus OrderStatus { get; set; }
 
-        public List<Item> Items { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
+
+        public List<OrderItem> Items { get; set; }
 
         public Address BillingAddress { get; set; }
 
@@ -23,5 +25,7 @@ namespace WebShop.Dal.Models
         public DateTime OrderDate { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
+
+        public string Comment { get; set; }
     }
 }

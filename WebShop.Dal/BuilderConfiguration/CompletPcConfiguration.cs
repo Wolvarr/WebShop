@@ -16,27 +16,7 @@ namespace WebShop.Dal.BuilderConfiguration
 
         public void Configure(EntityTypeBuilder<CompletPC> builder)
         {
-            builder.HasOne(pc => pc.Case)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(pc => pc.Motherboard)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(pc => pc.Cpu)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(pc => pc.Gpu)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(pc => pc.PowerSupply)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-                builder.HasData(this.seedService.CompletPCs);
+            builder.HasData(this.seedService.CompletPCs);
         }
     }
 }

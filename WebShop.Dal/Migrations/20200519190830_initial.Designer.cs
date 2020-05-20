@@ -10,8 +10,8 @@ using WebShop.Dal.Context;
 namespace WebShop.Dal.Migrations
 {
     [DbContext(typeof(WebShopDbContext))]
-    [Migration("20200518105824_user_update")]
-    partial class user_update
+    [Migration("20200519190830_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -168,55 +168,16 @@ namespace WebShop.Dal.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("WebShopUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("WebShopUserId");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("WebShop.Dal.Models.CompletPC", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CpuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GpuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MotherBoardId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PowerSupplyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
-
-                    b.HasIndex("CpuId");
-
-                    b.HasIndex("GpuId");
-
-                    b.HasIndex("MotherBoardId");
-
-                    b.HasIndex("PowerSupplyId");
-
-                    b.ToTable("CompletPCs");
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Item", b =>
@@ -262,9 +223,6 @@ namespace WebShop.Dal.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("OriginalPrice")
                         .HasColumnType("int");
 
@@ -279,8 +237,6 @@ namespace WebShop.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
-
                     b.ToTable("Items");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Item");
@@ -292,6 +248,9 @@ namespace WebShop.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DeliveryDate")
                         .HasColumnType("datetime2");
 
@@ -301,52 +260,39 @@ namespace WebShop.Dal.Migrations
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("WebShopUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("WebShopUserId");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("WebShop.Dal.Models.PC_Drive", b =>
+            modelBuilder.Entity("WebShop.Dal.Models.OrderItem", b =>
                 {
-                    b.Property<Guid>("PcId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CompletPCId")
+                    b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("DriveId")
+                    b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PcId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CompletPCId");
+                    b.HasIndex("OrderId");
 
-                    b.ToTable("PC_Drives");
-                });
-
-            modelBuilder.Entity("WebShop.Dal.Models.PC_Memory", b =>
-                {
-                    b.Property<Guid>("PcId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CompletPCId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MemoryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("PcId");
-
-                    b.HasIndex("CompletPCId");
-
-                    b.ToTable("PC_Memories");
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Rating", b =>
@@ -369,7 +315,7 @@ namespace WebShop.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
+                    b.HasAlternateKey("ItemId", "UserId");
 
                     b.HasIndex("WebShopUserId");
 
@@ -413,12 +359,11 @@ namespace WebShop.Dal.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("WebShopUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("WebShopUserId");
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserCartItems");
                 });
@@ -522,7 +467,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("21000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 2,
-                            DateSinceInStore = new DateTime(2020, 3, 29, 12, 58, 23, 706, DateTimeKind.Local).AddTicks(7670),
+                            DateSinceInStore = new DateTime(2020, 3, 30, 21, 8, 29, 901, DateTimeKind.Local).AddTicks(3258),
                             Description = "E-ATX formátumú Torony kialakítású számtógépház beépített 2 db 140 mm-es ventilátorral. Letisztul formabontó design, Edzett üveg oldalpanelek, TT LCS tanúsítvány. ",
                             GamingFlag = false,
                             HasRGB = false,
@@ -546,7 +491,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("22000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 2,
-                            DateSinceInStore = new DateTime(2020, 3, 29, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(5325),
+                            DateSinceInStore = new DateTime(2020, 3, 30, 21, 8, 29, 902, DateTimeKind.Local).AddTicks(9564),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque.",
                             GamingFlag = false,
                             HasRGB = false,
@@ -570,7 +515,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("31000000-0000-0000-0000-000000000000"),
                             Available = 2,
                             Category = 2,
-                            DateSinceInStore = new DateTime(2020, 3, 29, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(5407),
+                            DateSinceInStore = new DateTime(2020, 3, 30, 21, 8, 29, 902, DateTimeKind.Local).AddTicks(9650),
                             Description = "A Thermaltake a számítógépházába összeolvasztotta a szépséget és a teljesítményt, a View 32 Tempered Glass RGB Edition középkategóriás számítógépház tervezésébe. Négy prémium minőségű, 4 mm vastag, edzett üvegablakkal (felső, elülső, bal és jobb) készült, a belső rendszer közvetlen megtekintéséhez és a kiváló alvázvédelemhez. Három beépített 120 mm-es Riing LED RGB ventilátor (kettő elöl és egy hátul) biztosítja az RGB megvilágítását és az optimális szellőzést.",
                             DiscountedPrice = 18000,
                             GamingFlag = false,
@@ -589,6 +534,87 @@ namespace WebShop.Dal.Migrations
                             Height = 521,
                             SupportedMotherboard = 0,
                             Width = 201
+                        });
+                });
+
+            modelBuilder.Entity("WebShop.Dal.Models.CompletPC", b =>
+                {
+                    b.HasBaseType("WebShop.Dal.Models.Item");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Case")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cpu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Drives")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gpu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Memories")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Motherboard")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PowerSupply")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("CompletPC");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("21000000-0000-0000-0000-000000000011"),
+                            Available = 15,
+                            Category = 8,
+                            DateSinceInStore = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A dinamikus, szélnyíró készülékház kifinomult formával rendelkezik, hogy növelje a légáramot, miközben 30dB alatt tartja a zajszinteket a csendesebb játék és munka érdekében. Az elülső hangsúlyokon keresztül megtalálható vágások kiszélesítették a szellőzőket, így több levegő jut a készülékházba. Belül a CPU, a grafikus kártya és a tápegység külön foglalatokban található, minimalizálva a termikus interferenciát és csökkentve a környezeti hőmérsékletet. A légáram növelő dizájn felgyorsítja a hőeloszlást, hogy magasabb általános teljesítményt tegyen lehetővé és tartson meg.",
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = false,
+                            IsUsed = false,
+                            Manufacturer = "ASUS",
+                            Name = "ASUS ROG asztali gamer számítógép (G15DH-HU011D)",
+                            OriginalPrice = 295790,
+                            PicturePath = "21000000-0000-0000-0000-000000000011.jpg",
+                            ShortDescription = "Viszonylag olcsó, jó árérték arányú számítógép",
+                            Warranty = "2 years",
+                            Case = "Asus omega colorful RGB gépház",
+                            Cpu = "AMD Ryzen 5 3600X",
+                            Drives = "256GB SSD, 1TB HDD",
+                            Gpu = "nvidia geforce gtx 1650",
+                            Memories = "2 x Kingston HyperX fury 8gb 3200mhz",
+                            Motherboard = "ASUS Strix B460 gaming pro alaplap"
+                        },
+                        new
+                        {
+                            Id = new Guid("21000000-0000-0000-0000-000000000012"),
+                            Available = 3,
+                            Category = 8,
+                            DateSinceInStore = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A dinamikus, szélnyíró készülékház kifinomult formával rendelkezik, hogy növelje a légáramot, miközben 30dB alatt tartja a zajszinteket a csendesebb játék és munka érdekében. Az elülső hangsúlyokon keresztül megtalálható vágások kiszélesítették a szellőzőket, így több levegő jut a készülékházba. Belül a CPU, a grafikus kártya és a tápegység külön foglalatokban található, minimalizálva a termikus interferenciát és csökkentve a környezeti hőmérsékletet. A légáram növelő dizájn felgyorsítja a hőeloszlást, hogy magasabb általános teljesítményt tegyen lehetővé és tartson meg.",
+                            GamingFlag = false,
+                            HasRGB = false,
+                            HighlightedItem = false,
+                            IsUsed = false,
+                            Manufacturer = "ASUS",
+                            Name = "ASUS ROG Strix GA15 Gamer asztali számítógép(G15DH-HU004D)",
+                            OriginalPrice = 295790,
+                            PicturePath = "21000000-0000-0000-0000-000000000012.jpg",
+                            ShortDescription = "Highend gaming pc mindenre is",
+                            Warranty = "3 years",
+                            Case = "Asus Strix Boss gépház",
+                            Cpu = "Intel I9-9900K",
+                            Drives = "1TGB SSD, 10TB HDD",
+                            Gpu = "nVidia GeForce RTX 2060 Super - 8GB",
+                            Memories = "4 x Kingston HyperX fury 8gb 3200mhz",
+                            Motherboard = "ASUS Strix Z490 gaming pro alaplap"
                         });
                 });
 
@@ -635,7 +661,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("10000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 0,
-                            DateSinceInStore = new DateTime(2020, 3, 29, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(8358),
+                            DateSinceInStore = new DateTime(2020, 3, 30, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(2742),
                             Description = "A legjobb többprocesszoros teljesítmény az osztályában, a játékosok számára. Jobb teljesítmény. Hihetetlen technológia. Az intelligens Ryzen processzorok csak még okosabbak lettek. ",
                             GamingFlag = false,
                             HasRGB = false,
@@ -661,7 +687,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("20000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 0,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(8460),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(2849),
                             Description = "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):3700, VGA típus:Intel UHD Graphics 630, Hűtőventilátor:Nem, Fogyasztás (W):95, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Nem, Gyártási technológia (nm):14, L2 Cache (MB):2, Szálak száma:6,",
                             DiscountedPrice = 65000,
                             GamingFlag = false,
@@ -688,7 +714,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("30000000-0000-0000-0000-000000000000"),
                             Available = 10,
                             Category = 0,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(8470),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(2859),
                             Description = "Magok száma:6, Processzor foglalat:Intel 1151 v2, Család:Coffee Lake, Órajel (Mhz):2900, VGA típus:Nem, Hűtőventilátor:Igen, Fogyasztás (W):65, Architektúra (bit):64, L3 Cache (MB):9, Hűtőborda:Igen, Gyártási technológia (nm):14, L2 Cache (MB):1,5, Szálak száma:6,",
                             GamingFlag = false,
                             HasRGB = false,
@@ -714,7 +740,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("33000000-0000-0000-0000-000000000000"),
                             Available = 1,
                             Category = 0,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 708, DateTimeKind.Local).AddTicks(8475),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(2864),
                             Description = "Magok száma:24, Család:AMD Ryzen Threadripper, Processzor foglalat:AMD TR4, Órajel (Mhz):3000, VGA típus:Nem, Fogyasztás (W):250, L3 Cache (MB):64, Architektúra (bit):Zen+, Gyártási technológia (nm):12, Hűtőventilátor:Nem, L2 Cache (MB):12, Hűtőborda:Nem",
                             DiscountedPrice = 410000,
                             GamingFlag = false,
@@ -768,7 +794,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("40000000-0000-0000-0000-000000000000"),
                             Available = 3,
                             Category = 1,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(719),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(5144),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 165000,
                             GamingFlag = false,
@@ -796,7 +822,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("50000000-0000-0000-0000-000000000000"),
                             Available = 0,
                             Category = 1,
-                            DateSinceInStore = new DateTime(2020, 5, 16, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(817),
+                            DateSinceInStore = new DateTime(2020, 5, 17, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(5219),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 79900,
                             GamingFlag = false,
@@ -824,7 +850,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("55500000-0000-0000-0000-000000000000"),
                             Available = 15,
                             Category = 1,
-                            DateSinceInStore = new DateTime(2020, 5, 16, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(825),
+                            DateSinceInStore = new DateTime(2020, 5, 17, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(5226),
                             Description = "Új Turing GPU architektúra és Ray-tracing technológia: tükröződés és fejlettebb effektek valós időben. DirectX 12: fejlettebb vizualitás és optimalizált teljesítmény. Axial-tech fans: különleges és egyedi hűtés, halk és hatékony működés. Super Alloy Power II: elsőosztályú alkatrészekkel szerelve a hosszú élettartamért és a stabil energiaellátásért.MaxContact Technology: a hűtőborda hatékonyabb elhelyezésével nő a hővezetőképesség",
                             DiscountedPrice = 370000,
                             GamingFlag = false,
@@ -874,7 +900,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("60000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 3,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(2422),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(6853),
                             GamingFlag = false,
                             HasRGB = false,
                             HighlightedItem = false,
@@ -898,7 +924,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("70000000-0000-0000-0000-000000000000"),
                             Available = 0,
                             Category = 3,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(2483),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(6921),
                             Description = "A Kingston A400 egy 2,5\" -os SSD meghajtó, melynek kapacitása 240 GB és PC vagy notebook felhasználást képes teljesmértékben egy egy erőteljes géppé változtatni. A készülék frissítése még sosem volt egyszerűbb. Összehasonlítva a mechanikus merevlemezekkel azonnal észrevehető a teljesítmény növekedés. Már az indítás során észlelhetjük, hogy az operációs rendszer betöltése sokkal gyorsabb. Ésegyéb műveletek, mint az alkalmazások indítására, másolás vagy mozgó kép indítására sem kell már olyan sokáig várni, mint korábban",
                             GamingFlag = false,
                             HasRGB = false,
@@ -923,7 +949,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("80000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 3,
-                            DateSinceInStore = new DateTime(2020, 5, 15, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(2490),
+                            DateSinceInStore = new DateTime(2020, 5, 16, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(6928),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 65000,
                             GamingFlag = false,
@@ -971,7 +997,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("90000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 4,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(4165),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(8535),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 34000,
                             GamingFlag = false,
@@ -997,7 +1023,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("10000000-0000-0000-0000-000000000001"),
                             Available = 20,
                             Category = 4,
-                            DateSinceInStore = new DateTime(2020, 5, 13, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(4225),
+                            DateSinceInStore = new DateTime(2020, 5, 14, 21, 8, 29, 903, DateTimeKind.Local).AddTicks(8612),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
@@ -1050,7 +1076,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("11000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 5,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(6402),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 904, DateTimeKind.Local).AddTicks(878),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 48000,
                             GamingFlag = false,
@@ -1078,7 +1104,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("12000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 5,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(6468),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 904, DateTimeKind.Local).AddTicks(1003),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
@@ -1132,7 +1158,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("13000000-0000-0000-0000-000000000000"),
                             Available = 20,
                             Category = 6,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(8753),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 904, DateTimeKind.Local).AddTicks(3216),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             GamingFlag = false,
                             HasRGB = false,
@@ -1159,7 +1185,7 @@ namespace WebShop.Dal.Migrations
                             Id = new Guid("14000000-0000-0000-0000-000000000000"),
                             Available = 0,
                             Category = 6,
-                            DateSinceInStore = new DateTime(2020, 4, 18, 12, 58, 23, 709, DateTimeKind.Local).AddTicks(8847),
+                            DateSinceInStore = new DateTime(2020, 4, 19, 21, 8, 29, 904, DateTimeKind.Local).AddTicks(3294),
                             Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                             DiscountedPrice = 25000,
                             GamingFlag = false,
@@ -1237,66 +1263,22 @@ namespace WebShop.Dal.Migrations
 
             modelBuilder.Entity("WebShop.Dal.Models.Comment", b =>
                 {
-                    b.HasOne("WebShop.Dal.Models.Item", "Item")
-                        .WithMany()
+                    b.HasOne("WebShop.Dal.Models.Item", null)
+                        .WithMany("Comments")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebShop.Dal.Models.WebShopUser", "User")
+                    b.HasOne("WebShop.Dal.Models.WebShopUser", null)
                         .WithMany("Comments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebShop.Dal.Models.CompletPC", b =>
-                {
-                    b.HasOne("WebShop.Dal.Models.Case", "Case")
-                        .WithMany()
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebShop.Dal.Models.Cpu", "Cpu")
-                        .WithMany()
-                        .HasForeignKey("CpuId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebShop.Dal.Models.GraphicsCard", "Gpu")
-                        .WithMany()
-                        .HasForeignKey("GpuId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebShop.Dal.Models.Motherboard", "Motherboard")
-                        .WithMany()
-                        .HasForeignKey("MotherBoardId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("WebShop.Dal.Models.PowerSupply", "PowerSupply")
-                        .WithMany()
-                        .HasForeignKey("PowerSupplyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebShop.Dal.Models.Item", b =>
-                {
-                    b.HasOne("WebShop.Dal.Models.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("WebShopUserId");
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Order", b =>
                 {
-                    b.HasOne("WebShop.Dal.Models.WebShopUser", "User")
+                    b.HasOne("WebShop.Dal.Models.WebShopUser", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WebShopUserId");
 
                     b.OwnsOne("WebShop.Dal.Models.Address", "BillingAddress", b1 =>
                         {
@@ -1355,18 +1337,13 @@ namespace WebShop.Dal.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebShop.Dal.Models.PC_Drive", b =>
+            modelBuilder.Entity("WebShop.Dal.Models.OrderItem", b =>
                 {
-                    b.HasOne("WebShop.Dal.Models.CompletPC", null)
-                        .WithMany("Drives")
-                        .HasForeignKey("CompletPCId");
-                });
-
-            modelBuilder.Entity("WebShop.Dal.Models.PC_Memory", b =>
-                {
-                    b.HasOne("WebShop.Dal.Models.CompletPC", null)
-                        .WithMany("Memories")
-                        .HasForeignKey("CompletPCId");
+                    b.HasOne("WebShop.Dal.Models.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.Rating", b =>
@@ -1391,9 +1368,17 @@ namespace WebShop.Dal.Migrations
 
             modelBuilder.Entity("WebShop.Dal.Models.Users.UserCartItem", b =>
                 {
-                    b.HasOne("WebShop.Dal.Models.WebShopUser", null)
+                    b.HasOne("WebShop.Dal.Models.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebShop.Dal.Models.WebShopUser", "User")
                         .WithMany("CartItems")
-                        .HasForeignKey("WebShopUserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebShop.Dal.Models.WebShopUser", b =>

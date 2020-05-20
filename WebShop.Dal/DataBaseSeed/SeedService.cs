@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using WebShop.Dal.Models;
 
 namespace WebShop.Dal.DataBaseSeed
@@ -21,9 +22,52 @@ namespace WebShop.Dal.DataBaseSeed
 
         public IList<PowerSupply> PowerSupplies { get; }
 
+
         public SeedService()
         {
-            CompletPCs = new List<CompletPC>();
+            CompletPCs = new List<CompletPC>()
+            {
+                new CompletPC()
+                {
+                    Id = new Guid("21000000-0000-0000-0000-000000000011"),
+                    PicturePath = "21000000-0000-0000-0000-000000000011.jpg",
+                    Name="ASUS ROG asztali gamer számítógép (G15DH-HU011D)",
+                    Category = Enums.Category.CompletPc,
+                    OriginalPrice = 295790,
+                    DiscountedPrice = null,
+                    Available= 15,
+                    ShortDescription = "Viszonylag olcsó, jó árérték arányú számítógép",
+                    Description = "A dinamikus, szélnyíró készülékház kifinomult formával rendelkezik, hogy növelje a légáramot, miközben 30dB alatt tartja a zajszinteket a csendesebb játék és munka érdekében. Az elülső hangsúlyokon keresztül megtalálható vágások kiszélesítették a szellőzőket, így több levegő jut a készülékházba. Belül a CPU, a grafikus kártya és a tápegység külön foglalatokban található, minimalizálva a termikus interferenciát és csökkentve a környezeti hőmérsékletet. A légáram növelő dizájn felgyorsítja a hőeloszlást, hogy magasabb általános teljesítményt tegyen lehetővé és tartson meg.",
+                    Manufacturer = "ASUS",
+                    Warranty = "2 years",
+                    Case ="Asus omega colorful RGB gépház",
+                    Motherboard = "ASUS Strix B460 gaming pro alaplap",
+                    Cpu = "AMD Ryzen 5 3600X",
+                    Gpu = "nvidia geforce gtx 1650",
+                    Memories = "2 x Kingston HyperX fury 8gb 3200mhz",
+                    Drives = "256GB SSD, 1TB HDD"
+                },
+                new CompletPC()
+                {
+                    Id = new Guid("21000000-0000-0000-0000-000000000012"),
+                    PicturePath = "21000000-0000-0000-0000-000000000012.jpg",
+                    Category = Enums.Category.CompletPc,
+                    Available= 3,
+                    Name="ASUS ROG Strix GA15 Gamer asztali számítógép(G15DH-HU004D)",
+                    OriginalPrice = 295790,
+                    DiscountedPrice = null,
+                    ShortDescription = "Highend gaming pc mindenre is",
+                    Description = "A dinamikus, szélnyíró készülékház kifinomult formával rendelkezik, hogy növelje a légáramot, miközben 30dB alatt tartja a zajszinteket a csendesebb játék és munka érdekében. Az elülső hangsúlyokon keresztül megtalálható vágások kiszélesítették a szellőzőket, így több levegő jut a készülékházba. Belül a CPU, a grafikus kártya és a tápegység külön foglalatokban található, minimalizálva a termikus interferenciát és csökkentve a környezeti hőmérsékletet. A légáram növelő dizájn felgyorsítja a hőeloszlást, hogy magasabb általános teljesítményt tegyen lehetővé és tartson meg.",
+                    Manufacturer = "ASUS",
+                    Warranty = "3 years",
+                    Case ="Asus Strix Boss gépház",
+                    Motherboard = "ASUS Strix Z490 gaming pro alaplap",
+                    Cpu = "Intel I9-9900K",
+                    Gpu = "nVidia GeForce RTX 2060 Super - 8GB",
+                    Memories = "4 x Kingston HyperX fury 8gb 3200mhz",
+                    Drives = "1TGB SSD, 10TB HDD"
+                }
+            };
 
             Cases = new List<Case>()
             {

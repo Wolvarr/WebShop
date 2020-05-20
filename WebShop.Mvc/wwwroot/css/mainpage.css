@@ -20,11 +20,12 @@
     height: auto;
     width: 270px;
     background-color: white;
+    z-index: -1;
 }
 
 .main-page-bar {
     position: absolute;
-    top: 62px;
+    top: 60px;
     width: 500px;
     height: 50px;
     margin-left: -250px;
@@ -37,9 +38,10 @@
 }
 
 
-    .main-page-bar > button {
+    .main-page-bar > a {
         border: none;
-        margin-left: 1px;
+        border-radius: 4px;
+        margin-left: 6px;
         color: white;
         height: 100%;
         text-align: center;
@@ -50,9 +52,12 @@
         cursor: pointer;
         background-color: #343a40;
         color: #ca158e;
+        padding-top: 10px;
+        padding-left:3px;
+        padding-right:3px;
     }
 
-            .main-page-bar > button:hover {
+            .main-page-bar > a:hover {
                 background-color: #850c5d;
                 color: white;
             }

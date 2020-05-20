@@ -5,9 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Xml;
 using WebShop.Bll.DTO;
+using WebShop.Bll.Exceptions;
+using WebShop.Bll.Extensions;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
 using WebShop.Dal.Context;
+using WebShop.Dal.Enums;
 using WebShop.Dal.Models;
 using WebShop.Dal.Models.Users;
 
@@ -69,13 +72,25 @@ namespace WebShop.Bll.Services
                 query = query.Where(x => x.Name.Contains(specification.Name));
 
             if (specification.SelectedCategories.Any())
-                query = query.Where(x => specification.SelectedCategories.Contains(x.Category));
+            { var selectedCategoriesEnum = new List<Category>();
+                specification.SelectedCategories.ForEach(x =>
+           {
+               selectedCategoriesEnum.Add(EnumExtensionMethods.GetValueFromDescription<Category>(x));
+           });
+                query = query.Where(x => selectedCategoriesEnum.Contains(x.Category));
+            }
 
             if (specification.SelectedManufacturers.Any())
                 query = query.Where(x => specification.SelectedManufacturers.Contains(x.Manufacturer));
 
             if (specification.HasRGB.HasValue)
                 query = query.Where(x => x.HasRGB == specification.HasRGB);
+
+            if (specification.IsNewArrival.HasValue)
+                query = query.Where(x => x.DateSinceInStore > DateTime.Now.AddDays(-30));
+
+            if (specification.IsDiscounted.HasValue)
+                query = query.Where(x => x.DiscountedPrice != null && x.DiscountedPrice < x.OriginalPrice);
 
             if (specification.IsGaming.HasValue)
                 query = query.Where(x => x.GamingFlag == specification.IsGaming);
@@ -145,7 +160,7 @@ namespace WebShop.Bll.Services
             {
                 AllResultsCount = allResultsCount,
                 Results = query.ToList().Select(ItemHeaderSelectorFunc.Value),
-                Categories = context.Items.Select(x => x.Category).Distinct().ToList(),
+                Categories = context.Items.Select(x => EnumExtensionMethods.GetDescription(x.Category)).Distinct().ToList(),
                 Manufacturers = context.Items.Select(x => x.Manufacturer).Distinct().ToList(),
                 TotalMaxPrice = totalMaxPrice,
                 TotalMinPrice = totalMinPrice,
@@ -163,9 +178,10 @@ namespace WebShop.Bll.Services
 
             var returnDto = new ItemFullViewDTO(this.context.Items
                 .Include(x => x.Ratings)
+                .Include(x => x.Comments)
                 .SingleOrDefault(x => x.Id == id));
 
-            var temp = this.context.Items.Where(x => x.Category == returnDto.Category).Include(x => x.Ratings).ToList();
+            var temp = this.context.Items.Where(x => x.Category  == EnumExtensionMethods.GetValueFromDescription<Category>(returnDto.Category)).Include(x => x.Ratings).Include(x => x.Comments).ToList();
             temp.ForEach(x =>
            {
                if (x.Id != id)
@@ -243,6 +259,50 @@ namespace WebShop.Bll.Services
             }
             this.context.SaveChanges();
         }
+
+        public void AddComment(Guid userId, Guid itemId, string content, int? rating, DateTime date)
+        {
+            var User = this.context.Users.SingleOrDefault(u => u.Id == userId);
+            if (User == null)
+            {
+                throw new UserNotFoundException("There is no user in the database with the given ID");
+            }
+            var item = this.context.Items.SingleOrDefault(x => x.Id == itemId);
+            if (item == null)
+            {
+                throw new ItemNotFoundException("There is no item in the database with the given ID");
+            }
+
+            this.context.Comments.Add(new Comment()
+            {
+                ItemId = itemId,
+                UserId = userId,
+                CommentText = content,
+                Date = date
+            });
+            if (rating != null)
+            {
+                //given user has already rated the item
+                if (context.Ratings.SingleOrDefault(x => x.UserId == userId && x.ItemId == itemId) != null)
+                {
+                    var alreadyExistingRating = context.Ratings.SingleOrDefault(x => x.UserId == userId && x.ItemId == itemId);
+                    alreadyExistingRating.Value = rating.Value;
+                }
+                else
+                {
+                    this.context.Ratings.Add(new Rating
+                    {
+                        ItemId = itemId,
+                        UserId = userId,
+                        Value = rating.Value
+                    });
+                }
+            }
+
+            this.context.SaveChanges();
+
+        }
+
 
     }
 }

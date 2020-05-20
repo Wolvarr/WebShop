@@ -6,7 +6,7 @@
 }
 @inject SignInManager<WebShopUser> SignInManager
 @inject UserManager<WebShopUser> UserManager
-
+<partial name="_StatusMessage" model="@TempData["message"]" />
 <div class=" item-full-view">
     <div class="card card-body">
         <div class="row">
@@ -31,7 +31,9 @@
                 </p>
                 <hr />
                 <div style="height : 100px">
-                    <p class="small">@Model.Description</p>
+                    <div class="item-description">
+                        <p class="small">@Model.Description</p>
+                    </div>
                 </div>
                 @{ var currentUser = await UserManager.GetUserAsync(User);
                     <form class="add-to-cart-form " id="addtocart-form" method="post" asp-action="AddItemToCart" asp-route-userId="@(currentUser.Id)">
@@ -69,13 +71,11 @@
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-id="@Model.Id" class="full-view-subscriebe-button">Feliratkozás</a>
+                                <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-userId="@currentUser.Id" asp-route-itemId="@Model.Id" class="cart-button">Feliratkozás</a>
                             }
                             else
                             {
-                                <a asp-area="Identity" asp-page="/Account/Login">
-                                    <div class="full-view-subscriebe-button">Feliratkozás</div>
-                                </a>
+                                <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Feliratkozás</a>
                             }
                         }
                     </form>
@@ -83,6 +83,7 @@
             </div>
         </div>
     </div>
+    <hr />
     <p style="font-size : 30px; text-align: center"> Tulajdonságok:</p>
     <div class="specification-container">
         @foreach (var prop in Model.SpecificProperties.GetType().GetProperties())
@@ -92,11 +93,50 @@
                 <div class="specification-item"> <b>@(Model.SpecificProperties.GetDisplayName(prop.Name)) : </b> @(prop.GetValue(Model.SpecificProperties, null))</div>
             }
         }
+        <hr />
+        <p style="font-size : 30px; margin:30px 0 20px 0"> Kommentek</p>
+    </div>
+    <form class="add-comment-form" id="addcomment-form" method="post" asp-action="AddComment" asp-route-userId="@(currentUser.Id)" asp-route-itemId="@Model.Id">
+        <div class="add-comment-container">
+            <div class="rows">
+                Értékelés:
+                <label class="float-l" for="score1" style="margin-right:15px;">
+                    1&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="1">
+                </label>
+                <label class="float-l" for="score2" style="margin-right:15px;">
+                    2&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="2">
+                </label>
+
+                <label class="float-l" for="score3" style="margin-right:15px;">
+                    3&nbsp;&nbsp;<input class="float-l" id="score3" type="radio" name="Rating" value="3">
+                </label>
+
+                <label class="float-l" for="score4" style="margin-right:15px;">
+                    4&nbsp;&nbsp;<input class="float-l" id="score4" type="radio" name="Rating" value="4">
+                </label>
+
+                <label class="float-l" for="score5" style="margin-right:15px;">
+                    5&nbsp;&nbsp;<input class="float-l" id="score5" type="radio" name="Rating" value="5">
+                </label>
+
+                <span class="clear"></span>
+            </div>
+            <textarea rows="4" cols="100" name="Content" placeholder="Ide írd a kommented.."></textarea>
+            <input type="submit">
+        </div>
+    </form>
+
+
+    <div class="comments-container">
+        @foreach (var comment in Model.Comments)
+        {
+            <p>@comment.CommentText</p>
+        }
     </div>
 
+    <hr />
     <p style="font-size : 30px; margin:30px 0 20px 0"> Hasonló termékek:</p>
 
     <vc:item-list items="Model.SimilarItems"></vc:item-list>
 </div>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
