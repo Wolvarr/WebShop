@@ -4,116 +4,123 @@
     ViewData["Title"] = "CreateItem";
 }
 
-<h1>CreateItem</h1>
+<h1>Termék felvétele</h1>
 
-<h4>Item</h4>
+<h4>@Model.Category</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="CreateItem" asp-route-create="true" asp-route-category="@Model.Category">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PicturePath" class="control-label"></label>
-                <input asp-for="PicturePath" class="form-control" />
-                <span asp-validation-for="PicturePath" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OriginalPrice" class="control-label"></label>
-                <input asp-for="OriginalPrice" class="form-control" />
-                <span asp-validation-for="OriginalPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountedPrice" class="control-label"></label>
-                <input asp-for="DiscountedPrice" class="form-control" />
-                <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Manufacturer" class="control-label"></label>
-                <input asp-for="Manufacturer" class="form-control" />
-                <span asp-validation-for="Manufacturer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
-                <input asp-for="ShortDescription" class="form-control" />
-                <span asp-validation-for="ShortDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Warranty" class="control-label"></label>
-                <input asp-for="Warranty" class="form-control" />
-                <span asp-validation-for="Warranty" class="text-danger"></span>
-            </div>
-            @if (Model != null && Model.Category == "Processzor")
-            {
+<form enctype="multipart/form-data" method="post" asp-action="CreateItem" asp-route-create="true" asp-route-category="@Model.Category">
+    <div class="user-data-container">
+        <div class="row">
+            <div class="col-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="BaseClock" class="control-label"></label>
-                    <input asp-for="BaseClock" class="form-control" />
-                    <span asp-validation-for="BaseClock" class="text-danger"></span>
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="TDP" class="control-label"></label>
-                    <input asp-for="TDP" class="form-control" />
-                    <span asp-validation-for="TDP" class="text-danger"></span>
+                    <label asp-for="PicturePath" class="control-label"></label>
+                    <input asp-for="PicturePath" class="form-control" />
+                    <span asp-validation-for="PicturePath" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ProcessorFamily" class="control-label"></label>
-                    <input asp-for="ProcessorFamily" class="form-control" />
-                    <span asp-validation-for="ProcessorFamily" class="text-danger"></span>
+                    <label for="file">Upload Image:</label>
+                    <input value="Image" type="file" id="file" name="file" style="width :100%" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Technology" class="control-label"></label>
-                    <input asp-for="Technology" class="form-control" />
-                    <span asp-validation-for="Technology" class="text-danger"></span>
+                    <label asp-for="OriginalPrice" class="control-label"></label>
+                    <input asp-for="OriginalPrice" class="form-control" />
+                    <span asp-validation-for="OriginalPrice" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CoreNumber" class="control-label"></label>
-                    <input asp-for="CoreNumber" class="form-control" />
-                    <span asp-validation-for="CoreNumber" class="text-danger"></span>
+                    <label asp-for="DiscountedPrice" class="control-label"></label>
+                    <input asp-for="DiscountedPrice" class="form-control" />
+                    <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ThreadNumber" class="control-label"></label>
-                    <input asp-for="ThreadNumber" class="form-control" />
-                    <span asp-validation-for="ThreadNumber" class="text-danger"></span>
+                    <label asp-for="Manufacturer" class="control-label"></label>
+                    <input asp-for="Manufacturer" class="form-control" />
+                    <span asp-validation-for="Manufacturer" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Socket" class="control-label"></label>
-                    <input asp-for="Socket" class="form-control" />
-                    <span asp-validation-for="Socket" class="text-danger"></span>
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Warranty" class="control-label"></label>
+                    <input asp-for="Warranty" class="form-control" />
+                    <span asp-validation-for="Warranty" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                @if (Model != null && Model.Category == "Processzor")
+                {
+                    <div class="form-group">
+                        <label asp-for="BaseClock" class="control-label"></label>
+                        <input asp-for="BaseClock" class="form-control" />
+                        <span asp-validation-for="BaseClock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TDP" class="control-label"></label>
+                        <input asp-for="TDP" class="form-control" />
+                        <span asp-validation-for="TDP" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProcessorFamily" class="control-label"></label>
+                        <input asp-for="ProcessorFamily" class="form-control" />
+                        <span asp-validation-for="ProcessorFamily" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Technology" class="control-label"></label>
+                        <input asp-for="Technology" class="form-control" />
+                        <span asp-validation-for="Technology" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoreNumber" class="control-label"></label>
+                        <input asp-for="CoreNumber" class="form-control" />
+                        <span asp-validation-for="CoreNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThreadNumber" class="control-label"></label>
+                        <input asp-for="ThreadNumber" class="form-control" />
+                        <span asp-validation-for="ThreadNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Socket" class="control-label"></label>
+                        <input asp-for="Socket" class="form-control" />
+                        <span asp-validation-for="Socket" class="text-danger"></span>
+                    </div>
 
-            }
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="GamingFlag" /> @Html.DisplayNameFor(model => model.GamingFlag)
-                </label>
+                }
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="GamingFlag" /> @Html.DisplayNameFor(model => model.GamingFlag)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="HasRGB" /> @Html.DisplayNameFor(model => model.HasRGB)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasRGB" /> @Html.DisplayNameFor(model => model.HasRGB)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
+</form>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Mégse</a>
 </div>
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Dal.Enums;
@@ -12,38 +13,54 @@ namespace WebShop.Models
 
         public bool Create { get; set; }
 
+        [DisplayName("Termék név")
         public string Name { get; set; }
 
+        [DisplayName("Kategória")]
         public string Category { get; set; }
 
+        [DisplayName("Mennyiség")]
         public int Available { get; set; }
 
+        [DisplayName("Kép elérési útja")]
         public string PicturePath { get; set; }
 
+        [DisplayName("Ár")]
         public int OriginalPrice { get; set; }
 
+        [DisplayName("Akciós ár")]
         public int? DiscountedPrice { get; set; }
 
+        [DisplayName("Gyártó")]
         public string Manufacturer { get; set; }
 
+        [DisplayName("Leírás")]
         public string Description { get; set; }
 
+        [DisplayName("Rövid leírás")]
         public string ShortDescription { get; set; }
 
+        [DisplayName("Garancia")]
         public string Warranty { get; set; }
 
+        [DisplayName("Gaming ajánlat")]
         public bool GamingFlag { get; set; }
 
+        [DisplayName("Használt termék")]
         public bool IsUsed { get; set; }
 
+        [DisplayName("RGB")]
         public bool HasRGB { get; set; }
 
         #region hardware
 
+        [DisplayName("Órajel(mhz)")]
         public int? BaseClock { get; set; }
 
+        [DisplayName("Fogyasztás(w)")]
         public int? TDP { get; set; }
 
+        [DisplayName("Súly(g)")]
         public int? Weight { get; set; }
         #endregion
 

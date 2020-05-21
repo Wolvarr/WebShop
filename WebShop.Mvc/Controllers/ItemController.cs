@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -91,12 +92,26 @@ namespace WebShop.Mvc.Controllers
             return Redirect(url);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IActionResult CreateItem(CreateItemViewModel item)
         {
             var dto = new CreateItemDTO();
 
             if (item.Create == true && item.Category != null && item.Name != null)
             {
+                var file = Request.Form.Files.First();
+                if (file != null)
+                {
+                    if (!Directory.Exists(Directory.GetCurrentDirectory() + "/wwwroot/images/items"))
+                    {
+                        Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/wwwroot/images/items");
+                    }
+                    using (var fileStream = new FileStream(Directory.GetCurrentDirectory() + "/wwwroot/images/items/" + file.FileName, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                }
                 foreach (var prop in item.GetType().GetProperties())
                 {
                     if (prop.GetValue(item, null) != null)
@@ -108,10 +123,21 @@ namespace WebShop.Mvc.Controllers
                         }
                     }
                 }
+                dto.PicturePath = file.FileName;
                 this.itemService.CreateItem(dto);
+
+                return RedirectToAction("Index", "Home");
             }
 
             return View(item);
         }
+
+        [HttpGet]
+        public IActionResult CreateItem(CreateItemViewModel item, string category)
+        {
+            return View(item);
+
+        }
+
     }
 }
