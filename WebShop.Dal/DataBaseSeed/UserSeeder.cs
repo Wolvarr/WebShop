@@ -1,22 +1,33 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using WebShop.Dal.Context;
 using WebShop.Dal.Models;
 
 namespace WebShop.Dal.DataBaseSeed
 {
     public static class UserSeeder
-    { 
-        public static void SeedUsers(UserManager<WebShopUser> userManager, WebShopDbContext context)
+    {
+        private static readonly string[] Roles = new string[] { "Administrator", "Costumer" };
+
+        public static async Task SeedUsers(UserManager<WebShopUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, WebShopDbContext context)
         {
+            if (!await roleManager.RoleExistsAsync("Administrator"))
+                await roleManager.CreateAsync(new IdentityRole<Guid> { Name = "Administrator" });
+            if (!await roleManager.RoleExistsAsync("Costumer"))
+                await roleManager.CreateAsync(new IdentityRole<Guid> { Name = "Costumer" });
+
             if (userManager.FindByEmailAsync("asd@asd.hu").Result == null)
             {
                 WebShopUser testUser = new WebShopUser
                 {
-                    NickName= "Gipsz Jakab",
+                    NickName = "Gipsz Jakab",
                     Id = new Guid("12345678-0000-0000-0000-120000000000"),
                     UserName = "asd@asd.hu",
                     NormalizedUserName = "ASD@ASD.HU",
@@ -27,12 +38,14 @@ namespace WebShop.Dal.DataBaseSeed
                         ZipCode = "1091",
                         Country = "Magyarország",
                         City = "Budapest",
-                        Street ="Random utca",
+                        Street = "Random utca",
                         HouseNumberAndDoor = "13,  3/12",
                     },
                 };
 
                 IdentityResult result = userManager.CreateAsync(testUser, "Asdf1234.").Result;
+                var addToRoleResult =  userManager.AddToRoleAsync(testUser, "Administrator");
+
 
                 context.Ratings.Add(new Rating()
                 {
@@ -44,7 +57,7 @@ namespace WebShop.Dal.DataBaseSeed
 
                 context.Comments.Add(new Comment()
                 {
-                    Id= Guid.NewGuid(),
+                    Id = Guid.NewGuid(),
                     UserId = new Guid("12345678-0000-0000-0000-120000000000"),
                     ItemId = new Guid("10000000-0000-0000-0000-000000000000"),
                     CommentText = "Nagyon jó termék, évek óta használom hiba nélkül.",

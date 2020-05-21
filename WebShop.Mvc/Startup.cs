@@ -54,7 +54,7 @@ namespace WebShop
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<WebShopUser> userManager, WebShopDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<WebShopUser> userManager, RoleManager<IdentityRole<Guid>> roleManager, WebShopDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -86,8 +86,7 @@ namespace WebShop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            UserSeeder.SeedUsers(userManager, context);
-
+            UserSeeder.SeedUsers(userManager, roleManager, context).Wait();
         }
     }
 }
