@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,19 @@ namespace WebShop.Mvc.Controllers
             this.userService = userService;
         }
 
-        public IActionResult Index(ItemSpecification specification)
+        public IActionResult Index(ItemSpecification specification, ItemBrowserViewModel model = null)
         {
             if (specification?.PageNumber != null)
                 specification.PageNumber -= 1;
 
-            return View(new ItemBrowserViewModel(this.itemService.GetAllItems(specification)));
+            if (model == null)
+            {
+                return View(new ItemBrowserViewModel(this.itemService.GetAllItems(specification)));
+            }
+            else
+            {
+                return View(new ItemBrowserViewModel(this.itemService.GetAllItems(specification)) { SelectedCategory = model.SelectedCategory });
+            }
         }
 
         public IActionResult GetItemById(Guid? id)
@@ -81,6 +89,29 @@ namespace WebShop.Mvc.Controllers
             TempData["message"] = "Kommentedet sikeresen rögzítettük";
             var url = this.Request.Headers["Referer"].ToString();
             return Redirect(url);
+        }
+
+        public IActionResult CreateItem(CreateItemViewModel item)
+        {
+            var dto = new CreateItemDTO();
+
+            if (item.Create == true && item.Category != null && item.Name != null)
+            {
+                foreach (var prop in item.GetType().GetProperties())
+                {
+                    if (prop.GetValue(item, null) != null)
+                    {
+                        if (dto.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name) != null)
+                        {
+                            var propertyToModify = dto.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name);
+                            propertyToModify.SetValue(dto, prop.GetValue(item, null));
+                        }
+                    }
+                }
+                this.itemService.CreateItem(dto);
+            }
+
+            return View(item);
         }
     }
 }

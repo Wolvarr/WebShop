@@ -1,4 +1,6 @@
 ﻿@model WebShop.Models.ItemBrowserViewModel
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
 @{
     ViewData["Title"] = "Termékek";
 
@@ -6,7 +8,8 @@
     queryParams.TryAdd("pageNumber", String.Empty);
 
 }
-
+@inject SignInManager<WebShopUser> SignInManager
+@inject UserManager<WebShopUser> UserManager
 <partial name="_StatusMessage" model="@TempData["message"]" />
 
 <h1 style="margin-bottom: 40px;">Termékek</h1>
@@ -21,6 +24,22 @@
         </div>
     </div>
 </div>
+
+
+@if (this.User.IsInRole("Administrator"))
+{
+<div class="new-item-container">
+    <p>Új termék hozzáadása</p>
+    @using (Html.BeginForm("Index", "Item"))
+    {
+        @Html.DropDownListFor(m => m.SelectedCategory, new SelectList(Model.AvailableCategories), "Kategória", new { onchange = "this.form.submit();", @class = "new-item-dropdown-list" })
+    }
+    @if (Model.SelectedCategory != null)
+    {
+    <a class="new-item-button" asp-action="CreateItem" asp-controller="Item" asp-route-create="false" asp-route-category="@Model.SelectedCategory">Hozzáad</a>
+    }
+</div>
+}
 
 
 <div class="item-list">

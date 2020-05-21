@@ -63,8 +63,8 @@ namespace WebShop.Bll.Services
 
             if (!string.IsNullOrWhiteSpace(specification.ComplexFilter))
             {
-                query = query.Where(x => x.Name.Contains(specification.ComplexFilter) || 
-                                 x.Manufacturer.Contains(specification.ComplexFilter) || 
+                query = query.Where(x => x.Name.Contains(specification.ComplexFilter) ||
+                                 x.Manufacturer.Contains(specification.ComplexFilter) ||
                                  x.ShortDescription.Contains(specification.ComplexFilter));
             }
 
@@ -72,7 +72,8 @@ namespace WebShop.Bll.Services
                 query = query.Where(x => x.Name.Contains(specification.Name));
 
             if (specification.SelectedCategories.Any())
-            { var selectedCategoriesEnum = new List<Category>();
+            {
+                var selectedCategoriesEnum = new List<Category>();
                 specification.SelectedCategories.ForEach(x =>
            {
                selectedCategoriesEnum.Add(EnumExtensionMethods.GetValueFromDescription<Category>(x));
@@ -181,7 +182,7 @@ namespace WebShop.Bll.Services
                 .Include(x => x.Comments).ThenInclude(c => c.User)
                 .SingleOrDefault(x => x.Id == id));
 
-            var temp = this.context.Items.Where(x => x.Category  == EnumExtensionMethods.GetValueFromDescription<Category>(returnDto.Category)).Include(x => x.Ratings).Include(x => x.Comments).ToList();
+            var temp = this.context.Items.Where(x => x.Category == EnumExtensionMethods.GetValueFromDescription<Category>(returnDto.Category)).Include(x => x.Ratings).Include(x => x.Comments).ToList();
             temp.ForEach(x =>
            {
                if (x.Id != id)
@@ -294,6 +295,45 @@ namespace WebShop.Bll.Services
             });
 
             return itemHeaders;
+        }
+
+        public void CreateItem(CreateItemDTO item)
+        {
+            switch (EnumExtensionMethods.GetValueFromDescription<Category>(item.Category))
+            {
+                case Category.Cpu:
+                    {
+                        var cpu = new Cpu()
+                        {
+                            Name = item.Name,
+                            Category = Category.Cpu,
+                            Available = 20,
+                            PicturePath = item.PicturePath,
+                            OriginalPrice = item.OriginalPrice,
+                            DiscountedPrice = item.DiscountedPrice,
+                            Manufacturer = item.Manufacturer,
+                            ShortDescription = item.ShortDescription,
+                            Description = item.Description,
+                            Warranty = item.Warranty,
+                            GamingFlag = item.GamingFlag,
+                            IsUsed = item.IsUsed,
+                            HasRGB = item.HasRGB,
+                            DateSinceInStore = DateTime.Now,
+
+                            BaseClock = item.BaseClock.Value,
+                            TDP = item.TDP.Value,
+                            ProcessorFamily = item.ProcessorFamily,
+                            Technology = item.Technology.Value,
+                            CoreNumber = item.CoreNumber.Value,
+                            ThreadNumber = item.ThreadNumber.Value,
+                            Socket = EnumExtensionMethods.GetValueFromDescription<CpuSocket>(item.Socket)
+                        };
+
+                        this.context.Items.Add(cpu);
+                        break;
+                    }
+            }
+            context.SaveChanges();
         }
     }
 }

@@ -138,6 +138,40 @@ a {
     margin-bottom: 100px;
     text-align: center;
 }
+
+.new-item-container {
+    position: absolute;
+    top: 100px;
+    right: 450px;
+    border: 2px solid;
+    border-color: #850c5d;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.new-item-container > p{
+    color: white;
+}
+
+.new-item-button {
+    margin-top:2px;
+    padding: 5px 15px;
+    background: #ccc;
+    border: 2px solid;
+    border-color: #850c5d;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.new-item-dropdown-list {
+    width: 100%;
+    border: solid;
+    border-color: #850c5d;
+    border-radius: 8px;
+    background-color: #ccc;
+    color: black;
+    margin-bottom: 4px;
+}
 /* Full item view styles
 -------------------------------------------------- */
 .item-full-view > div.card-body {

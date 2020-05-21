@@ -10,6 +10,11 @@ namespace WebShop.Models
 {
     public class ItemBrowserViewModel
     {
+
+        public ItemBrowserViewModel()
+        {
+
+        }
         public ItemBrowserViewModel(PagedResult<ItemHeader> result)
         {
             this.ItemResults = result;
@@ -55,6 +60,8 @@ namespace WebShop.Models
         public int TotalMaxPrice { get; set; }
 
         public int TotalMinPrice { get; set; }
+
+        public string SelectedCategory { get; set; }
 
     }
 }

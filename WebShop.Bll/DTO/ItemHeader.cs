@@ -21,7 +21,7 @@ namespace WebShop.Bll.DTO
             this.ShortDescription = item.ShortDescription;
             this.Description = item.Description;
             this.GamingFlag = item.GamingFlag;
-            this.IsUserd = item.IsUsed;
+            this.IsUsed = item.IsUsed;
             this.HasRGB = item.HasRGB;
             this.Category = EnumExtensionMethods.GetDescription(item.Category);
             if(item is Motherboard)
@@ -59,7 +59,7 @@ namespace WebShop.Bll.DTO
 
         public bool GamingFlag { get; set; }
 
-        public bool IsUserd { get; set; }
+        public bool IsUsed { get; set; }
 
         public bool HasRGB { get; set; }
 

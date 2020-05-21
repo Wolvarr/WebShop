@@ -19,6 +19,6 @@ namespace WebShop.Bll.ServiceInterfaces
         List<ItemHeader> GetAvailableItems();
 
         void AddComment(Guid userId, Guid itemId, string content, int? rating, DateTime date);
-
+        void CreateItem(CreateItemDTO item);
     }
 }
