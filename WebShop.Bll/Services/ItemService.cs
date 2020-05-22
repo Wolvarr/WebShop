@@ -385,5 +385,23 @@ namespace WebShop.Bll.Services
             this.context.SaveChanges();
 
         }
+
+        public void ChangeAvailability(string id, int value)
+        {
+            var item = this.context.Items.SingleOrDefault(x => x.Id.ToString() == id);
+            if (item == null)
+                throw new ItemNotFoundException("Item with the given id was not found");
+
+            if(value >= 0  && value != item.Available)
+            {
+                if(item.Available == 0)
+                {
+
+                }
+                item.Available = value;
+
+                context.SaveChanges();
+            }
+        }
     }
 }

@@ -189,5 +189,11 @@ namespace WebShop.Mvc.Controllers
             return RedirectToAction("Index", "Home", new { message = "Termék sikeresen módosítva" });
 
         }
+
+        public IActionResult ChangeAvailability(string id, int value)
+        {
+            this.itemService.ChangeAvailability(id, value);
+            return RedirectToAction("Index", "Home", new { message = "Termék sikeresen módosítva" });
+        }
     }
 }
