@@ -29,6 +29,13 @@
                         }
                     </div>
                 </p>
+                @if (this.User.IsInRole("Administrator"))
+                {
+                    <div class="edit-item-container">
+                            <a class="edit-item-button" asp-action="EditItem" asp-controller="Item"  asp-route-itemId="@Model.Id">Termék szerkesztése</a>
+                    </div>
+                }
+
                 <hr />
                 <div style="height : 100px">
                     <div class="item-description">

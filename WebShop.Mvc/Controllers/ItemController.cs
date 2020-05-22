@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Bll.DTO;
+using WebShop.Bll.Extensions;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Bll.Specifications;
 using WebShop.Dal.Models;
@@ -126,7 +127,7 @@ namespace WebShop.Mvc.Controllers
                 dto.PicturePath = file.FileName;
                 this.itemService.CreateItem(dto);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home", new { message = "Termék sikeresen hozzáadva" });
             }
 
             return View(item);
@@ -137,6 +138,36 @@ namespace WebShop.Mvc.Controllers
         {
             return View(item);
 
+        }
+
+        [HttpGet]
+        public IActionResult EditItem(string itemId)
+        {
+            var item = this.itemService.GetItemById(new Guid(itemId));
+            var viewModel = new EditItemViewModel();
+            foreach (var prop in item.GetType().GetProperties())
+            {
+                if (prop.GetValue(item, null) != null)
+                {
+                    if (viewModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name) != null)
+                    {
+                        var propertyToModify = viewModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name);
+                        propertyToModify.SetValue(viewModel, prop.GetValue(item, null));
+                    }
+                }
+            }
+            foreach (var prop in item.SpecificProperties.GetType().GetProperties())
+            {
+                if (prop.GetValue(item.SpecificProperties, null) != null)
+                {
+                    if (viewModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name) != null)
+                    {
+                        var propertyToModify = viewModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name);
+                        propertyToModify.SetValue(viewModel, prop.GetValue(item.SpecificProperties, null));
+                    }
+                }
+            }
+            return View(viewModel);
         }
 
     }

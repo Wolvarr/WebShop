@@ -27,7 +27,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard.ToString());
                 @Html.DropDownListFor(model => model.Motherboard, new SelectList(Model.AvailableItems.Where(x => x.Category == "Alaplap"), "Id", "Name"), "Alaplap", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">
@@ -51,7 +51,7 @@
         <div class="item-selector">
             @if (Model.CPU == Guid.Empty && Model.Motherboard != Guid.Empty)
             {
-                var motherboardSocket = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard).CpuSocket;
+                var motherboardSocket = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard.ToString()).CpuSocket;
                 @Html.DropDownListFor(model => model.CPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Processzor" && x.CpuSocket == motherboardSocket), "Id", "Name"), "Processzor (Csak a választott alaplappal kompatibilis modellek)", new { onchange = "this.form.submit();", @class = "dropdown-list" })
             }
             else
@@ -62,7 +62,7 @@
                 }
                 else
                 {
-                    var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.CPU);
+                    var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.CPU.ToString());
                     @Html.DropDownListFor(model => model.CPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Processzor"), "Id", "Name"), "Processzor", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                     <div class="selected-item-container">
                         <div class="row">
@@ -91,7 +91,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.GPU);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.GPU.ToString());
                 @Html.DropDownListFor(model => model.GPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Videókártya"), "Id", "Name"), "Videókártya", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">
@@ -119,7 +119,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.RAM);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.RAM.ToString());
                 @Html.DropDownListFor(model => model.RAM, new SelectList(Model.AvailableItems.Where(x => x.Category == "Memória"), "Id", "Name"), "Memória", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">
@@ -147,7 +147,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Drive);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Drive.ToString());
                 @Html.DropDownListFor(model => model.Drive, new SelectList(Model.AvailableItems.Where(x => x.Category == "Merevlemez"), "Id", "Name"), "Merevlemez", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">
@@ -175,7 +175,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.PSU);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.PSU.ToString());
                 @Html.DropDownListFor(model => model.PSU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Tápegység"), "Id", "Name"), "Tápegység", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">
@@ -203,7 +203,7 @@
             }
             else
             {
-                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Case);
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Case.ToString());
                 @Html.DropDownListFor(model => model.Case, new SelectList(Model.AvailableItems.Where(x => x.Category == "Gépház"), "Id", "Name"), "Gépház", new { onchange = "this.form.submit();", @class = "dropdown-list" })
                 <div class="selected-item-container">
                     <div class="row">

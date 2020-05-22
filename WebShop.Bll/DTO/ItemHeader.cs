@@ -10,7 +10,7 @@ namespace WebShop.Bll.DTO
     {
         public ItemHeader(Item item)
         {
-            this.Id = item.Id;
+            this.Id = item.Id.ToString();
             this.Name = item.Name;
             this.Available = item.Available;
             this.PicturePath = item.PicturePath;
@@ -34,7 +34,7 @@ namespace WebShop.Bll.DTO
             }
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 

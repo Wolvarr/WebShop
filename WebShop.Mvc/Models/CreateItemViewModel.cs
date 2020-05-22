@@ -13,7 +13,7 @@ namespace WebShop.Models
 
         public bool Create { get; set; }
 
-        [DisplayName("Termék név")
+        [DisplayName("Termék név")]
         public string Name { get; set; }
 
         [DisplayName("Kategória")]
@@ -89,7 +89,7 @@ namespace WebShop.Models
         #endregion
 
         #region case
-        [DisplayName("Beépített ventillátorok")]
+        [DisplayName("Beépített ventillátorok(db)")]
         public int? BuiltInFanNumber { get; set; }
 
         [DisplayName("Alaplap típusa")]
@@ -123,18 +123,18 @@ namespace WebShop.Models
         public int? ThreadNumber { get; set; }
 
         [DisplayName("Foglalat")]
-        public string Socket { get; set; }
+        public CpuSocket Socket { get; set; }
 
         #endregion
 
         #region gpu
-        [DisplayName("Beépített memória")]
+        [DisplayName("Beépített memória(MB)")]
         public int? BuiltInMemory { get; set; }
 
-        [DisplayName("Memória órajel")]
+        [DisplayName("Memória órajel(Mhz)")]
         public int? MemoryClock { get; set; }
 
-        [DisplayName("Sávszélesség")]
+        [DisplayName("Sávszélesség(mb)")]
         public int? BandWidth { get; set; }
 
         [DisplayName("Hűtés típusa")]
@@ -149,13 +149,13 @@ namespace WebShop.Models
 
         #region drive
 
-        [DisplayName("Méret")]
+        [DisplayName("Méret(GB)")]
         public int? Size { get; set; }
 
-        [DisplayName("Olvasási sebesség")]
+        [DisplayName("Olvasási sebesség(MB/s)")]
         public int? ReadSpeed { get; set; }
 
-        [DisplayName("Írási sebesség")]
+        [DisplayName("Írási sebesség(MB/s)")]
         public int? WriteSpeed { get; set; }
 
         [DisplayName("Csatlakozás")]
@@ -164,7 +164,7 @@ namespace WebShop.Models
 
         #region memory
 
-        [DisplayName("Méret")]
+        [DisplayName("Méret(MB)")]
         public int? Capacity { get; set; }
 
         [DisplayName("Memória típusa")]

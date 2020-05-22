@@ -1,32 +1,29 @@
-﻿@model WebShop.Models.CreateItemViewModel
+﻿@model WebShop.Models.EditItemViewModel
 @using WebShop.Dal.Enums
 @using WebShop.Bll.Extensions
 @{
-    ViewData["Title"] = "CreateItem";
+    ViewData["Title"] = "EditItem";
 }
 
-<h1>Termék felvétele</h1>
+<h1>EditItem</h1>
 
-<h4>@Model.Category</h4>
+<h4>Item</h4>
 <hr />
-<form enctype="multipart/form-data" method="post" asp-action="CreateItem" asp-route-create="true" asp-route-category="@Model.Category">
-    <div class="user-data-container">
+<div class="user-data-container">
+    <form asp-action="EditItem">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
                 <div class="form-group">
                     <label asp-for="Name" class="control-label"></label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PicturePath" class="control-label"></label>
-                    <input asp-for="PicturePath" class="form-control" />
-                    <span asp-validation-for="PicturePath" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label for="file">Upload Image:</label>
-                    <input value="Image" type="file" id="file" name="file" style="width :100%" />
+                    <label asp-for="Available" class="control-label"></label>
+                    <input asp-for="Available" class="form-control" />
+                    <span asp-validation-for="Available" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="OriginalPrice" class="control-label"></label>
@@ -50,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
+                    <textarea asp-for="Description" class="form-control"></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -58,9 +55,24 @@
                     <input asp-for="Warranty" class="form-control" />
                     <span asp-validation-for="Warranty" class="text-danger"></span>
                 </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="GamingFlag" /> @Html.DisplayNameFor(model => model.GamingFlag)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="HasRGB" /> @Html.DisplayNameFor(model => model.HasRGB)
+                    </label>
+                </div>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
-                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Cpu))
+                @if (Model.Category == EnumExtensionMethods.GetDescription(Category.Cpu))
                 {
                     <div class="form-group">
                         <label asp-for="BaseClock" class="control-label"></label>
@@ -93,12 +105,10 @@
                         <span asp-validation-for="ThreadNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        @Html.DropDownListFor(x => x.Socket, "", new { @class = "form-control"})
                         <label asp-for="Socket" class="control-label"></label>
                         <input asp-for="Socket" class="form-control" />
                         <span asp-validation-for="Socket" class="text-danger"></span>
                     </div>
-
                 }
                 @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Case))
                 {
@@ -336,29 +346,15 @@
                         <span asp-validation-for="PowerSupply" class="text-danger"></span>
                     </div>
                 }
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="GamingFlag" /> @Html.DisplayNameFor(model => model.GamingFlag)
-                    </label>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
-                    </label>
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="HasRGB" /> @Html.DisplayNameFor(model => model.HasRGB)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
             </div>
         </div>
-    </div>
-</form>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>
 <div>
-    <a asp-action="Index">Mégse</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 

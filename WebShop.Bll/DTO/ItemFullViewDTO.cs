@@ -210,13 +210,13 @@ namespace WebShop.Bll.DTO
         #endregion
 
         #region gpu
-        [DisplayName("Beépített memória")]
+        [DisplayName("Beépített memória(MB)")]
         public int? BuiltInMemory { get; set; }
 
-        [DisplayName("Memória órajel")]
+        [DisplayName("Memória órajel(Mhz)")]
         public int? MemoryClock { get; set; }
 
-        [DisplayName("Sávszélesség")]
+        [DisplayName("Sávszélesség(mb)")]
         public int? BandWidth { get; set; }
 
         [DisplayName("Hűtés típusa")]
@@ -231,13 +231,13 @@ namespace WebShop.Bll.DTO
 
         #region drive
 
-        [DisplayName("Méret")]
+        [DisplayName("Méret(GB)")]
         public int? Size { get; set; }
 
-        [DisplayName("Olvasási sebesség")]
+        [DisplayName("Olvasási sebesség(MB/s)")]
         public int? ReadSpeed { get; set; }
 
-        [DisplayName("Írási sebesség")]
+        [DisplayName("Írási sebesség(MB/s)")]
         public int? WriteSpeed { get; set; }
 
         [DisplayName("Csatlakozás")]
@@ -246,7 +246,7 @@ namespace WebShop.Bll.DTO
 
         #region memory
 
-        [DisplayName("Méret")]
+        [DisplayName("Méret(MB)")]
         public int? Capacity { get; set; }
 
         [DisplayName("Memória típusa")]
