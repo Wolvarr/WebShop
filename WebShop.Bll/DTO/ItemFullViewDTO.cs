@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using WebShop.Bll.Extensions;
+using WebShop.Dal.Enums;
 using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
@@ -66,7 +67,7 @@ namespace WebShop.Bll.DTO
                 this.Technology = cpu.Technology;
                 this.CoreNumber = cpu.CoreNumber;
                 this.ThreadNumber = cpu.ThreadNumber;
-                this.Socket = EnumExtensionMethods.GetDescription(cpu.Socket);
+                this.Socket = Socket;
                 this.BaseClock = cpu.BaseClock;
                 this.TDP = cpu.TDP;
             }
@@ -78,7 +79,7 @@ namespace WebShop.Bll.DTO
                 this.MemoryClock = gpu.MemoryClock;
                 this.BandWidth = gpu.BandWidth;
                 this.CoolerType = gpu.CoolerType;
-                this.MemoryType = EnumExtensionMethods.GetDescription(gpu.MemoryType);
+                this.MemoryType = MemoryType;
                 this.PowerSupplyConnection = gpu.PowerSupplyConnection;
                 this.BaseClock = gpu.BaseClock;
                 this.TDP = gpu.TDP;
@@ -91,7 +92,7 @@ namespace WebShop.Bll.DTO
                 this.ReadSpeed = drive.ReadSpeed;
                 this.WriteSpeed = drive.WriteSpeed;
                 this.Weight = drive.Weight;
-                this.DriveSocket =  EnumExtensionMethods.GetDescription(drive.Socket);
+                this.DriveSocket = drive.Socket;
             }
 
             if(item is Memory)
@@ -99,7 +100,7 @@ namespace WebShop.Bll.DTO
                 Memory mem = item as Memory;
                 this.BaseClock = mem.BaseClock;
                 this.Capacity = mem.Capacity;
-                this.MemoryTypeForMmoryCard = EnumExtensionMethods.GetDescription(mem.MemoryType);
+                this.MemoryTypeForMmoryCard = mem.MemoryType;
                 this.Timing = mem.Timing;
                 this.Kit = mem.Kit;
             }
@@ -107,10 +108,10 @@ namespace WebShop.Bll.DTO
             if(item is Motherboard)
             {
                 Motherboard board = item as Motherboard;
-                this.Type = EnumExtensionMethods.GetDescription(board.Type);
+                this.Type = board.Type;
                 this.Chipset = board.Chipset;
-                this.CpuSocketForMotherboard = EnumExtensionMethods.GetDescription(board.Socket);
-                this.SupportedMemoryType = EnumExtensionMethods.GetDescription(board.SupportedMemoryType);
+                this.CpuSocketForMotherboard = board.Socket;
+                this.SupportedMemoryType = board.SupportedMemoryType;
                 this.SupportedMemorySpeed = board.SupportedMemorySpeed;
                 this.MemorySocketNumber = board.MemorySocketNumber;
             }
@@ -189,6 +190,7 @@ namespace WebShop.Bll.DTO
 
         [DisplayName("HDD foglalatok száma")]
         public int? HDDNumber { get; set; }
+
         #endregion
 
         #region cpu
@@ -205,7 +207,7 @@ namespace WebShop.Bll.DTO
         public int? ThreadNumber { get; set; }
 
         [DisplayName("Foglalat")]
-        public string Socket { get; set; }
+        public CpuSocket Socket { get; set; }
 
         #endregion
 
@@ -223,7 +225,7 @@ namespace WebShop.Bll.DTO
         public string CoolerType { get; set; }
 
         [DisplayName("Memória típusas")]
-        public string MemoryType { get; set; }
+        public MemoryType MemoryType { get; set; }
 
         [DisplayName("Tápegység csatlakozás")]
         public string PowerSupplyConnection { get; set; }  //(pin)
@@ -241,7 +243,7 @@ namespace WebShop.Bll.DTO
         public int? WriteSpeed { get; set; }
 
         [DisplayName("Csatlakozás")]
-        public string DriveSocket { get; set; }
+        public HardDriveSocket DriveSocket { get; set; }
         #endregion
 
         #region memory
@@ -250,7 +252,7 @@ namespace WebShop.Bll.DTO
         public int? Capacity { get; set; }
 
         [DisplayName("Memória típusa")]
-        public string MemoryTypeForMmoryCard { get; set; }
+        public MemoryType MemoryTypeForMmoryCard { get; set; }
 
         [DisplayName("Időzítés(CL)")]
         public int? Timing { get; set; } //(CL)
@@ -262,16 +264,16 @@ namespace WebShop.Bll.DTO
         #region motherboard
 
         [DisplayName("Alaplap típusa")]
-        public string Type { get; set; }
+        public MotherboardType Type { get; set; }
 
         [DisplayName("Chipset típusa")]
         public string Chipset { get; set; }
 
         [DisplayName("Foglalat")]
-        public string CpuSocketForMotherboard { get; set; }
+        public CpuSocket CpuSocketForMotherboard { get; set; }
 
         [DisplayName("Támogatott memória típus")]
-        public string SupportedMemoryType { get; set; }
+        public MemoryType SupportedMemoryType { get; set; }
 
         [DisplayName("Támogatott memória sebesség(Mzh)")]
         public string SupportedMemorySpeed { get; set; }  //3000, 3200,..

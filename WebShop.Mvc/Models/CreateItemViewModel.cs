@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using WebShop.Dal.Enums;
+using WebShop.Dal.Models;
 
 namespace WebShop.Models
 {
@@ -94,7 +95,7 @@ namespace WebShop.Models
 
         [DisplayName("Alaplap típusa")]
 
-        public string SupportedMotherboard { get; set; }
+        public MotherboardType SupportedMotherboard { get; set; }
 
         [DisplayName("Magasság(mm)")]
         public int? Height { get; set; }
@@ -141,7 +142,7 @@ namespace WebShop.Models
         public string CoolerType { get; set; }
 
         [DisplayName("Memória típusas")]
-        public string MemoryType { get; set; }
+        public MemoryType MemoryType { get; set; }
 
         [DisplayName("Tápegység csatlakozás")]
         public string PowerSupplyConnection { get; set; }  //(pin)
@@ -159,7 +160,7 @@ namespace WebShop.Models
         public int? WriteSpeed { get; set; }
 
         [DisplayName("Csatlakozás")]
-        public string DriveSocket { get; set; }
+        public HardDriveSocket DriveSocket { get; set; }
         #endregion
 
         #region memory
@@ -168,7 +169,7 @@ namespace WebShop.Models
         public int? Capacity { get; set; }
 
         [DisplayName("Memória típusa")]
-        public string MemoryTypeForMmoryCard { get; set; }
+        public MemoryType MemoryTypeForMmoryCard { get; set; }
 
         [DisplayName("Időzítés(CL)")]
         public int? Timing { get; set; } //(CL)
@@ -180,16 +181,16 @@ namespace WebShop.Models
         #region motherboard
 
         [DisplayName("Alaplap típusa")]
-        public string Type { get; set; }
+        public MotherboardType Type { get; set; }
 
         [DisplayName("Chipset típusa")]
         public string Chipset { get; set; }
 
         [DisplayName("Foglalat")]
-        public string CpuSocketForMotherboard { get; set; }
+        public CpuSocket CpuSocketForMotherboard { get; set; }
 
         [DisplayName("Támogatott memória típus")]
-        public string SupportedMemoryType { get; set; }
+        public MemoryType SupportedMemoryType { get; set; }
 
         [DisplayName("Támogatott memória sebesség(Mzh)")]
         public string SupportedMemorySpeed { get; set; }  //3000, 3200,..

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using WebShop.Dal.Enums;
+using WebShop.Dal.Models;
 
 namespace WebShop.Bll.DTO
 {
@@ -62,7 +64,7 @@ namespace WebShop.Bll.DTO
         public int? BuiltInFanNumber { get; set; }
 
 
-        public string SupportedMotherboard { get; set; }
+        public MotherboardType SupportedMotherboard { get; set; }
 
         public int? Height { get; set; }
 
@@ -82,7 +84,7 @@ namespace WebShop.Bll.DTO
 
         public int? ThreadNumber { get; set; }
 
-        public string Socket { get; set; }
+        public CpuSocket Socket { get; set; }
 
         #endregion
 
@@ -95,7 +97,7 @@ namespace WebShop.Bll.DTO
 
         public string CoolerType { get; set; }
 
-        public string MemoryType { get; set; }
+        public MemoryType MemoryType { get; set; }
 
         public string PowerSupplyConnection { get; set; }  //(pin)
         #endregion
@@ -108,7 +110,7 @@ namespace WebShop.Bll.DTO
 
         public int? WriteSpeed { get; set; }
 
-        public string DriveSocket { get; set; }
+        public HardDriveSocket DriveSocket { get; set; }
         #endregion
 
         #region memory
@@ -116,7 +118,7 @@ namespace WebShop.Bll.DTO
 
         public int? Capacity { get; set; }
 
-        public string MemoryTypeForMmoryCard { get; set; }
+        public MemoryType MemoryTypeForMmoryCard { get; set; }
 
         public int? Timing { get; set; } //(CL)
 
@@ -125,13 +127,13 @@ namespace WebShop.Bll.DTO
 
         #region motherboard
 
-        public string Type { get; set; }
+        public MotherboardType Type { get; set; }
 
         public string Chipset { get; set; }
 
-        public string CpuSocketForMotherboard { get; set; }
+        public CpuSocket CpuSocketForMotherboard { get; set; }
 
-        public string SupportedMemoryType { get; set; }
+        public MemoryType SupportedMemoryType { get; set; }
 
         public string SupportedMemorySpeed { get; set; }  //3000, 3200,..
 

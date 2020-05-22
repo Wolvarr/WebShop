@@ -323,17 +323,67 @@ namespace WebShop.Bll.Services
                             BaseClock = item.BaseClock.Value,
                             TDP = item.TDP.Value,
                             ProcessorFamily = item.ProcessorFamily,
-                            Technology = item.Technology.Value,
-                            CoreNumber = item.CoreNumber.Value,
-                            ThreadNumber = item.ThreadNumber.Value,
-                            Socket = EnumExtensionMethods.GetValueFromDescription<CpuSocket>(item.Socket)
+                            Technology = item.Technology == null ? 0 : item.Technology.Value,
+                            CoreNumber = item.CoreNumber == null ? 0 : item.CoreNumber.Value,
+                            ThreadNumber = item.ThreadNumber == null ? 0 : item.ThreadNumber.Value,
+                            Socket = item.Socket
                         };
 
                         this.context.Items.Add(cpu);
                         break;
                     }
+                case Category.Case:
+                    {
+                        var pcCase = new Case()
+                        {
+                            Name = item.Name,
+                            Category = Category.Cpu,
+                            Available = 20,
+                            PicturePath = item.PicturePath,
+                            OriginalPrice = item.OriginalPrice,
+                            DiscountedPrice = item.DiscountedPrice,
+                            Manufacturer = item.Manufacturer,
+                            ShortDescription = item.ShortDescription,
+                            Description = item.Description,
+                            Warranty = item.Warranty,
+                            GamingFlag = item.GamingFlag,
+                            IsUsed = item.IsUsed,
+                            HasRGB = item.HasRGB,
+                            DateSinceInStore = DateTime.Now,
+
+                            BuiltInFanNumber = item.BuiltInFanNumber == null ? 0 : item.BuiltInFanNumber.Value,
+                            SupportedMotherboard = item.SupportedMotherboard,
+                            Height = item.Height == null ? 0 : item.Height.Value,
+                            Width = item.Width == null ? 0 : item.Width.Value,
+                            Depth = item.Depth == null ? 0 : item.Depth.Value,
+                            HDDNumber = item.HDDNumber == null ? 0 : item.HDDNumber.Value,
+                        };
+
+                        this.context.Items.Add(pcCase);
+                        break;
+                    }
+                    //TODO: case for all types
             }
             context.SaveChanges();
+        }
+
+        public void EditItem(EditItemDTO item)
+        {
+            var itemDbModel = this.context.Items.SingleOrDefault(x => x.Id.ToString() == item.Id);
+            foreach (var prop in item.GetType().GetProperties())
+            {
+                if (prop.GetValue(item, null) != null && prop.Name != "Id")
+                {
+                    if (itemDbModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name) != null)
+                    {
+                        var propertyToModify = itemDbModel.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name);
+                        propertyToModify.SetValue(itemDbModel, prop.GetValue(item, null));
+                    }
+                }
+            }
+
+            this.context.SaveChanges();
+
         }
     }
 }

@@ -169,6 +169,25 @@ namespace WebShop.Mvc.Controllers
             }
             return View(viewModel);
         }
+        [HttpPost]
+        public IActionResult EditItem(EditItemViewModel model)
+        {
+            var item = new EditItemDTO();
+            foreach (var prop in model.GetType().GetProperties())
+            {
+                if (prop.GetValue(model, null) != null)
+                {
+                    if (item.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name) != null)
+                    {
+                        var propertyToModify = item.GetType().GetProperties().SingleOrDefault(x => x.Name == prop.Name);
+                        propertyToModify.SetValue(item, prop.GetValue(model, null));
+                    }
+                }
+            }
 
+            this.itemService.EditItem(item);
+            return RedirectToAction("Index", "Home", new { message = "Termék sikeresen módosítva" });
+
+        }
     }
 }

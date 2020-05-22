@@ -10,7 +10,7 @@
 <h4>Item</h4>
 <hr />
 <div class="user-data-container">
-    <form asp-action="EditItem">
+    <form asp-action="EditItem" method="post">
         <div class="row">
             <div class="col-lg-6 col-md-12 col-sm-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -105,8 +105,7 @@
                         <span asp-validation-for="ThreadNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Socket" class="control-label"></label>
-                        <input asp-for="Socket" class="form-control" />
+                        <select asp-for="Socket" asp-items="@Html.GetEnumSelectList<CpuSocket>()"></select>
                         <span asp-validation-for="Socket" class="text-danger"></span>
                     </div>
                 }
@@ -118,9 +117,8 @@
                         <span asp-validation-for="BuiltInFanNumber" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="SupportedMotherboard" class="control-label"></label>
-                        <input asp-for="SupportedMotherboard" class="form-control" />
-                        <span asp-validation-for="SupportedMotherboard" class="text-danger"></span>
+                        <select asp-for="Socket" asp-items="@Html.GetEnumSelectList<CpuSocket>()"></select>
+                        <span asp-validation-for="Socket" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Height" class="control-label"></label>
@@ -177,7 +175,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="MemoryType" class="control-label"></label>
-                        <input asp-for="MemoryType" class="form-control" />
+                        <select asp-for="MemoryType" asp-items="@Html.GetEnumSelectList<MemoryType>()"></select>
                         <span asp-validation-for="MemoryType" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -210,7 +208,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="DriveSocket" class="control-label"></label>
-                        <input asp-for="DriveSocket" class="form-control" />
+                        <select asp-for="DriveSocket" asp-items="@Html.GetEnumSelectList<WebShop.Dal.Models.HardDriveSocket>()"></select>
                         <span asp-validation-for="DriveSocket" class="text-danger"></span>
                     </div>
                 }
@@ -228,7 +226,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="MemoryTypeForMmoryCard" class="control-label"></label>
-                        <input asp-for="MemoryTypeForMmoryCard" class="form-control" />
+                        <select asp-for="MemoryTypeForMmoryCard" asp-items="@Html.GetEnumSelectList<MemoryType>()"></select>
                         <span asp-validation-for="MemoryTypeForMmoryCard" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -244,11 +242,11 @@
                 }
                 @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.MotherBoard))
                 {
-                    <div class="form-group">
-                        <label asp-for="Type" class="control-label"></label>
-                        <input asp-for="Type" class="form-control" />
-                        <span asp-validation-for="Type" class="text-danger"></span>
-                    </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <select asp-for="Type" asp-items="@Html.GetEnumSelectList<MotherboardType>()"></select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
                     <div class="form-group">
                         <label asp-for="Chipset" class="control-label"></label>
                         <input asp-for="Chipset" class="form-control" />
@@ -256,12 +254,12 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="CpuSocketForMotherboard" class="control-label"></label>
-                        <input asp-for="CpuSocketForMotherboard" class="form-control" />
+                        <select asp-for="CpuSocketForMotherboard" asp-items="@Html.GetEnumSelectList<CpuSocket>()"></select>
                         <span asp-validation-for="CpuSocketForMotherboard" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="SupportedMemoryType" class="control-label"></label>
-                        <input asp-for="SupportedMemoryType" class="form-control" />
+                        <select asp-for="SupportedMemoryType" asp-items="@Html.GetEnumSelectList<MemoryType>()"></select>
                         <span asp-validation-for="SupportedMemoryType" class="text-danger"></span>
                     </div>
                     <div class="form-group">
