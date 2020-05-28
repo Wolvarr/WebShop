@@ -20,18 +20,16 @@ namespace WebShop.Dal.DataBaseSeed
         {
             if (!await roleManager.RoleExistsAsync("Administrator"))
                 await roleManager.CreateAsync(new IdentityRole<Guid> { Name = "Administrator" });
-            if (!await roleManager.RoleExistsAsync("Costumer"))
-                await roleManager.CreateAsync(new IdentityRole<Guid> { Name = "Costumer" });
 
-            if (userManager.FindByEmailAsync("asd@asd.hu").Result == null)
+            if (userManager.FindByEmailAsync("admin@asd.hu").Result == null)
             {
                 WebShopUser testUser = new WebShopUser
                 {
-                    NickName = "Gipsz Jakab",
+                    NickName = "Admin Admin",
                     Id = new Guid("12345678-0000-0000-0000-120000000000"),
-                    UserName = "asd@asd.hu",
+                    UserName = "admin@asd.hu",
                     NormalizedUserName = "ASD@ASD.HU",
-                    Email = "asd@asd.hu",
+                    Email = "admin@asd.hu",
                     NormalizedEmail = "ASD@ASD.HU",
                     BillingAddress = new Address()
                     {
@@ -43,7 +41,8 @@ namespace WebShop.Dal.DataBaseSeed
                     },
                 };
 
-                IdentityResult result = userManager.CreateAsync(testUser, "Asdf1234.").Result;
+                IdentityResult result =  userManager.CreateAsync(testUser, "Asdf1234.").Result;
+
                 var addToRoleResult =  userManager.AddToRoleAsync(testUser, "Administrator");
 
 
@@ -64,7 +63,7 @@ namespace WebShop.Dal.DataBaseSeed
                     Date = DateTime.Now
                 });
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
     }

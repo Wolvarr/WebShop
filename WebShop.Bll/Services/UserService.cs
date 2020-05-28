@@ -38,6 +38,17 @@ namespace WebShop.Bll.Services
             return true;
         }
 
+        public void RemoveSubscription(Guid userId, Guid itemId)
+        {
+            var sub = this.context.UserSubscriptions.SingleOrDefault(x => x.UserId == userId && x.ItemId == itemId);
+            if(sub != null)
+            {
+                this.context.UserSubscriptions.Remove(sub);
+                this.context.SaveChanges();
+            }
+
+        }
+
         public List<ItemForShoppingCartDTO> GetAllItemsInCart(Guid userId)
         {
             var User = this.context.Users.SingleOrDefault(u => u.Id == userId);

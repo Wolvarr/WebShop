@@ -7,18 +7,80 @@
     margin-left: auto;
 }
 
+@media only screen and (max-width: 800px) {
+
+    h4.card-header > a {
+        font-size: 16px !important;
+        margin-bottom: 10px;
+    }
+
+    .price-tag{
+        margin-top: 10px;
+    }
+
+    .cart-card-body {
+        height: 200px;
+    }
+
+    .modify-cart-quantity-form {
+        position: relative;
+        bottom: -150px !important;
+    }
+
+
+    .quantity-picker {
+        position: absolute;
+        bottom: 100px;
+        left: 30px;
+        font-size: 20px;
+    }
+
+    .cart-quantity-input {
+        height: 40px;
+        width: 38px;
+        margin-left: 10px;
+        border-radius: 4px;
+        border-color: black;
+    }
+
+    .remove-from-chart-button {
+        position: relative;
+        padding: 5px 15px;
+        background: #ccc;
+        border: 2px solid;
+        border-color: #850c5d;
+        border-radius: 5px;
+        bottom: 25px;
+        right: 50px;
+    }
+
+
+}
+
+button.cart-ok-button {
+    position: absolute;
+    bottom: -0px;
+    right: -47px;
+    background-color: #850c5d;
+    border-color: black;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+}
+
+
 h4.card-header {
     margin-top: 10px;
 }
 
-h4.card-header > a {
-    position: center;
-    color: maroon;
-    font-size:24px;
-    margin-left: 15px;
-}
+    h4.card-header > a {
+        position: center;
+        color: maroon;
+        font-size: 24px;
+        margin-left: 15px;
+    }
 
-.price-tag{
+.price-tag {
     position: absolute;
     top: 70px;
     right: 100px;
@@ -29,9 +91,9 @@ h4.card-header > a {
     position: absolute;
     bottom: 60px;
     left: 30px;
-
     font-size: 20px;
 }
+
 .cart-quantity-input {
     height: 40px;
     width: 38px;
@@ -41,7 +103,7 @@ h4.card-header > a {
 }
 
 .remove-from-chart-button {
-    position:absolute;
+    position: absolute;
     padding: 5px 15px;
     background: #ccc;
     border: 2px solid;
@@ -51,18 +113,28 @@ h4.card-header > a {
     right: 50px;
 }
 
-.payment-method{
-   margin-top: -10px;
-   padding-left: 10px;
+.payment-method {
+    margin-top: -10px;
+    padding-left: 10px;
 }
 
-.payment-method > p{
-    font-size: 24px;
-}
+    .payment-method > p {
+        font-size: 24px;
+    }
 
-.checkout-box{
-    float:right;
+.checkout-box {
+    float: right;
     width: 100%;
-    text-align:right;
+    text-align: right;
     font-size: 20px;
+}
+
+
+
+.cart-card-body{
+    min-height: 200px;
+}
+
+.cart-row{
+    min-height: 200px;
 }

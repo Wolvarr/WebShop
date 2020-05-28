@@ -13,7 +13,7 @@
     {
         list.Add(item.Id, 0);
         <div class="card cart-card-body">
-            <div class="row">
+            <div class="row cart-row">
                 <div class="col-3" style="border-right: 1px solid black; padding: 10px">
                     <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
                          alt="@item.Name" title="@item.Name" />
@@ -28,7 +28,7 @@
                         <div class="quantity-picker">
                             Mennyiség:
                             <input class="cart-quantity-input " type="number" id="quantity" name="quantity" value="@item.Quantity" min="1" max="99">
-                            <button class="cart-button" onclick="reloadWithoutScroll" value="@currentUser.Id" name="id">Ok</button>
+                            <button class="cart-ok-button" onclick="reloadWithoutScroll" value="@currentUser.Id" name="id">Ok</button>
 
 
                         </div>

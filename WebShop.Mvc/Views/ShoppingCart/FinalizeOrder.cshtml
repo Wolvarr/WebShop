@@ -24,21 +24,21 @@
                     <div class="col-5">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.Country" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.Country" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.Country" class="form-control" value="@(Model.BillingData.Country)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.Country" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.ZipCode" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.ZipCode" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.ZipCode" class="form-control" value="@(Model.BillingData.ZipCode)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.ZipCode" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.City" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.City" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.City" class="form-control" value="@(Model.BillingData.City)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.City" class="text-danger"></span>
                         </div>
                     </div>
@@ -47,14 +47,14 @@
                     <div class="col-7">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.Street" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.Street" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.Street" class="form-control" value="@(Model.BillingData.Street)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.Street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.HouseNumberAndDoor" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.HouseNumberAndDoor" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.HouseNumberAndDoor" class="form-control" value="@(Model.BillingData.HouseNumberAndDoor)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.HouseNumberAndDoor" class="text-danger"></span>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label asp-for="OrderDto.TaxName" class="control-label"></label>
-                            <input asp-for="OrderDto.TaxName" class="form-control" />
+                            <input asp-for="OrderDto.TaxName" class="form-control" value="@(Model.BillingData.Name)" />
                             <span asp-validation-for="OrderDto.TaxName" class="text-danger"></span>
                         </div>
                     </div>
@@ -108,21 +108,21 @@
                     <div class="col-5">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.Country" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.Country" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.Country" class="form-control" value="@(Model.BillingData.Country)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.Country" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-3">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.ZipCode" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.ZipCode" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.ZipCode" class="form-control" value="@(Model.BillingData.ZipCode)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.ZipCode" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label asp-for="OrderDto.ShippingAddres.City" class="control-label"></label>
-                            <input asp-for="OrderDto.ShippingAddres.City" class="form-control" />
+                            <input asp-for="OrderDto.ShippingAddres.City" class="form-control" value="@(Model.BillingData.City)" />
                             <span asp-validation-for="OrderDto.ShippingAddres.City" class="text-danger"></span>
                         </div>
                     </div>
@@ -131,14 +131,14 @@
                     <div class="col-7">
                         <div class="form-group">
                             <label asp-for="OrderDto.BillingAddres.Street" class="control-label"></label>
-                            <input asp-for="OrderDto.BillingAddres.Street" class="form-control" />
+                            <input asp-for="OrderDto.BillingAddres.Street" class="form-control" value="@(Model.BillingData.Street)" />
                             <span asp-validation-for="OrderDto.BillingAddres.Street" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-5">
                         <div class="form-group">
                             <label asp-for="OrderDto.BillingAddres.HouseNumberAndDoor" class="control-label"></label>
-                            <input asp-for="OrderDto.BillingAddres.HouseNumberAndDoor" class="form-control" />
+                            <input asp-for="OrderDto.BillingAddres.HouseNumberAndDoor" class="form-control"  value="@(Model.BillingData.HouseNumberAndDoor)"/>
                             <span asp-validation-for="OrderDto.BillingAddres.HouseNumberAndDoor" class="text-danger"></span>
                         </div>
                     </div>

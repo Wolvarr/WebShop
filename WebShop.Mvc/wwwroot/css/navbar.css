@@ -1,7 +1,11 @@
-﻿.navbar-icon {
+﻿
+
+.navbar-icon {
+    position: relative;
     height: 40px;
     width: 40px;
     margin-left: 5px;
+    z-index: 16777271;
 }
 
 .site-logo {
@@ -16,7 +20,29 @@
 -----------------------------------------*/
 
     /*RED: #880015*/
+@media only screen and (max-width: 800px) {
+    .d-inline {
+        display:none !important;
+    }
 
+
+    .navbar-nav {
+        z-index: 16777271;
+    }
+
+    .main-page-bar{
+        right:8px !important;
+        left: auto;
+        width: 493px;
+    }
+
+    .main-page-bar > a{
+    }
+    .search-container {
+        z-index: 10;
+    }
+
+}
     .search-container {
         height: 43px;
         width: 300px;
@@ -42,8 +68,8 @@
         color: white;
     }
 
-.search-container > form > button {
-    float: right;
-    background-color: #343a40;
-    border: none;
-}
+    .search-container > form > button {
+        float: right;
+        background-color: #343a40;
+        border: none;
+    }

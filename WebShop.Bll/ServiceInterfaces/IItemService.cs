@@ -22,6 +22,6 @@ namespace WebShop.Bll.ServiceInterfaces
         void CreateItem(CreateItemDTO item);
         void EditItem(EditItemDTO item);
 
-        void ChangeAvailability(string id, int value);
+        Tuple<string, List<Guid>> ChangeAvailability(string id, int value);
     }
 }

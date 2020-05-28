@@ -386,9 +386,10 @@ namespace WebShop.Bll.Services
 
         }
 
-        public void ChangeAvailability(string id, int value)
+        public Tuple<string, List<Guid>> ChangeAvailability(string id, int value)
         {
             var item = this.context.Items.SingleOrDefault(x => x.Id.ToString() == id);
+            var subs = this.context.UserSubscriptions.Where(x => x.ItemId.ToString() == id).Select(x => x.UserId).ToList();
             if (item == null)
                 throw new ItemNotFoundException("Item with the given id was not found");
 
@@ -401,7 +402,10 @@ namespace WebShop.Bll.Services
                 item.Available = value;
 
                 context.SaveChanges();
+                return new Tuple<string, List<Guid>>(item.Name, subs);
             }
+
+            return null;
         }
     }
 }

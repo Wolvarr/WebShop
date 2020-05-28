@@ -13,6 +13,8 @@ using WebShop.Bll.Services;
 using WebShop.Bll.ServiceInterfaces;
 using WebShop.Mvc.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace WebShop
 {
@@ -43,7 +45,7 @@ namespace WebShop
                 facebookOptions.AppSecret = "7c33b04e3806e1bda4a44525a6702696";
             });
 
-
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IItemService, ItemService>();
@@ -86,6 +88,7 @@ namespace WebShop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            //TODO: So ugly, debug thread issue with dbcontext error in SeedUsers
             UserSeeder.SeedUsers(userManager, roleManager, context).Wait();
         }
     }

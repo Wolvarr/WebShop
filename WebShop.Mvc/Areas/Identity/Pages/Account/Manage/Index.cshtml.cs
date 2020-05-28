@@ -78,84 +78,89 @@ namespace WebShop.Mvc.Areas.Identity.Pages.Account.Manage
             }
 
 
-                Username = userName;
+            Username = userName;
 
-                Input = new InputModel
-                {
-                    PhoneNumber = phoneNumber,
-                    NickName = nickName,
-                    Country = country,
-                    City = city,
-                    ZipCode = zipCode,
-                    Street = street,
-                    HouseNumberAndDoor = houseNumberAndDoor
-                };
+            Input = new InputModel
+            {
+                PhoneNumber = phoneNumber,
+                NickName = nickName,
+                Country = country,
+                City = city,
+                ZipCode = zipCode,
+                Street = street,
+                HouseNumberAndDoor = houseNumberAndDoor
+            };
+        }
+
+        public async Task<IActionResult> OnGetAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            public async Task<IActionResult> OnGetAsync()
-            {
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                }
+            await LoadAsync(user);
+            return Page();
+        }
 
+        public async Task<IActionResult> OnPostAsync()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (!ModelState.IsValid)
+            {
                 await LoadAsync(user);
                 return Page();
             }
 
-            public async Task<IActionResult> OnPostAsync()
+            if (user.BillingAddress == null)
             {
-                var user = await _userManager.GetUserAsync(User);
-                if (user == null)
-                {
-                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-                }
-
-                if (!ModelState.IsValid)
-                {
-                    await LoadAsync(user);
-                    return Page();
-                }
-
-                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-                var nickName = user.NickName;
-                var country = user.BillingAddress.Country;
-                var city = user.BillingAddress.City;
-                var zipCode = user.BillingAddress.ZipCode;
-                var street = user.BillingAddress.Street;
-                var houseNumberAndDoor = user.BillingAddress.HouseNumberAndDoor;
-
-                if (Input.PhoneNumber != phoneNumber)
-                {
-                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                    if (!setPhoneResult.Succeeded)
-                    {
-                        var userId = await _userManager.GetUserIdAsync(user);
-                        throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-                    }
-                }
-                if (Input.NickName != nickName)
-                    user.NickName = Input.NickName;
-
-                if (Input.Country != country)
-                    user.BillingAddress.Country = Input.Country;
-
-                if (Input.City != city)
-                    user.BillingAddress.City = Input.City;
-
-                if (Input.ZipCode != zipCode)
-                    user.BillingAddress.ZipCode = Input.ZipCode;
-
-                if (Input.Street != street)
-                    user.BillingAddress.Street = Input.Street;
-
-                if (Input.HouseNumberAndDoor != houseNumberAndDoor)
-                    user.BillingAddress.HouseNumberAndDoor = Input.HouseNumberAndDoor;
-
-                await _signInManager.RefreshSignInAsync(user);
-                StatusMessage = "Adatok sikeresen módosítva";
-                return RedirectToPage();
+                user.BillingAddress = new Address();
             }
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var nickName = user.NickName;
+            var country = user.BillingAddress.Country;
+            var city = user.BillingAddress.City;
+            var zipCode = user.BillingAddress.ZipCode;
+            var street = user.BillingAddress.Street;
+            var houseNumberAndDoor = user.BillingAddress.HouseNumberAndDoor;
+
+            if (Input.PhoneNumber != phoneNumber)
+            {
+                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                if (!setPhoneResult.Succeeded)
+                {
+                    var userId = await _userManager.GetUserIdAsync(user);
+                    throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+                }
+            }
+            if (Input.NickName != nickName)
+                user.NickName = Input.NickName;
+
+            if (Input.Country != country)
+                user.BillingAddress.Country = Input.Country;
+
+            if (Input.City != city)
+                user.BillingAddress.City = Input.City;
+
+            if (Input.ZipCode != zipCode)
+                user.BillingAddress.ZipCode = Input.ZipCode;
+
+            if (Input.Street != street)
+                user.BillingAddress.Street = Input.Street;
+
+            if (Input.HouseNumberAndDoor != houseNumberAndDoor)
+                user.BillingAddress.HouseNumberAndDoor = Input.HouseNumberAndDoor;
+
+            await _signInManager.RefreshSignInAsync(user);
+            await this.context.SaveChangesAsync();
+            StatusMessage = "Adatok sikeresen módosítva";
+            return RedirectToPage();
         }
     }
+}

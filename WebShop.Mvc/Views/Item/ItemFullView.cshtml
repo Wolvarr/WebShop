@@ -6,6 +6,8 @@
 }
 @inject SignInManager<WebShopUser> SignInManager
 @inject UserManager<WebShopUser> UserManager
+@{var currentUser = await UserManager.GetUserAsync(User); }
+
 <partial name="_StatusMessage" model="@TempData["message"]" />
 <div class=" item-full-view">
     <div class="card card-body">
@@ -14,7 +16,7 @@
                 <img src="~/images/items/@(Model.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
                      alt="@Model.Name" title="@Model.Name" />
             </div>
-            <div class="col-7">
+            <div class="col-7" id="full-item">
                 <p class="text-info">
                     <h2 class="item-fullview-name">@Model.Name</h2>
                     <h4 class="lead text-info">@Model.Manufacturer</h4>
@@ -32,8 +34,11 @@
                 @if (this.User.IsInRole("Administrator"))
                 {
                     <div class="edit-item-container">
-                            <a class="edit-item-button" asp-action="EditItem" asp-controller="Item"  asp-route-itemId="@Model.Id">Termék szerkesztése</a>
+                        <a class="edit-item-button" asp-action="EditItem" asp-controller="Item" asp-route-itemId="@Model.Id">Termék szerkesztése</a>
+
+                        <a asp-action="ChangeAvailability" asp-controller="Item" asp-route-userId="@currentUser.Id" asp-route-Id="@Model.Id" asp-route-Value="10">Készlet feltöltés</a>
                     </div>
+
                 }
 
                 <hr />
@@ -42,8 +47,9 @@
                         <p class="small">@Model.Description</p>
                     </div>
                 </div>
-                @{ var currentUser = await UserManager.GetUserAsync(User);
-                    <form class="add-to-cart-form " id="addtocart-form" method="post" asp-action="AddItemToCart" asp-route-userId="@(currentUser.Id)">
+                <form class="add-to-cart-form " id="addtocart-form" method="post" asp-action="AddItemToCart" asp-route-userId="@(currentUser != null ? currentUser.Id : Guid.Empty)">
+                    @if (!this.User.IsInRole("Administrator"))
+                    {
                         @if (Model.Available != 0)
                         {
                             @if (Model.DiscountedPrice.HasValue)
@@ -78,15 +84,16 @@
 
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-userId="@currentUser.Id" asp-route-itemId="@Model.Id" class="cart-button">Feliratkozás</a>
+                                <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-userId="@currentUser.Id" asp-route-itemId="@Model.Id" class="cart-button" id="cart-button">Feliratkozás</a>
                             }
                             else
                             {
-                                <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Feliratkozás</a>
+                                <a asp-area="Identity" asp-page="/Account/Login" class="cart-button" id="cart-button">Feliratkozás</a>
                             }
                         }
-                    </form>
-                }
+                    }
+                </form>
+
             </div>
         </div>
     </div>
@@ -103,57 +110,58 @@
         <hr />
         <p style="font-size : 30px; margin:30px 0 20px 0"> Kommentek</p>
     </div>
-    <form class="add-comment-form" id="addcomment-form" method="post" asp-action="AddComment" asp-route-userId="@(currentUser.Id)" asp-route-itemId="@Model.Id">
-        <div class="add-comment-container">
-            <div class="rows">
-                Értékelés:
-                <label class="float-l" for="score1" style="margin-right:15px;">
-                    1&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="1">
-                </label>
-                <label class="float-l" for="score2" style="margin-right:15px;">
-                    2&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="2">
-                </label>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form class="add-comment-form" id="addcomment-form" method="post" asp-action="AddComment" asp-route-userId="@(currentUser != null ? currentUser.Id : Guid.Empty)" asp-route-itemId="@Model.Id">
+            <div class="add-comment-container">
+                <div class="rows">
+                    Értékelés:
+                    <label class="float-l" for="score1" style="margin-right:15px;">
+                        1&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="1">
+                    </label>
+                    <label class="float-l" for="score2" style="margin-right:15px;">
+                        2&nbsp;&nbsp;<input class="float-l" id="score2" type="radio" name="Rating" value="2">
+                    </label>
 
-                <label class="float-l" for="score3" style="margin-right:15px;">
-                    3&nbsp;&nbsp;<input class="float-l" id="score3" type="radio" name="Rating" value="3">
-                </label>
+                    <label class="float-l" for="score3" style="margin-right:15px;">
+                        3&nbsp;&nbsp;<input class="float-l" id="score3" type="radio" name="Rating" value="3">
+                    </label>
 
-                <label class="float-l" for="score4" style="margin-right:15px;">
-                    4&nbsp;&nbsp;<input class="float-l" id="score4" type="radio" name="Rating" value="4">
-                </label>
+                    <label class="float-l" for="score4" style="margin-right:15px;">
+                        4&nbsp;&nbsp;<input class="float-l" id="score4" type="radio" name="Rating" value="4">
+                    </label>
 
-                <label class="float-l" for="score5" style="margin-right:15px;">
-                    5&nbsp;&nbsp;<input class="float-l" id="score5" type="radio" name="Rating" value="5">
-                </label>
+                    <label class="float-l" for="score5" style="margin-right:15px;">
+                        5&nbsp;&nbsp;<input class="float-l" id="score5" type="radio" name="Rating" value="5">
+                    </label>
 
-                <span class="clear"></span>
+                    <span class="clear"></span>
+                </div>
+                <textarea rows="4" cols="100" name="Content" placeholder="Ide írd a kommented.."></textarea>
+                <input type="submit">
             </div>
-            <textarea rows="4" cols="100" name="Content" placeholder="Ide írd a kommented.."></textarea>
-            <input type="submit">
-        </div>
-    </form>
-
-
+        </form>
+    }
     <div class="comments-container">
         @foreach (var comment in Model.Comments)
         {
-        <div class="comment-header">
-            <span>@comment.UserName</span>
-            <span class="comment-date"> @comment.Date</span>
-            <div class="rating-for-comment">
-                @for (int i = 0; i < comment.Rating; i++)
-                {
-                    <span class="fa fa-star checked"></span>
-                }
-                @for (int i = comment.Rating; i < 5; i++)
-                {
-                    <span class="fa fa-star"></span>
-                }
+            <div class="comment-header">
+                <span>@comment.UserName</span>
+                <span class="comment-date"> @comment.Date</span>
+                <div class="rating-for-comment">
+                    @for (int i = 0; i < comment.Rating; i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
+                    @for (int i = comment.Rating; i < 5; i++)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+                </div>
             </div>
-        </div>
             <div class="comment-text">
                 <p>@comment.CommentText</p>
-               
+
             </div>
         }
     </div>

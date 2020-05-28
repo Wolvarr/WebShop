@@ -1,4 +1,8 @@
-﻿.slide-img {
+﻿.alert{
+    margin-top: 40px;
+}
+
+.slide-img {
     margin-top: 5px;
     margin-left: 35px;
     display: inline-block;
@@ -10,6 +14,7 @@
     border-radius: 6px;
 }
 
+
 .side-highlited-container {
     position: absolute;
     top: 85px;
@@ -20,7 +25,12 @@
     height: auto;
     width: 270px;
     background-color: white;
-    z-index: -1;
+}
+
+@media only screen and (max-width: 1600px) {
+    .side-highlited-container {
+display: none;
+    }
 }
 
 .main-page-bar {
@@ -53,117 +63,138 @@
         background-color: #343a40;
         color: #ca158e;
         padding-top: 10px;
-        padding-left:3px;
-        padding-right:3px;
+        padding-left: 3px;
+        padding-right: 3px;
     }
 
-            .main-page-bar > a:hover {
-                background-color: #850c5d;
-                color: white;
-            }
+        .main-page-bar > a:hover {
+            background-color: #850c5d;
+            color: white;
+        }
 
-    * {
-        box-sizing: border-box
-    }
+* {
+    box-sizing: border-box
+}
 
-    .mySlides {
-        display: inline;
-    }
+.mySlides {
+    display: inline;
+}
 
 
+.action-text {
+    float: right;
+    margin-right: 100px;
+    margin-top: 15px;
+    height: 300px;
+    width: 270px;
+    display: inline-block;
+}
+
+.highlightedPrice {
+    font-size: 30px;
+    color: ghostwhite;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+@media only screen and (max-width: 800px) {
     .action-text {
-        float: right;
-        margin-right: 100px;
-        margin-top: 15px;
-        height: 300px;
-        width: 270px;
-        display: inline-block;
+        display: none;
     }
 
-    .highlightedPrice {
-        font-size: 30px;
-        color: ghostwhite;
-        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    .slide-img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-        .highlightedPrice:hover {
-            font-size: 40px;
-            color: #850c5d;
-        }
-
-    /* Slideshow container */
-    .slideshow-container {
-        border: solid;
-        border-color: black;
-        max-width: 800px;
-        height: 320px;
-        position: relative;
-        margin: auto;
-        top: 50px;
+    .builder-ad-container{
+        border: none !important;
     }
 
-    /* Next & previous buttons */
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        padding: 16px;
-        margin-top: -22px;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-        user-select: none;
+    .slideshow-container{
+        border: none !important;
     }
-
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
-
-        /* On hover, add a grey background color */
-        .prev:hover, .next:hover {
-            background-color: #f1f1f1;
-            color: black;
-        }
+}
 
 
-    .builder-ad-container {
-        border: solid;
-        border-color: black;
-        max-width: 800px;
-        height: 300px;
-        position: relative;
-        margin: auto;
-        top: 47px;
-    }
+.highlightedPrice:hover {
+    font-size: 40px;
+    color: #850c5d;
+}
 
-    .full-sized-pic {
-    }
+/* Slideshow container */
+.slideshow-container {
+    border: solid;
+    border-color: black;
+    max-width: 800px;
+    height: 320px;
+    position: relative;
+    margin: auto;
+    top: 50px;
+}
 
-    
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
 
-    .right-bar-ad-pic {
-        border-bottom: solid;
-        border-color: black;
-        padding-left: 5px;
-        padding-right: 5px;
-        padding-bottom: 10px;
-    }
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
 
-    .right-bar-pic-container {
-        position: relative;
-        text-align: center;
-        color: white;
-    }
-
-    .image-text-bottom {
-        position: absolute;
-        bottom: 5px;
-        left: 5px;
-        font-size: 20px;
+    /* On hover, add a grey background color */
+    .prev:hover, .next:hover {
+        background-color: #f1f1f1;
         color: black;
     }
+
+
+.builder-ad-container {
+    border: solid;
+    border-color: black;
+    max-width: 800px;
+    height: 300px;
+    position: relative;
+    margin: auto;
+    top: 47px;
+}
+
+.full-sized-pic {
+}
+
+
+
+.right-bar-ad-pic {
+    border-bottom: solid;
+    border-color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+}
+
+.right-bar-pic-container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.image-text-bottom {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 20px;
+    color: black;
+}

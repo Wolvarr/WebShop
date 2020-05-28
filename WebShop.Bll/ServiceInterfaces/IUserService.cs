@@ -20,5 +20,7 @@ namespace WebShop.Bll.ServiceInterfaces
         void AddItemToCart(Guid userId, Guid itemId, int quantity);
 
         void AddAllItemsToCart(Guid userId, List<Guid> items);
+
+        void RemoveSubscription(Guid userId, Guid itemId);
     }
 }

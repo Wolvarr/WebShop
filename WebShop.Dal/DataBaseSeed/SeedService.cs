@@ -33,7 +33,7 @@ namespace WebShop.Dal.DataBaseSeed
                     PicturePath = "21000000-0000-0000-0000-000000000011.jpg",
                     Name="ASUS ROG asztali gamer számítógép (G15DH-HU011D)",
                     Category = Enums.Category.CompletPc,
-                    OriginalPrice = 295790,
+                    OriginalPrice = 595790,
                     DiscountedPrice = null,
                     Available= 15,
                     ShortDescription = "Viszonylag olcsó, jó árérték arányú számítógép",
@@ -45,7 +45,9 @@ namespace WebShop.Dal.DataBaseSeed
                     Cpu = "AMD Ryzen 5 3600X",
                     Gpu = "nvidia geforce gtx 1650",
                     Memories = "2 x Kingston HyperX fury 8gb 3200mhz",
-                    Drives = "256GB SSD, 1TB HDD"
+                    Drives = "256GB SSD, 1TB HDD",
+                    HasRGB = true,
+                    GamingFlag = true
                 },
                 new CompletPC()
                 {
@@ -253,7 +255,9 @@ namespace WebShop.Dal.DataBaseSeed
                     MemoryType = Enums.MemoryType.GDDR6,
                     PowerSupplyConnection = "6 + 8",
                     DateSinceInStore = DateTime.Now.AddDays(-30),
-                    HighlightedItem = true,
+                    HighlightedItem = true,                    
+                    HasRGB = true,
+                    GamingFlag = true
                 },
                  new GraphicsCard
                 {
@@ -401,7 +405,9 @@ namespace WebShop.Dal.DataBaseSeed
                     Kit = 2,
                     DateSinceInStore = DateTime.Now.AddDays(-5),
                     HighlightedItem = true,
-                }
+                    HasRGB = true,
+                    GamingFlag = true
+                 }
             };
             Motherboards = new List<Motherboard>()
             {
@@ -425,6 +431,8 @@ namespace WebShop.Dal.DataBaseSeed
                     MemorySocketNumber = 4,
                     DateSinceInStore = DateTime.Now.AddDays(-30),
                     HighlightedItem = false,
+                    HasRGB = true,
+                    GamingFlag = true
                 },
 
                  new Motherboard
@@ -436,7 +444,7 @@ namespace WebShop.Dal.DataBaseSeed
                     OriginalPrice = 35000,
                     DiscountedPrice = null,
                     Manufacturer = "Gigabyte",
-                    ShortDescription = "Basic motherboard. No overcloccing here",
+                    ShortDescription = "Basic motherboard. No overclocking here",
                     Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                     Warranty = "2 years",
                     Type = Enums.MotherboardType.Micro_ATX,
@@ -459,7 +467,7 @@ namespace WebShop.Dal.DataBaseSeed
                     OriginalPrice = 13700,
                     DiscountedPrice = null,
                     Manufacturer = "Chieftec",
-                    ShortDescription = "Cheap ass psu, dont buy this",
+                    ShortDescription = "Cheap psu, dont buy this",
                     Description = "Morbi efficitur iaculis luctus. Quisque efficitur magna nec sapien finibus euismod. Nullam suscipit enim id dui hendrerit imperdiet. Donec ultrices venenatis nisl, nec condimentum neque. Vivamus ut arcu tincidunt, dapibus nunc ut, vulputate arcu. Nulla molestie leo at quam laoreet, id consectetur augue facilisis. Mauris in eleifend purus, a suscipit risus.",
                     Warranty = "3 years",
                     ATXConnector = 1,

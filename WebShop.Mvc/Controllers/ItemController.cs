@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using WebShop.Bll.DTO;
 using WebShop.Bll.Extensions;
@@ -18,12 +20,14 @@ namespace WebShop.Mvc.Controllers
         private readonly IItemService itemService;
         private readonly UserManager<WebShopUser> userManager;
         private readonly IUserService userService;
+        private readonly IEmailSender emailSender;
 
-        public ItemController(IItemService itemService, UserManager<WebShopUser> userManager, IUserService userService)
+        public ItemController(IItemService itemService, UserManager<WebShopUser> userManager, IUserService userService, IEmailSender emailSender)
         {
             this.itemService = itemService;
             this.userManager = userManager;
             this.userService = userService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index(ItemSpecification specification, ItemBrowserViewModel model = null)
@@ -190,9 +194,19 @@ namespace WebShop.Mvc.Controllers
 
         }
 
-        public IActionResult ChangeAvailability(string id, int value)
+        public async Task<IActionResult> ChangeAvailabilityAsync(string id, int value)
         {
-            this.itemService.ChangeAvailability(id, value);
+            var subItems = this.itemService.ChangeAvailability(id, value);
+            if (subItems != null)
+            {
+                foreach (var userId in subItems.Item2)
+                {
+                    var user = await this.userManager.FindByIdAsync(userId.ToString());
+                    await this.emailSender.SendEmailAsync(user.Email, "Termék újra raktáron", "Tisztelt vásárlónk!, értesítjük, hogy " + subItems.Item1 + "termékünk újra elérhető");
+                    this.userService.RemoveSubscription(userId, new Guid(id));
+                };
+              
+            }
             return RedirectToAction("Index", "Home", new { message = "Termék sikeresen módosítva" });
         }
     }

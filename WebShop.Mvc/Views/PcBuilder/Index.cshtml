@@ -225,19 +225,22 @@
             }
         </div>
     }
-    <div class="configurator-footer">
-        @{
-            var pricesum = 0;
-            pricesum += cpuPrice;
-            pricesum += boardPrice;
-            pricesum += gpuPrice;
-            pricesum += ramPrice;
-            pricesum += drivePrice;
-            pricesum += psuPrice;
-            pricesum += casePrice;
-        }
-        Végösszeg: @pricesum Ft
+<div class="configurator-footer">
+    @{
+        var pricesum = 0;
+        pricesum += cpuPrice;
+        pricesum += boardPrice;
+        pricesum += gpuPrice;
+        pricesum += ramPrice;
+        pricesum += drivePrice;
+        pricesum += psuPrice;
+        pricesum += casePrice;
+    }
+    Végösszeg: @pricesum Ft
+    @if (SignInManager.IsSignedIn(User))
+    {
         <a class="allitems-to-cart-button" asp-action="AddToCart"
+           asp-route-userId="@currentUser.Id"
            asp-route-model.Motherboard="@Model.Motherboard"
            asp-route-model.CPU="@Model.CPU"
            asp-route-model.GPU="@Model.GPU"
@@ -245,6 +248,11 @@
            asp-route-model.Drive="@Model.Drive"
            asp-route-model.PSU="@Model.PSU"
            asp-route-model.Case="@Model.Case"
-           asp-route-userId="@currentUser.Id">Kosárba</a>
-    </div>
+           asp-route-userId="">Kosárba</a>
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Kosárba</a>
+    }
+</div>
 </div>
