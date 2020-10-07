@@ -1,0 +1,75 @@
+﻿
+
+.navbar-icon {
+    position: relative;
+    height: 40px;
+    width: 40px;
+    margin-left: 5px;
+    z-index: 16777271;
+}
+
+.site-logo {
+    position: absolute;
+    left: 5rem;
+    top: 1px;
+    height: 60px;
+}
+
+
+    /*SEARCH BAR CONTAINER
+-----------------------------------------*/
+
+    /*RED: #880015*/
+@media only screen and (max-width: 800px) {
+    .d-inline {
+        display:none !important;
+    }
+
+
+    .navbar-nav {
+        z-index: 16777271;
+    }
+
+    .main-page-bar{
+        right:8px !important;
+        left: auto;
+        width: 493px;
+    }
+
+    .main-page-bar > a{
+    }
+    .search-container {
+        z-index: 10;
+    }
+
+}
+    .search-container {
+        height: 43px;
+        width: 300px;
+    }
+
+        .search-container > form {
+            height: 100%;
+            width: 100%;
+        }
+
+            .search-container > form > input {
+                position: absolute;
+                height: 40px;
+                width: 250px;
+                border-radius: 4px;
+                border: solid;
+                border-color: #850c5d;
+                color: #850c5d;
+                background-color: #6f6f6f;
+            }
+
+    ::placeholder { /* Microsoft Edge */
+        color: white;
+    }
+
+    .search-container > form > button {
+        float: right;
+        background-color: #343a40;
+        border: none;
+    }

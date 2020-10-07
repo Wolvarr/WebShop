@@ -1,0 +1,200 @@
+﻿@model WebShop.Models.ItemBrowserViewModel
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
+@{
+    ViewData["Title"] = "Termékek";
+
+    Dictionary<string, string> queryParams = Context.Request.Query.ToDictionary(q => q.Key, q => q.Value.ToString());
+    queryParams.TryAdd("pageNumber", String.Empty);
+
+}
+@inject SignInManager<WebShopUser> SignInManager
+@inject UserManager<WebShopUser> UserManager
+<partial name="_StatusMessage" model="@TempData["message"]" />
+
+<h1 style="margin-bottom: 40px;">Termékek</h1>
+<div class="sort-selector">
+    <div class="w3-dropdown-hover">
+        <button class="sorting-button">Rendezés</button>
+        <div class="w3-dropdown-content w3-bar-block w3-border">
+            <a href="/Item?order=PriceDescending" class="w3-bar-item w3-button">Ár: csökkenő</a>
+            <a href="/Item?order=PriceAscending" class="w3-bar-item w3-button">Ár: növekvő</a>
+            <a href="/Item?order=RatingDescending" class="w3-bar-item w3-button">Értékelés: csökkenő</a>
+            <a href="/Item?order=RatingAscending" class="w3-bar-item w3-button">Értékelés: növekvő</a>
+        </div>
+    </div>
+</div>
+
+
+@if (this.User.IsInRole("Administrator"))
+{
+<div class="new-item-container">
+    <p>Új termék hozzáadása</p>
+    @using (Html.BeginForm("Index", "Item"))
+    {
+        @Html.DropDownListFor(m => m.SelectedCategory, new SelectList(Model.AvailableCategories), "Kategória", new { onchange = "this.form.submit();", @class = "new-item-dropdown-list" })
+    }
+    @if (Model.SelectedCategory != null)
+    {
+    <a class="new-item-button" asp-action="CreateItem" asp-controller="Item" asp-route-create="false" asp-route-category="@Model.SelectedCategory">Hozzáad</a>
+    }
+</div>
+}
+
+
+<div class="item-list">
+    <vc:item-list items="Model.ItemResults"></vc:item-list>
+</div>
+
+<div class="cell-body">
+    <form asp-controller="Item" asp-action="Index">
+        <h4>Kategóriák</h4>
+        <div class="category-filter">
+            @foreach (var item in Model.AvailableCategories)
+            {
+                <div class="checkbox">
+                    <label>
+                        @item
+                        @if (Model.ItemResults.Specification.SelectedCategories.Contains(item))
+                        {<input type="checkbox"
+                                name="SelectedCategories"
+                                value="@item"
+                                checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox"
+                                   name="SelectedCategories"
+                                   value="@item" />
+                        }
+                    </label>
+                </div>
+            }
+        </div>
+        <hr class="horizontal-line">
+        <h4>Gyártók</h4>
+        <div class="manufacturer-filter">
+            @foreach (var item in Model.AvailableManufacturers)
+            {
+                <div class="checkbox">
+                    <label>
+                        @item
+                        @if (Model.ItemResults.Specification.SelectedManufacturers.Contains(item))
+                        {
+                            <input type="checkbox"
+                                   name="SelectedManufacturers"
+                                   value="@item"
+                                   checked="checked" />
+                        }
+                        else
+                        {
+                            <input type="checkbox"
+                                   name="SelectedManufacturers"
+                                   value="@item" />
+                        }
+                    </label>
+                </div>
+
+            }
+        </div>
+        <hr class="horizontal-line">
+        <div class="checkbox">
+            <label>
+                RGB
+                @if (Model.ItemResults.Specification.HasRGB.HasValue && Model.ItemResults.Specification.HasRGB.Value == true)
+                {
+                    <input type="checkbox"
+                           name="HasRGB"
+                           value="True"
+                           checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox"
+                           name="HasRGB"
+                           value="True" />
+                }
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                Gaming ajánlat
+                @if (Model.ItemResults.Specification.IsGaming.HasValue && Model.ItemResults.Specification.IsGaming.Value == true)
+                {
+                    <input type="checkbox"
+                           name="IsGaming"
+                           value="True"
+                           checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox"
+                           name="IsGaming"
+                           value="True" />
+                }
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                Használt termékek
+                @if (Model.ItemResults.Specification.IsUsed.HasValue && Model.ItemResults.Specification.IsUsed.Value == true)
+                {
+                    <input type="checkbox"
+                           name="IsUsed"
+                           value="True"
+                           checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox"
+                           name="IsUsed"
+                           value="True" />
+                }
+            </label>
+        </div>
+        <hr class="horizontal-line">
+        <h4>Ár</h4>
+        <div class="slidecontainer">
+            <input type="range" min=@Model.TotalMinPrice max=@Model.TotalMaxPrice value=@Model.SelectedMinPrice class="slider" id="minRange" name="minPrice">
+            <p>Min: <span id="minValue"></span> Ft</p>
+            <input type="range" min=@Model.TotalMinPrice max=@Model.TotalMaxPrice value=@Model.SelectedMaxPrice class="slider" id="maxRange" name="maxPrice">
+
+            <p>Max: <span id="maxValue"></span> Ft</p>
+        </div>
+        <input type="submit" value="Szűrés" id="btnSubmit" />
+
+
+        <script>
+            var sliderMin = document.getElementById("minRange");
+            var outputMin = document.getElementById("minValue");
+            var sliderMax = document.getElementById("maxRange");
+            var outputMax = document.getElementById("maxValue");
+            outputMin.innerHTML = sliderMin.value;
+            outputMax.innerHTML = sliderMax.value;
+
+            sliderMin.oninput = function () {
+                outputMin.innerHTML = this.value;
+            }
+
+            sliderMax.oninput = function () {
+                outputMax.innerHTML = this.value;
+            }
+
+        </script>
+
+
+
+    </form>
+</div>
+<div class="paging-container">
+    @if (Model.ItemResults.Specification.PageNumber > 0)
+    {
+        <a asp-controller="Item" asp-action="Index" asp-route-PageNumber="@(Model.ItemResults.Specification.PageNumber)">Előző oldal</a>
+
+    }
+    @if (Model.ItemResults.AllResultsCount > (Model.ItemResults.Specification.PageNumber + 1) * Model.ItemResults.Specification.PageSize)
+    {
+        <a asp-controller="Item" asp-action="Index" asp-route-PageNumber="@(Model.ItemResults.Specification.PageNumber +2)">Következő oldal</a>
+    }
+</div>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

@@ -1,0 +1,357 @@
+﻿@model WebShop.Models.CreateItemViewModel
+@using WebShop.Dal.Enums
+@using WebShop.Bll.Extensions
+@{
+    ViewData["Title"] = "CreateItem";
+}
+
+<h1>Termék felvétele</h1>
+
+<h4>@Model.Category</h4>
+<hr />
+<form enctype="multipart/form-data" method="post" asp-action="CreateItem" asp-route-create="true" asp-route-category="@Model.Category">
+    <div class="user-data-container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="file">Termék képe:</label>
+                    <input value="Image" type="file" id="file" name="file" style="width :100%" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="OriginalPrice" class="control-label"></label>
+                    <input asp-for="OriginalPrice" class="form-control" />
+                    <span asp-validation-for="OriginalPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiscountedPrice" class="control-label"></label>
+                    <input asp-for="DiscountedPrice" class="form-control" />
+                    <span asp-validation-for="DiscountedPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Manufacturer" class="control-label"></label>
+                    <input asp-for="Manufacturer" class="form-control" />
+                    <span asp-validation-for="Manufacturer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ShortDescription" class="control-label"></label>
+                    <input asp-for="ShortDescription" class="form-control" />
+                    <span asp-validation-for="ShortDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Warranty" class="control-label"></label>
+                    <input asp-for="Warranty" class="form-control" />
+                    <span asp-validation-for="Warranty" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Cpu))
+                {
+                    <div class="form-group">
+                        <label asp-for="BaseClock" class="control-label"></label>
+                        <input asp-for="BaseClock" class="form-control" />
+                        <span asp-validation-for="BaseClock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TDP" class="control-label"></label>
+                        <input asp-for="TDP" class="form-control" />
+                        <span asp-validation-for="TDP" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProcessorFamily" class="control-label"></label>
+                        <input asp-for="ProcessorFamily" class="form-control" />
+                        <span asp-validation-for="ProcessorFamily" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Technology" class="control-label"></label>
+                        <input asp-for="Technology" class="form-control" />
+                        <span asp-validation-for="Technology" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoreNumber" class="control-label"></label>
+                        <input asp-for="CoreNumber" class="form-control" />
+                        <span asp-validation-for="CoreNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ThreadNumber" class="control-label"></label>
+                        <input asp-for="ThreadNumber" class="form-control" />
+                        <span asp-validation-for="ThreadNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Socket" class="control-label"></label>
+                        <select asp-for="Socket" asp-items="@Html.GetEnumSelectList<CpuSocket>()"></select>
+                        <span asp-validation-for="Socket" class="text-danger"></span>
+                    </div>
+
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Case))
+                {
+                    <div class="form-group">
+                        <label asp-for="BuiltInFanNumber" class="control-label"></label>
+                        <input asp-for="BuiltInFanNumber" class="form-control" />
+                        <span asp-validation-for="BuiltInFanNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SupportedMotherboard" class="control-label"></label>
+                        <select asp-for="SupportedMotherboard" asp-items="@Html.GetEnumSelectList<MotherboardType>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Height" class="control-label"></label>
+                        <input asp-for="Height" class="form-control" />
+                        <span asp-validation-for="Height" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Width" class="control-label"></label>
+                        <input asp-for="Width" class="form-control" />
+                        <span asp-validation-for="Width" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Depth" class="control-label"></label>
+                        <input asp-for="Depth" class="form-control" />
+                        <span asp-validation-for="Depth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HDDNumber" class="control-label"></label>
+                        <input asp-for="HDDNumber" class="form-control" />
+                        <span asp-validation-for="HDDNumber" class="text-danger"></span>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Gpu))
+                {
+                    <div class="form-group">
+                        <label asp-for="BaseClock" class="control-label"></label>
+                        <input asp-for="BaseClock" class="form-control" />
+                        <span asp-validation-for="BaseClock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TDP" class="control-label"></label>
+                        <input asp-for="TDP" class="form-control" />
+                        <span asp-validation-for="TDP" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BuiltInMemory" class="control-label"></label>
+                        <input asp-for="BuiltInMemory" class="form-control" />
+                        <span asp-validation-for="BuiltInMemory" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MemoryClock" class="control-label"></label>
+                        <input asp-for="MemoryClock" class="form-control" />
+                        <span asp-validation-for="MemoryClock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BandWidth" class="control-label"></label>
+                        <input asp-for="BandWidth" class="form-control" />
+                        <span asp-validation-for="BandWidth" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoolerType" class="control-label"></label>
+                        <input asp-for="CoolerType" class="form-control" />
+                        <span asp-validation-for="CoolerType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MemoryType" class="control-label"></label>
+                        <input asp-for="MemoryType" class="form-control" />
+                        <span asp-validation-for="MemoryType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PowerSupplyConnection" class="control-label"></label>
+                        <input asp-for="PowerSupplyConnection" class="form-control" />
+                        <span asp-validation-for="PowerSupplyConnection" class="text-danger"></span>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.HardDrive))
+                {
+                    <div class="form-group">
+                        <label asp-for="Size" class="control-label"></label>
+                        <input asp-for="Size" class="form-control" />
+                        <span asp-validation-for="Size" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReadSpeed" class="control-label"></label>
+                        <input asp-for="ReadSpeed" class="form-control" />
+                        <span asp-validation-for="ReadSpeed" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WriteSpeed" class="control-label"></label>
+                        <input asp-for="WriteSpeed" class="form-control" />
+                        <span asp-validation-for="WriteSpeed" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Weight" class="control-label"></label>
+                        <input asp-for="Weight" class="form-control" />
+                        <span asp-validation-for="Weight" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DriveSocket" class="control-label"></label>
+                        <input asp-for="DriveSocket" class="form-control" />
+                        <span asp-validation-for="DriveSocket" class="text-danger"></span>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.Memory))
+                {
+                    <div class="form-group">
+                        <label asp-for="BaseClock" class="control-label"></label>
+                        <input asp-for="BaseClock" class="form-control" />
+                        <span asp-validation-for="BaseClock" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Capacity" class="control-label"></label>
+                        <input asp-for="Capacity" class="form-control" />
+                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MemoryTypeForMmoryCard" class="control-label"></label>
+                        <input asp-for="MemoryTypeForMmoryCard" class="form-control" />
+                        <span asp-validation-for="MemoryTypeForMmoryCard" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Timing" class="control-label"></label>
+                        <input asp-for="Timing" class="form-control" />
+                        <span asp-validation-for="Timing" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Kit" class="control-label"></label>
+                        <input asp-for="Kit" class="form-control" />
+                        <span asp-validation-for="Kit" class="text-danger"></span>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.MotherBoard))
+                {
+                    <div class="form-group">
+                        <label asp-for="Type" class="control-label"></label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Chipset" class="control-label"></label>
+                        <input asp-for="Chipset" class="form-control" />
+                        <span asp-validation-for="Chipset" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CpuSocketForMotherboard" class="control-label"></label>
+                        <input asp-for="CpuSocketForMotherboard" class="form-control" />
+                        <span asp-validation-for="CpuSocketForMotherboard" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SupportedMemoryType" class="control-label"></label>
+                        <input asp-for="SupportedMemoryType" class="form-control" />
+                        <span asp-validation-for="SupportedMemoryType" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SupportedMemorySpeed" class="control-label"></label>
+                        <input asp-for="SupportedMemorySpeed" class="form-control" />
+                        <span asp-validation-for="SupportedMemorySpeed" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MemorySocketNumber" class="control-label"></label>
+                        <input asp-for="MemorySocketNumber" class="form-control" />
+                        <span asp-validation-for="MemorySocketNumber" class="text-danger"></span>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.PowerSupply))
+                {
+                    <div class="form-group">
+                        <label asp-for="ATXConnector" class="control-label"></label>
+                        <input asp-for="ATXConnector" class="form-control" />
+                        <span asp-validation-for="ATXConnector" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MolexConnector" class="control-label"></label>
+                        <input asp-for="MolexConnector" class="form-control" />
+                        <span asp-validation-for="MolexConnector" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SixPinConnector" class="control-label"></label>
+                        <input asp-for="SixPinConnector" class="form-control" />
+                        <span asp-validation-for="SixPinConnector" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SixPlusTwoConnector" class="control-label"></label>
+                        <input asp-for="SixPlusTwoConnector" class="form-control" />
+                        <span asp-validation-for="SixPlusTwoConnector" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Efficiency" class="control-label"></label>
+                        <input asp-for="Efficiency" class="form-control" />
+                        <span asp-validation-for="Efficiency" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsModular" /> @Html.DisplayNameFor(model => model.IsModular)
+                        </label>
+                    </div>
+                }
+                @if (Model != null && Model.Category == EnumExtensionMethods.GetDescription(Category.CompletPc))
+                {
+                    <div class="form-group">
+                        <label asp-for="Case" class="control-label"></label>
+                        <input asp-for="Case" class="form-control" />
+                        <span asp-validation-for="Case" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Motherboard" class="control-label"></label>
+                        <input asp-for="Motherboard" class="form-control" />
+                        <span asp-validation-for="Motherboard" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cpu" class="control-label"></label>
+                        <input asp-for="Cpu" class="form-control" />
+                        <span asp-validation-for="Cpu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Gpu" class="control-label"></label>
+                        <input asp-for="Gpu" class="form-control" />
+                        <span asp-validation-for="Gpu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Memories" class="control-label"></label>
+                        <input asp-for="Memories" class="form-control" />
+                        <span asp-validation-for="Memories" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Drives" class="control-label"></label>
+                        <input asp-for="Drives" class="form-control" />
+                        <span asp-validation-for="Drives" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PowerSupply" class="control-label"></label>
+                        <input asp-for="PowerSupply" class="form-control" />
+                        <span asp-validation-for="PowerSupply" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="GamingFlag" /> @Html.DisplayNameFor(model => model.GamingFlag)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="HasRGB" /> @Html.DisplayNameFor(model => model.HasRGB)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Mégse</a>
+</div>
+

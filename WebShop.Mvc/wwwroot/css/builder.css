@@ -1,0 +1,57 @@
+﻿.pc-builder-container{
+    min-height: 900px;
+}
+
+.dropdown-list {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 70%;
+    border: solid;
+    border-color: #850c5d;
+    border-radius: 8px;
+    background-color: #850c5d;
+    color: white;
+}
+
+.item-selector{
+
+}
+
+.selected-item-container {
+    margin-left: 20px;
+    width: 70%;
+    background-color: white;
+    border-top: none;
+    border-left: solid;
+    border-right: solid;
+    border-bottom: solid;
+    border-color: #850c5d;
+    border-radius: 8px;
+}
+
+.price{
+    font-size: 18px;
+    float: right;
+    margin-right: 10px;
+}
+
+.configurator-footer{
+    width: 70%;
+    margin-top: 50px;
+    text-align: right;
+    font-size: 30px;
+}
+
+.allitems-to-cart-button {
+    font-size: 22px;
+    border: solid;
+    border-color: #850c5d;
+    background-color: white;
+    border-radius: 8px;
+    padding: 2px;
+}
+    .allitems-to-cart-button:hover {
+        background-color: #850c5d;
+        color:white;
+        text-decoration: none;
+    }

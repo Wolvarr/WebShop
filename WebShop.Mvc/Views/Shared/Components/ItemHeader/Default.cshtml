@@ -1,0 +1,76 @@
+﻿@model WebShop.Bll.DTO.ItemHeader
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
+
+@inject SignInManager<WebShopUser> SignInManager
+
+@inject UserManager<WebShopUser> UserManager
+
+@{ var currentUser = await UserManager.GetUserAsync(User);
+    <div class="column">
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top" src="~/images/items/@(Model.PicturePath)" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-header">
+                    <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@Model.Id">@Model.Name</a>
+                </h5>
+                <div class="rating">
+                    @for (int i = 0; i < @Model.AverageRating; i++)
+                    {
+                        <span class="fa fa-star checked"></span>
+                    }
+                    @for (int i = @Model.AverageRating; i < 5; i++)
+                    {
+                        <span class="fa fa-star"></span>
+                    }
+                </div>
+                <p class="card-text">@Model.ShortDescription</p>
+                <div class="card-bottom">
+                    @if (Model.Available != 0)
+                    {
+                        <div class="price_tag">
+                            @if (Model.DiscountedPrice.HasValue)
+                            {
+                                <div class="text-original-price">@Model.OriginalPrice&nbsp;Ft</div>
+                                <div class="text-discounted-price">@Model.DiscountedPrice&nbsp;Ft</div>
+                            }
+                            else
+                            {
+                                <span style="font-size:22px">
+                                    @Model.OriginalPrice.ToString("N0")&nbsp;Ft
+                                </span>
+                            }
+                        </div>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if (!this.User.IsInRole("Administrator"))
+                            {
+                            <a asp-controller="Item" asp-action="AddItemToCart" asp-route-id="@Model.Id" asp-route-userId="@(currentUser.Id)" class="cart-button">Kosárba</a>
+                            }
+                        }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Kosárba</a>
+                            }
+                        }
+                        else
+                        {
+                        <span style="font-size:13px">
+                            A termék jelenleg nem elérhető. Az alábbi gombbal feliratkozhat emailes értesítésre:
+                        </span>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <a asp-controller="Item" asp-action="SubscriebeToNotification" asp-route-userId="@currentUser.Id" asp-route-itemId="@Model.Id" class="cart-button">Feliratkozás</a>
+                        }
+                        else
+                        {
+                            <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Feliratkozás</a>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

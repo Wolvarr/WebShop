@@ -1,0 +1,258 @@
+﻿@model WebShop.Models.PcBuilderViewModel
+@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
+@inject SignInManager<WebShopUser> SignInManager
+@inject UserManager<WebShopUser> UserManager
+@{
+    ViewData["Title"] = "Gépösszerakó";
+    var boardPrice = 0;
+    var cpuPrice = 0;
+    var gpuPrice = 0;
+    var ramPrice = 0;
+    var psuPrice = 0;
+    var drivePrice = 0;
+    var casePrice = 0;
+    var currentUser = await UserManager.GetUserAsync(User);
+}
+
+<h1>Gépösszerakó</h1>
+<div class="pc-builder-container">
+
+    @using (Html.BeginForm("Index", "PcBuilder"))
+    {
+        <div class="item-selector">
+            @if (Model.Motherboard == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.Motherboard, new SelectList(Model.AvailableItems.Where(x => x.Category == "Alaplap"), "Id", "Name"), "Alaplap", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard.ToString());
+                @Html.DropDownListFor(model => model.Motherboard, new SelectList(Model.AvailableItems.Where(x => x.Category == "Alaplap"), "Id", "Name"), "Alaplap", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ boardPrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price">@boardPrice Ft</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="item-selector">
+            @if (Model.CPU == Guid.Empty && Model.Motherboard != Guid.Empty)
+            {
+                var motherboardSocket = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Motherboard.ToString()).CpuSocket;
+                @Html.DropDownListFor(model => model.CPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Processzor" && x.CpuSocket == motherboardSocket), "Id", "Name"), "Processzor (Csak a választott alaplappal kompatibilis modellek)", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                @if (Model.CPU == Guid.Empty)
+                {
+                    @Html.DropDownListFor(model => model.CPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Processzor"), "Id", "Name"), "Processzor", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                }
+                else
+                {
+                    var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.CPU.ToString());
+                    @Html.DropDownListFor(model => model.CPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Processzor"), "Id", "Name"), "Processzor", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                    <div class="selected-item-container">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                     alt="@item.Name" title="@item.Name" />
+                            </div>
+                            <div class="col-9">
+                                <h4 class="card-header">
+                                    <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                                </h4>
+                                <p>@item.ShortDescription</p>
+                                @{ cpuPrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                                <p class="price"> @cpuPrice Ft</p>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="item-selector">
+            @if (Model.GPU == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.GPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Videókártya"), "Id", "Name"), "Videókártya", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.GPU.ToString());
+                @Html.DropDownListFor(model => model.GPU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Videókártya"), "Id", "Name"), "Videókártya", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ gpuPrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price"> @gpuPrice Ft</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="item-selector">
+            @if (Model.RAM == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.RAM, new SelectList(Model.AvailableItems.Where(x => x.Category == "Memória"), "Id", "Name"), "Memória", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.RAM.ToString());
+                @Html.DropDownListFor(model => model.RAM, new SelectList(Model.AvailableItems.Where(x => x.Category == "Memória"), "Id", "Name"), "Memória", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ ramPrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price"> @ramPrice Ft</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="item-selector">
+            @if (Model.Drive == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.Drive, new SelectList(Model.AvailableItems.Where(x => x.Category == "Merevlemez"), "Id", "Name"), "Merevlemez", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Drive.ToString());
+                @Html.DropDownListFor(model => model.Drive, new SelectList(Model.AvailableItems.Where(x => x.Category == "Merevlemez"), "Id", "Name"), "Merevlemez", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ drivePrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price"> @drivePrice Ft</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="item-selector">
+            @if (Model.PSU == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.PSU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Tápegység"), "Id", "Name"), "Tápegység", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.PSU.ToString());
+                @Html.DropDownListFor(model => model.PSU, new SelectList(Model.AvailableItems.Where(x => x.Category == "Tápegység"), "Id", "Name"), "Tápegység", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ psuPrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price"> @psuPrice Ft</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="item-selector">
+            @if (Model.Case == Guid.Empty)
+            {
+                @Html.DropDownListFor(model => model.Case, new SelectList(Model.AvailableItems.Where(x => x.Category == "Gépház"), "Id", "Name"), "Gépház", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+            }
+            else
+            {
+                var item = Model.AvailableItems.SingleOrDefault(x => x.Id == Model.Case.ToString());
+                @Html.DropDownListFor(model => model.Case, new SelectList(Model.AvailableItems.Where(x => x.Category == "Gépház"), "Id", "Name"), "Gépház", new { onchange = "this.form.submit();", @class = "dropdown-list" })
+                <div class="selected-item-container">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="~/images/items/@(item.PicturePath)" class="mw-100" style="max-height: 320px; margin:auto; padding-left: 30px"
+                                 alt="@item.Name" title="@item.Name" />
+                        </div>
+                        <div class="col-9">
+                            <h4 class="card-header">
+                                <a asp-controller="Item" asp-action="GetItemById" asp-route-id="@item.Id">@item.Name</a>
+                            </h4>
+                            <p>@item.ShortDescription</p>
+                            @{ casePrice = item.DiscountedPrice != null ? @item.DiscountedPrice.Value : @item.OriginalPrice; }
+                            <p class="price"> @casePrice Ft</p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+<div class="configurator-footer">
+    @{
+        var pricesum = 0;
+        pricesum += cpuPrice;
+        pricesum += boardPrice;
+        pricesum += gpuPrice;
+        pricesum += ramPrice;
+        pricesum += drivePrice;
+        pricesum += psuPrice;
+        pricesum += casePrice;
+    }
+    Végösszeg: @pricesum Ft
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="allitems-to-cart-button" asp-action="AddToCart"
+           asp-route-userId="@currentUser.Id"
+           asp-route-model.Motherboard="@Model.Motherboard"
+           asp-route-model.CPU="@Model.CPU"
+           asp-route-model.GPU="@Model.GPU"
+           asp-route-model.RAM="@Model.RAM"
+           asp-route-model.Drive="@Model.Drive"
+           asp-route-model.PSU="@Model.PSU"
+           asp-route-model.Case="@Model.Case"
+           asp-route-userId="">Kosárba</a>
+    }
+    else
+    {
+        <a asp-area="Identity" asp-page="/Account/Login" class="cart-button">Kosárba</a>
+    }
+</div>
+</div>

@@ -1,0 +1,10 @@
+﻿@model WebShop.Bll.DTO.PagedResult<WebShop.Bll.DTO.ItemHeader>
+
+    <div class="row">
+        @foreach (var (item, i) in Model.Results.Select((item, i) => (item: item, i: i + 1)))
+        {
+            <div class="col-lg-4 col-md-4 col-sm-6 mb-5">
+                <vc:item-header item-header="item"></vc:item-header>
+            </div>
+        }
+    </div>

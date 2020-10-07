@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using WebShop.Dal.Models
+
+@inject SignInManager<WebShopUser> SignInManager
+@inject UserManager<WebShopUser> UserManager
+
+@{ var currentUser = await UserManager.GetUserAsync(User);
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <div style="color:white" class="d-inline">Hello @(currentUser.NickName)!</div>
+                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Felhasználó">
+                    <img class="navbar-icon" border="0" alt="UserLogo" src="~/images/logos/user_logo.png" />
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a asp-area="Identity" asp-page="/Account/Login" title="Felhasználó">
+                    <img class="navbar-icon" border="0" alt="UserLogo" src="~/images/logos/user_logo.png" />
+                </a>
+            </li>
+        }
+
+        <li class="nav-item">
+            <a asp-controller="PcBuilder" asp-action="Index" title="Gépösszerakó">
+                <img class="navbar-icon" border="0" alt="PcBuilderLogo" src="~/images/logos/builder.png" />
+            </a>
+        </li>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a asp-controller="ShoppingCart" asp-action="Index" asp-route-userId="@(currentUser.Id)" title="Bevásárló kocsi">
+                    <img class="navbar-icon" border="0" alt="CartLogo" src="~/images/logos/cart.png" />
+                </a>
+            </li>
+        }
+        else
+        {
+    <li class="nav-item">
+        <a asp-area="Identity" asp-page="/Account/Login" title="Bevásárló kocsi">
+            <img class="navbar-icon" border="0" alt="CartLogo" src="~/images/logos/cart.png" />
+        </a>
+    </li>
+        }
+    </ul>
+    }
